@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Diet_calulator.Views.MetabolismPage"
+             Title="Metabolism Kalkylator"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Startvikt -->
+            <VerticalStackLayout Spacing="8">
+                <Label FontSize="16" FontAttributes="Bold">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Startvikt: " />
+                            <Span Text="{Binding StartWeight, StringFormat='{0:F1}'}" />
+                            <Span Text=" kg" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Entry Placeholder="Ange startvikt (kg)" 
+                       Keyboard="Numeric"
+                       Text="{Binding StartWeight}"/>
+            </VerticalStackLayout>
+
+            <!-- Slutvikt -->
+            <VerticalStackLayout Spacing="8">
+                <Label FontSize="16" FontAttributes="Bold">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Slutvikt: " />
+                            <Span Text="{Binding EndWeight, StringFormat='{0:F1}'}" />
+                            <Span Text=" kg" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Entry Placeholder="Ange slutvikt (kg)" 
+                       Keyboard="Numeric"
+                       Text="{Binding EndWeight}"/>
+            </VerticalStackLayout>
+
+            <!-- Veckor -->
+            <VerticalStackLayout Spacing="8">
+                <Label FontSize="16" FontAttributes="Bold">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Veckor: " />
+                            <Span Text="{Binding Weeks}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Slider Minimum="1" 
+                        Maximum="52" 
+                        Value="{Binding Weeks}"
+                        MinimumTrackColor="#FF6B6B"
+                        MaximumTrackColor="#E0E0E0"/>
+                <Entry Placeholder="Ange antal veckor" 
+                       Keyboard="Numeric"
+                       Text="{Binding Weeks}"/>
+            </VerticalStackLayout>
+
+            <!-- Genomsnittliga kcal per dag -->
+            <VerticalStackLayout Spacing="8">
+                <Label FontSize="16" FontAttributes="Bold">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Genomsnittliga kcal/dag: " />
+                            <Span Text="{Binding KcalPerDay, StringFormat='{0:F0}'}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Slider Minimum="1000" 
+                        Maximum="5000" 
+                        Value="{Binding KcalPerDay}"
+                        MinimumTrackColor="#FF6B6B"
+                        MaximumTrackColor="#E0E0E0"/>
+                <Entry Placeholder="Ange kcal/dag" 
+                       Keyboard="Numeric"
+                       Text="{Binding KcalPerDay}"/>
+            </VerticalStackLayout>
+
+            <!-- Cardio kcal per kg -->
+            <VerticalStackLayout Spacing="8">
+                <Label FontSize="16" FontAttributes="Bold">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Cardio kcal/kg: " />
+                            <Span Text="{Binding CardioKcalPerKg, StringFormat='{0:F2}'}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Entry Placeholder="Ange cardio kcal/kg" 
+                       Keyboard="Numeric"
+                       Text="{Binding CardioKcalPerKg}"/>
+                <Label FontSize="12" TextColor="#666666">Tips: Ungefär 0.3-0.5 för moderat cardio, 0.5-1.0 för intensiv cardio</Label>
+            </VerticalStackLayout>
+
+            <!-- Resultat -->
+            <Frame BorderColor="#FF6B6B" CornerRadius="10" Padding="15" HasShadow="True">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Beräknad Metabolism" FontSize="18" FontAttributes="Bold" />
+                    
+                    <Label FontSize="16">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding Metabolism, StringFormat='{0:F1}'}" FontSize="24" FontAttributes="Bold" />
+                                <Span Text=" kcal/kg/dag" FontSize="14" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    
+                    <Label FontSize="12" TextColor="#666666">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Baserat på vikt från " />
+                                <Span Text="{Binding StartWeight, StringFormat='{0:F1}'}" FontAttributes="Bold" />
+                                <Span Text=" kg till " />
+                                <Span Text="{Binding EndWeight, StringFormat='{0:F1}'}" FontAttributes="Bold" />
+                                <Span Text=" på " />
+                                <Span Text="{Binding Weeks}" FontAttributes="Bold" />
+                                <Span Text=" veckor" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

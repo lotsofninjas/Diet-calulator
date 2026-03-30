@@ -1,0 +1,293 @@
+﻿using Diet_calulator.ViewModels;
+using Xunit;
+
+namespace Diet_calulator.Tests
+{
+    public class MetabolismViewModelTests
+    {
+        [Fact]
+        public void MetabolismViewModel_InitializesWithDefaultValues()
+        {
+            // Arrange & Act
+            var viewModel = new MetabolismViewModel();
+
+            // Assert
+            Assert.Equal(80, viewModel.StartWeight);
+            Assert.Equal(75, viewModel.EndWeight);
+            Assert.Equal(2, viewModel.Weeks);
+            Assert.Equal(2000, viewModel.KcalPerDay);
+            Assert.Equal(0, viewModel.CardioKcal);
+            Assert.Equal("kg", viewModel.WeightUnit);
+        }
+
+        [Fact]
+        public void ChangeWeightUnit_KgToLbs_UpdatesWeightUnit()
+        {
+            // Arrange
+            var viewModel = new MetabolismViewModel();
+            viewModel.WeightUnit = "kg";
+
+            // Act
+            viewModel.WeightUnit = "lbs";
+
+            // Assert
+            Assert.Equal("lbs", viewModel.WeightUnit);
+        }
+
+        [Fact]
+        public void ChangeWeightUnit_LbsToKg_UpdatesWeightUnit()
+        {
+            // Arrange
+            var viewModel = new MetabolismViewModel();
+            viewModel.WeightUnit = "lbs";
+
+            // Act
+            viewModel.WeightUnit = "kg";
+
+            // Assert
+            Assert.Equal("kg", viewModel.WeightUnit);
+        }
+
+        [Fact]
+        public void StartWeight_ChangingValue_TriggersPropertyChanged()
+        {
+            // Arrange
+            var viewModel = new MetabolismViewModel();
+            bool propertyChanged = false;
+            viewModel.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == "StartWeight")
+                    propertyChanged = true;
+            };
+
+            // Act
+            viewModel.StartWeight = 85;
+
+            // Assert
+            Assert.True(propertyChanged);
+            Assert.Equal(85, viewModel.StartWeight);
+        }
+
+        [Fact]
+        public void EndWeight_ChangingValue_TriggersPropertyChanged()
+        {
+            // Arrange
+            var viewModel = new MetabolismViewModel();
+            bool propertyChanged = false;
+            viewModel.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == "EndWeight")
+                    propertyChanged = true;
+            };
+
+            // Act
+            viewModel.EndWeight = 70;
+
+            // Assert
+            Assert.True(propertyChanged);
+            Assert.Equal(70, viewModel.EndWeight);
+        }
+
+        [Fact]
+        public void KcalPerDay_ChangingValue_TriggersPropertyChanged()
+        {
+            // Arrange
+            var viewModel = new MetabolismViewModel();
+            bool propertyChanged = false;
+            viewModel.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == "KcalPerDay")
+                    propertyChanged = true;
+            };
+
+            // Act
+            viewModel.KcalPerDay = 2500;
+
+            // Assert
+            Assert.True(propertyChanged);
+            Assert.Equal(2500, viewModel.KcalPerDay);
+        }
+
+        [Fact]
+        public void Weeks_AllowsValidValues()
+        {
+            // Arrange
+            var viewModel = new MetabolismViewModel();
+
+            // Act & Assert
+            viewModel.Weeks = 2;
+            Assert.Equal(2, viewModel.Weeks);
+
+            viewModel.Weeks = 3;
+            Assert.Equal(3, viewModel.Weeks);
+
+            viewModel.Weeks = 4;
+            Assert.Equal(4, viewModel.Weeks);
+        }
+
+        [Fact]
+        public void WeekOptions_ReturnsCorrectValues()
+        {
+            // Arrange
+            var viewModel = new MetabolismViewModel();
+
+            // Act
+            var options = viewModel.WeekOptions;
+
+            // Assert
+            Assert.NotNull(options);
+            Assert.Contains(2, options);
+            Assert.Contains(3, options);
+            Assert.Contains(4, options);
+        }
+
+        [Fact]
+        public void WeightUnitOptions_ReturnsCorrectValues()
+        {
+            // Arrange
+            var viewModel = new MetabolismViewModel();
+
+            // Act
+            var options = viewModel.WeightUnitOptions;
+
+            // Assert
+            Assert.NotNull(options);
+            Assert.Contains("kg", options);
+            Assert.Contains("lbs", options);
+        }
+
+        [Fact]
+        public void CardioKcal_CanBeZero()
+        {
+            // Arrange
+            var viewModel = new MetabolismViewModel();
+
+            // Act
+            viewModel.CardioKcal = 0;
+
+            // Assert
+            Assert.Equal(0, viewModel.CardioKcal);
+        }
+
+        [Fact]
+        public void Metabolism_CalculatesCorrectly()
+        {
+            // Arrange
+            var viewModel = new MetabolismViewModel();
+            viewModel.StartWeight = 80;
+            viewModel.EndWeight = 75;
+            viewModel.Weeks = 2;
+            viewModel.KcalPerDay = 2000;
+            viewModel.CardioKcal = 0;
+            viewModel.WeightUnit = "kg";
+
+            // Act
+            // Metabolism should be calculated automatically when properties change
+
+            // Assert
+            Assert.True(viewModel.Metabolism >= 0);
+            Assert.True(viewModel.Metabolism < 10000); // Sanity check
+        }
+
+        [Fact]
+        public void Metabolism_WithWeightGain_CalculatesCorrectly()
+        {
+            // Arrange
+            var viewModel = new MetabolismViewModel();
+            viewModel.StartWeight = 75;
+            viewModel.EndWeight = 80;
+            viewModel.Weeks = 2;
+            viewModel.KcalPerDay = 2500;
+            viewModel.CardioKcal = 0;
+
+            // Act
+            // Metabolism is calculated in property setter
+
+            // Assert
+            Assert.True(viewModel.Metabolism >= 0);
+        }
+
+        [Fact]
+        public void Metabolism_WithCardio_CalculatesCorrectly()
+        {
+            // Arrange
+            var viewModel = new MetabolismViewModel();
+            viewModel.StartWeight = 80;
+            viewModel.EndWeight = 75;
+            viewModel.Weeks = 2;
+            viewModel.KcalPerDay = 2000;
+            viewModel.CardioKcal = 500;
+
+            // Act
+            var metabolismWithCardio = viewModel.Metabolism;
+
+            // Assert
+            Assert.True(metabolismWithCardio >= 0);
+        }
+
+        [Fact]
+        public async Task SaveCalculationAsync_CreatesValidCalculation()
+        {
+            // Arrange
+            var viewModel = new MetabolismViewModel();
+            viewModel.StartWeight = 80;
+            viewModel.EndWeight = 75;
+            viewModel.Weeks = 2;
+            viewModel.KcalPerDay = 2000;
+            viewModel.CardioKcal = 100;
+            viewModel.WeightUnit = "kg";
+
+            // Act
+            await viewModel.SaveCalculationAsync("Test Calculation");
+            var saved = await viewModel.GetSavedCalculationsAsync();
+
+            // Assert
+            Assert.NotEmpty(saved);
+            var lastCalc = saved.LastOrDefault();
+            Assert.NotNull(lastCalc);
+            Assert.Equal("Test Calculation", lastCalc.Name);
+            Assert.Equal("Metabolism", lastCalc.Type);
+        }
+
+        [Fact]
+        public async Task LoadCalculationAsync_LoadsCorrectValues()
+        {
+            // Arrange
+            var viewModel = new MetabolismViewModel();
+            await viewModel.SaveCalculationAsync("Load Test");
+            var saved = await viewModel.GetSavedCalculationsAsync();
+            var calcId = saved.First().Id;
+
+            viewModel.StartWeight = 90;
+            viewModel.EndWeight = 85;
+            viewModel.Weeks = 3;
+
+            // Act
+            await viewModel.LoadCalculationAsync(calcId);
+
+            // Assert
+            Assert.Equal(80, viewModel.StartWeight);
+            Assert.Equal(75, viewModel.EndWeight);
+            Assert.Equal(2, viewModel.Weeks);
+        }
+
+        [Fact]
+        public async Task DeleteCalculationAsync_RemovesCalculation()
+        {
+            // Arrange
+            var viewModel = new MetabolismViewModel();
+            await viewModel.SaveCalculationAsync("Delete Test");
+            var saved = await viewModel.GetSavedCalculationsAsync();
+            var calcId = saved.First().Id;
+            var countBefore = saved.Count;
+
+            // Act
+            await viewModel.DeleteCalculationAsync(calcId);
+            var updated = await viewModel.GetSavedCalculationsAsync();
+
+            // Assert
+            Assert.Equal(countBefore - 1, updated.Count);
+            Assert.DoesNotContain(updated, c => c.Id == calcId);
+        }
+    }
+}

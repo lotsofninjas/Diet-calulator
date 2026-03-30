@@ -1,0 +1,414 @@
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using Diet_calulator.Models;
+using Diet_calulator.Services;
+
+namespace Diet_calulator.ViewModels
+{
+    public class MacroViewModel : INotifyPropertyChanged
+    {
+        // Mode selection
+        private string _mode = "Maintain"; // Bulk, Maintain, Cut
+        private string _macroInputMode = "Preset"; // Preset or Custom
+        private string _eatingPattern = "SameEveryday"; // SameEveryday or TrainingDays
+        
+        // User inputs
+        private double _weight = 80;
+        private double _metabolism = 25; // kcal/kg
+        private double _proteinPerKg = 2.0;
+        private double _fatPerKg = 1.0;
+        private int _cardio = 0;
+        private int _snacks = 0;
+        private int _trainingDaysPerWeek = 4;
+        private double _changePerWeek = 0.35; // kg for bulk, % for cut
+        
+        // Preset selection
+        private string _presetProfile = "Balanced";
+        
+        // Results
+        private int _dailyCalories = 0;
+        private int _trainingDayCalories = 0;
+        private int _restDayCalories = 0;
+        
+        private int _protein = 0;
+        private int _carbs = 0;
+        private int _fat = 0;
+        
+        private int _trainingDayProtein = 0;
+        private int _trainingDayCarbs = 0;
+        private int _trainingDayFat = 0;
+        
+        private int _restDayProtein = 0;
+        private int _restDayCarbs = 0;
+        private int _restDayFat = 0;
+
+        private readonly IStorageService _storageService;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        #region Mode & Input Properties
+        public string Mode
+        {
+            get => _mode;
+            set { SetProperty(ref _mode, value); RecalculateAll(); }
+        }
+
+        public string MacroInputMode
+        {
+            get => _macroInputMode;
+            set { SetProperty(ref _macroInputMode, value); RecalculateAll(); }
+        }
+
+        public string EatingPattern
+        {
+            get => _eatingPattern;
+            set { SetProperty(ref _eatingPattern, value); RecalculateAll(); }
+        }
+        #endregion
+
+        #region User Input Properties
+        public double Weight
+        {
+            get => _weight;
+            set { SetProperty(ref _weight, value); RecalculateAll(); }
+        }
+
+        public double Metabolism
+        {
+            get => _metabolism;
+            set { SetProperty(ref _metabolism, value); RecalculateAll(); }
+        }
+
+        public double ProteinPerKg
+        {
+            get => _proteinPerKg;
+            set { SetProperty(ref _proteinPerKg, value); RecalculateAll(); }
+        }
+
+        public double FatPerKg
+        {
+            get => _fatPerKg;
+            set { SetProperty(ref _fatPerKg, value); RecalculateAll(); }
+        }
+
+        public int Cardio
+        {
+            get => _cardio;
+            set { SetProperty(ref _cardio, value); RecalculateAll(); }
+        }
+
+        public int Snacks
+        {
+            get => _snacks;
+            set { SetProperty(ref _snacks, value); RecalculateAll(); }
+        }
+
+        public int TrainingDaysPerWeek
+        {
+            get => _trainingDaysPerWeek;
+            set { SetProperty(ref _trainingDaysPerWeek, value); RecalculateAll(); }
+        }
+
+        public double ChangePerWeek
+        {
+            get => _changePerWeek;
+            set { SetProperty(ref _changePerWeek, value); RecalculateAll(); }
+        }
+
+        public string PresetProfile
+        {
+            get => _presetProfile;
+            set { SetProperty(ref _presetProfile, value); RecalculateAll(); }
+        }
+        #endregion
+
+        #region Result Properties
+        public int DailyCalories
+        {
+            get => _dailyCalories;
+            set => SetProperty(ref _dailyCalories, value);
+        }
+
+        public int TrainingDayCalories
+        {
+            get => _trainingDayCalories;
+            set => SetProperty(ref _trainingDayCalories, value);
+        }
+
+        public int RestDayCalories
+        {
+            get => _restDayCalories;
+            set => SetProperty(ref _restDayCalories, value);
+        }
+
+        public int Protein
+        {
+            get => _protein;
+            set => SetProperty(ref _protein, value);
+        }
+
+        public int Carbs
+        {
+            get => _carbs;
+            set => SetProperty(ref _carbs, value);
+        }
+
+        public int Fat
+        {
+            get => _fat;
+            set => SetProperty(ref _fat, value);
+        }
+
+        public int TrainingDayProtein
+        {
+            get => _trainingDayProtein;
+            set => SetProperty(ref _trainingDayProtein, value);
+        }
+
+        public int TrainingDayCarbs
+        {
+            get => _trainingDayCarbs;
+            set => SetProperty(ref _trainingDayCarbs, value);
+        }
+
+        public int TrainingDayFat
+        {
+            get => _trainingDayFat;
+            set => SetProperty(ref _trainingDayFat, value);
+        }
+
+        public int RestDayProtein
+        {
+            get => _restDayProtein;
+            set => SetProperty(ref _restDayProtein, value);
+        }
+
+        public int RestDayCarbs
+        {
+            get => _restDayCarbs;
+            set => SetProperty(ref _restDayCarbs, value);
+        }
+
+        public int RestDayFat
+        {
+            get => _restDayFat;
+            set => SetProperty(ref _restDayFat, value);
+        }
+        #endregion
+
+        #region Options
+        public List<string> ModeOptions => new() { "Bulk", "Maintain", "Cut" };
+        
+        public List<string> InputModeOptions => new() { "Preset", "Custom" };
+        
+        public List<string> EatingPatternOptions => new() { "Same Everyday", "Training Days" };
+        
+        public List<string> PresetProfiles => new()
+        {
+            "Balanced",
+            "Training Optimized",
+            "Hypertrophy",
+            "Strength"
+        };
+
+        public List<int> TrainingDayOptions => new() { 2, 3, 4, 5, 6, 7 };
+        
+        public List<string> BulkChangeOptions => new()
+        {
+            "0.25kg", "0.3kg", "0.35kg", "0.4kg", "0.45kg", "0.5kg", "0.55kg"
+        };
+        
+        public List<string> CutChangeOptions => new()
+        {
+            "0.5%", "0.6%", "0.7%", "0.8%", "0.9%", "1.0%", "1.1%", "1.2%", "1.3%", "1.4%", "1.5%", "1.6%", "1.7%", "1.8%", "1.9%", "2.0%"
+        };
+        #endregion
+
+        public MacroViewModel()
+        {
+            _storageService = new FileStorageService();
+            RecalculateAll();
+        }
+
+        private void RecalculateAll()
+        {
+            CalculateBaseCalories();
+            CalculateMacros();
+            CalculateTrainingAndRestDayMacros();
+        }
+
+        private void CalculateBaseCalories()
+        {
+            int baseCalories = (int)Math.Round(_weight * _metabolism);
+            
+            if (_mode == "Bulk")
+            {
+                // Surplus = (change * 5150) / trainingDaysPerWeek + (cardio per day - snacks per day)
+                double cardioPerDay = (_cardio * _weight) / _trainingDaysPerWeek;
+                double snacksPerDay = _snacks / (double)_trainingDaysPerWeek;
+                double surplus = ((_changePerWeek * 5150) / _trainingDaysPerWeek) + (cardioPerDay - snacksPerDay);
+                DailyCalories = (int)Math.Round(baseCalories + surplus);
+            }
+            else if (_mode == "Cut")
+            {
+                // Deficit = (weight * change% * 1100) - cardio
+                double deficit = (_weight * (_changePerWeek / 100) * 1100) - _cardio;
+                DailyCalories = (int)Math.Round(baseCalories - deficit);
+            }
+            else // Maintain
+            {
+                DailyCalories = baseCalories;
+            }
+        }
+
+        private void CalculateMacros()
+        {
+            if (_macroInputMode == "Custom")
+            {
+                Protein = (int)Math.Round(_weight * _proteinPerKg);
+                Fat = (int)Math.Round(_weight * _fatPerKg);
+                Carbs = (int)Math.Round((_dailyCalories - (Protein * 4) - (Fat * 9)) / 4.0);
+            }
+            else
+            {
+                // Preset calculations based on PresetProfile
+                ApplyPresetMacros();
+            }
+        }
+
+        private void ApplyPresetMacros()
+        {
+            var (proteinPerKg, fatPerKg) = _presetProfile switch
+            {
+                "Balanced" => (1.8, 0.9),
+                "Training Optimized" => (2.0, 0.85),
+                "Hypertrophy" => (2.2, 0.8),
+                "Strength" => (1.6, 1.0),
+                _ => (1.8, 0.9)
+            };
+
+            Protein = (int)Math.Round(_weight * proteinPerKg);
+            Fat = (int)Math.Round(_weight * fatPerKg);
+            Carbs = (int)Math.Round((_dailyCalories - (Protein * 4) - (Fat * 9)) / 4.0);
+        }
+
+        private void CalculateTrainingAndRestDayMacros()
+        {
+            if (_eatingPattern == "SameEveryday")
+            {
+                TrainingDayCalories = DailyCalories;
+                RestDayCalories = DailyCalories;
+                TrainingDayProtein = Protein;
+                TrainingDayCarbs = Carbs;
+                TrainingDayFat = Fat;
+                RestDayProtein = Protein;
+                RestDayCarbs = Carbs;
+                RestDayFat = Fat;
+            }
+            else // TrainingDays
+            {
+                // For training days: increase calories (mainly carbs)
+                // For rest days: decrease calories proportionally
+                int totalWeekCalories = (DailyCalories * _trainingDaysPerWeek) + (DailyCalories * (7 - _trainingDaysPerWeek));
+                
+                // Distribute evenly, but training days get more
+                TrainingDayCalories = (int)Math.Round(DailyCalories * 1.15); // 15% more on training days
+                RestDayCalories = (int)Math.Round(DailyCalories * 0.85); // 15% less on rest days
+                
+                // Protein stays the same, adjust carbs based on calorie difference
+                TrainingDayProtein = Protein;
+                RestDayProtein = Protein;
+                TrainingDayFat = Fat;
+                RestDayFat = Fat;
+                
+                int calbDiff = TrainingDayCalories - DailyCalories;
+                int trainingCarbsExtra = calbDiff / 4;
+                TrainingDayCarbs = Carbs + trainingCarbsExtra;
+                RestDayCarbs = Carbs - trainingCarbsExtra;
+            }
+        }
+
+        public async Task SaveCalculationAsync(string name)
+        {
+            try
+            {
+                var calculation = new SavedCalculation(name, "Macro")
+                {
+                    Data = new Dictionary<string, string>
+                    {
+                        { "Mode", _mode },
+                        { "MacroInputMode", _macroInputMode },
+                        { "EatingPattern", _eatingPattern },
+                        { "Weight", _weight.ToString() },
+                        { "Metabolism", _metabolism.ToString() },
+                        { "ProteinPerKg", _proteinPerKg.ToString() },
+                        { "FatPerKg", _fatPerKg.ToString() },
+                        { "Cardio", _cardio.ToString() },
+                        { "Snacks", _snacks.ToString() },
+                        { "TrainingDaysPerWeek", _trainingDaysPerWeek.ToString() },
+                        { "ChangePerWeek", _changePerWeek.ToString() },
+                        { "PresetProfile", _presetProfile }
+                    }
+                };
+
+                await _storageService.SaveCalculationAsync(calculation);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error saving calculation: {ex.Message}");
+            }
+        }
+
+        public async Task LoadCalculationAsync(string id)
+        {
+            try
+            {
+                var calculation = await _storageService.GetCalculationAsync(id);
+                if (calculation != null)
+                {
+                    Mode = calculation.Data["Mode"];
+                    MacroInputMode = calculation.Data["MacroInputMode"];
+                    EatingPattern = calculation.Data["EatingPattern"];
+                    Weight = double.Parse(calculation.Data["Weight"]);
+                    Metabolism = double.Parse(calculation.Data["Metabolism"]);
+                    ProteinPerKg = double.Parse(calculation.Data["ProteinPerKg"]);
+                    FatPerKg = double.Parse(calculation.Data["FatPerKg"]);
+                    Cardio = int.Parse(calculation.Data["Cardio"]);
+                    Snacks = int.Parse(calculation.Data["Snacks"]);
+                    TrainingDaysPerWeek = int.Parse(calculation.Data["TrainingDaysPerWeek"]);
+                    ChangePerWeek = double.Parse(calculation.Data["ChangePerWeek"]);
+                    PresetProfile = calculation.Data["PresetProfile"];
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error loading calculation: {ex.Message}");
+            }
+        }
+
+        public async Task<List<SavedCalculation>> GetSavedCalculationsAsync()
+        {
+            return await _storageService.GetCalculationsAsync("Macro");
+        }
+
+        public async Task DeleteCalculationAsync(string id)
+        {
+            await _storageService.DeleteCalculationAsync(id);
+        }
+
+        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string? propertyName = null)
+        {
+            if (Equals(storage, value))
+                return false;
+
+            storage = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}

@@ -1,0 +1,13 @@
+﻿using Diet_calulator.ViewModels;
+
+namespace Diet_calulator.Views
+{
+    public partial class MacroPage : ContentPage
+    {
+        public MacroPage()
+        {
+            InitializeComponent();
+            BindingContext = new MacroViewModel();
+        }
+    }
+}

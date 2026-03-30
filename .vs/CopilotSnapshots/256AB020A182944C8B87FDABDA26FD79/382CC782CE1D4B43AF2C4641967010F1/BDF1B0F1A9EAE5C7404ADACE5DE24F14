@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Diet_calulator.Views.MacroPage"
+             Title="Makron Kalkylator"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Kalorier -->
+            <VerticalStackLayout Spacing="8">
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Dagliga Kalorier: " FontAttributes="Bold" />
+                            <Span Text="{Binding Calories}" />
+                            <Span Text=" kcal" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Slider Minimum="1000" 
+                        Maximum="5000" 
+                        Value="{Binding Calories}"
+                        MinimumTrackColor="#4ECDC4"
+                        MaximumTrackColor="#E0E0E0"/>
+                <Entry Placeholder="Ange kalorier" 
+                       Keyboard="Numeric"
+                       Text="{Binding Calories}"/>
+            </VerticalStackLayout>
+
+            <!-- Diettyp -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Diettyp" FontSize="16" FontAttributes="Bold" />
+                <Picker Title="Välj diettyp"
+                        ItemsSource="{Binding DietOptions}"
+                        SelectedItem="{Binding Diet}"/>
+            </VerticalStackLayout>
+
+            <!-- Resultat -->
+            <Frame BorderColor="#4ECDC4" CornerRadius="10" Padding="15" HasShadow="True">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Makronäringsämnen" FontSize="18" FontAttributes="Bold" />
+                    
+                    <!-- Protein -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Protein: " FontAttributes="Bold" />
+                                    <Span Text="{Binding Protein, StringFormat='{0:F1}'}" />
+                                    <Span Text=" g" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </VerticalStackLayout>
+
+                    <!-- Kolhydrater -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Kolhydrater: " FontAttributes="Bold" />
+                                    <Span Text="{Binding Carbs, StringFormat='{0:F1}'}" />
+                                    <Span Text=" g" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </VerticalStackLayout>
+
+                    <!-- Fett -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Fett: " FontAttributes="Bold" />
+                                    <Span Text="{Binding Fat, StringFormat='{0:F1}'}" />
+                                    <Span Text=" g" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,86 @@
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+namespace Diet_calulator.ViewModels
+{
+    public class MacroViewModel : INotifyPropertyChanged
+    {
+        private int _calories = 2000;
+        private double _protein = 0;
+        private double _carbs = 0;
+        private double _fat = 0;
+        private string _diet = "Balanserad (40/30/30)";
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public int Calories
+        {
+            get => _calories;
+            set { SetProperty(ref _calories, value); CalculateMacros(); }
+        }
+
+        public double Protein
+        {
+            get => _protein;
+            set => SetProperty(ref _protein, value);
+        }
+
+        public double Carbs
+        {
+            get => _carbs;
+            set => SetProperty(ref _carbs, value);
+        }
+
+        public double Fat
+        {
+            get => _fat;
+            set => SetProperty(ref _fat, value);
+        }
+
+        public string Diet
+        {
+            get => _diet;
+            set { SetProperty(ref _diet, value); CalculateMacros(); }
+        }
+
+        public List<string> DietOptions => new()
+        {
+            "Balanserad (40/30/30)",
+            "Låg kolhydrat (30/40/30)",
+            "Höga kolhydrater (50/25/25)",
+            "Keto (5/25/70)"
+        };
+
+        private void CalculateMacros()
+        {
+            var (proteinPercent, carbsPercent, fatPercent) = _diet switch
+            {
+                "Balanserad (40/30/30)" => (0.40, 0.30, 0.30),
+                "Låg kolhydrat (30/40/30)" => (0.30, 0.40, 0.30),
+                "Höga kolhydrater (50/25/25)" => (0.50, 0.25, 0.25),
+                "Keto (5/25/70)" => (0.05, 0.25, 0.70),
+                _ => (0.40, 0.30, 0.30)
+            };
+
+            // Protein och kolhydrater: 4 kcal/gram, Fett: 9 kcal/gram
+            Protein = (_calories * proteinPercent) / 4;
+            Carbs = (_calories * carbsPercent) / 4;
+            Fat = (_calories * fatPercent) / 9;
+        }
+
+        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string? propertyName = null)
+        {
+            if (Equals(storage, value))
+                return false;
+
+            storage = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}

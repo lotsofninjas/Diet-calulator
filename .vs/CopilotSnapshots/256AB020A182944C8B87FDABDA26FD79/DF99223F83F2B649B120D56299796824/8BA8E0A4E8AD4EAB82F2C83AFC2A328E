@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Diet_calulator.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Diet_calulator"
+    xmlns:views="clr-namespace:Diet_calulator.Views"
+    Title="Diet Calculator"
+    StartRoute="MetabolismPage">
+
+    <TabBar>
+        <ShellContent
+            Title="Metabolism"
+            Icon="calculator.png"
+            ContentTemplate="{DataTemplate views:MetabolismPage}"
+            Route="MetabolismPage" />
+        
+        <ShellContent
+            Title="Macros"
+            Icon="nutrition.png"
+            ContentTemplate="{DataTemplate views:MacroPage}"
+            Route="MacroPage" />
+    </TabBar>
+
+</Shell>

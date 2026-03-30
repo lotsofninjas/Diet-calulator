@@ -1,0 +1,194 @@
+﻿using Diet_calulator.ViewModels;
+using Diet_calulator.Models;
+
+namespace Diet_calulator.Views
+{
+    public partial class MetabolismPage : ContentPage
+    {
+        private MetabolismViewModel _viewModel;
+
+        public MetabolismPage()
+        {
+            InitializeComponent();
+            _viewModel = new MetabolismViewModel();
+            BindingContext = _viewModel;
+            UpdateWeightUnitButtons();
+        }
+
+        private void UpdateWeightUnitButtons()
+        {
+            if (_viewModel.WeightUnit == "kg")
+            {
+                KgButton.BackgroundColor = Color.Parse("#95E1D3");
+                KgButton.TextColor = Colors.White;
+                LbsButton.BackgroundColor = Color.Parse("#E0E0E0");
+                LbsButton.TextColor = Color.Parse("#333333");
+            }
+            else
+            {
+                KgButton.BackgroundColor = Color.Parse("#E0E0E0");
+                KgButton.TextColor = Color.Parse("#333333");
+                LbsButton.BackgroundColor = Color.Parse("#95E1D3");
+                LbsButton.TextColor = Colors.White;
+            }
+        }
+
+        private void OnKgClicked(object sender, EventArgs e)
+        {
+            _viewModel.WeightUnit = "kg";
+            UpdateWeightUnitButtons();
+        }
+
+        private void OnLbsClicked(object sender, EventArgs e)
+        {
+            _viewModel.WeightUnit = "lbs";
+            UpdateWeightUnitButtons();
+        }
+
+        private async void OnInfoClicked(object sender, EventArgs e)
+        {
+            await DisplayAlert(
+                "How to Use - Metabolism Calculator",
+                "1. Select your weight unit (kg or lbs)\n\n" +
+                "2. Enter your STARTING weight at the beginning of the measurement period\n\n" +
+                "3. Enter your ENDING weight after the measurement period. Note: More weeks gives more accurate results\n\n" +
+                "4. Select the number of WEEKS (2, 3, or 4)\n\n" +
+                "5. Enter your AVERAGE daily calorie intake. Note: The more precisely you measure your intake, the more accurate the calculation\n\n" +
+                "6. (Optional) Enter total CARDIO calories burned during the period. Including cardio makes the calculation more independent of cardio activity. Leave empty if not tracking cardio\n\n" +
+                "The calculator will compute your actual metabolism based on real weight changes.",
+                "Got it");
+        }
+
+        private async void OnSaveClicked(object sender, EventArgs e)
+        {
+            var name = await DisplayPromptAsync(
+                "Save Calculation",
+                "Enter a name for this calculation:",
+                "Save",
+                "Cancel",
+                "e.g., Week 1 Measurement");
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                await _viewModel.SaveCalculationAsync(name);
+                await DisplayAlert("Success", "Calculation saved successfully", "OK");
+            }
+        }
+
+        private async void OnLoadClicked(object sender, EventArgs e)
+        {
+            var calculations = await _viewModel.GetSavedCalculationsAsync();
+
+            if (calculations.Count == 0)
+            {
+                await DisplayAlert("No Calculations", "You haven't saved any calculations yet", "OK");
+                return;
+            }
+
+            await ShowLoadDialog(calculations);
+        }
+
+        private async Task ShowLoadDialog(List<SavedCalculation> calculations)
+        {
+            var content = new VerticalStackLayout { Padding = 20, Spacing = 10 };
+
+            foreach (var calc in calculations)
+            {
+                var itemLayout = new HorizontalStackLayout
+                {
+                    Spacing = 10,
+                    Padding = 10,
+                    BackgroundColor = Colors.White
+                };
+
+                // Name and date in a vertical layout
+                var labelStack = new VerticalStackLayout
+                {
+                    Spacing = 2,
+                    HorizontalOptions = LayoutOptions.FillAndExpand
+                };
+
+                labelStack.Add(new Label
+                {
+                    Text = calc.Name,
+                    FontSize = 14,
+                    FontAttributes = FontAttributes.Bold
+                });
+
+                labelStack.Add(new Label
+                {
+                    Text = calc.SavedDate.ToString("d"),
+                    FontSize = 12,
+                    TextColor = Colors.Gray
+                });
+
+                itemLayout.Add(labelStack);
+
+                // Delete button - moved to right with X
+                var deleteBtn = new Button
+                {
+                    Text = "X",
+                    BackgroundColor = Colors.Red,
+                    TextColor = Colors.White,
+                    FontSize = 16,
+                    FontAttributes = FontAttributes.Bold,
+                    Padding = new Thickness(0),
+                    WidthRequest = 40,
+                    HeightRequest = 40,
+                    HorizontalOptions = LayoutOptions.End,
+                    VerticalOptions = LayoutOptions.Center
+                };
+
+                var calcId = calc.Id;
+                var calcName = calc.Name;
+                deleteBtn.Clicked += async (s, e) =>
+                {
+                    var confirm = await DisplayAlert(
+                        "Delete?",
+                        $"Are you sure you want to delete '{calcName}'?",
+                        "Yes",
+                        "No");
+
+                    if (confirm)
+                    {
+                        await _viewModel.DeleteCalculationAsync(calcId);
+                        await DisplayAlert("Deleted", "Calculation deleted successfully", "OK");
+                        await Navigation.PopModalAsync();
+                        var updated = await _viewModel.GetSavedCalculationsAsync();
+                        if (updated.Count > 0)
+                        {
+                            await ShowLoadDialog(updated);
+                        }
+                    }
+                };
+
+                itemLayout.Add(deleteBtn);
+
+                // Tap gesture to load
+                var tapGesture = new TapGestureRecognizer();
+                var calculation = calc;
+                tapGesture.Tapped += async (s, e) =>
+                {
+                    await _viewModel.LoadCalculationAsync(calculation.Id);
+                    UpdateWeightUnitButtons();
+                    await Navigation.PopModalAsync();
+                };
+
+                labelStack.GestureRecognizers.Add(tapGesture);
+
+                content.Add(itemLayout);
+            }
+
+            var scrollView = new ScrollView { Content = content };
+
+            var page = new ContentPage
+            {
+                Title = "Load Calculation",
+                Content = scrollView,
+                BackgroundColor = Color.Parse("#F5F5F5")
+            };
+
+            await Navigation.PushModalAsync(page);
+        }
+    }
+}

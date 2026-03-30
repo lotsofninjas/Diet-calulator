@@ -1,0 +1,13 @@
+﻿using Diet_calulator.ViewModels;
+
+namespace Diet_calulator.Views
+{
+    public partial class MetabolismPage : ContentPage
+    {
+        public MetabolismPage()
+        {
+            InitializeComponent();
+            BindingContext = new MetabolismViewModel();
+        }
+    }
+}

@@ -1,0 +1,89 @@
+﻿using Diet_calulator.ViewModels;
+using Diet_calulator.Models;
+
+namespace Diet_calulator.Views
+{
+    public partial class MacroPage : ContentPage
+    {
+        private MacroViewModel _viewModel;
+
+        public MacroPage()
+        {
+            InitializeComponent();
+            _viewModel = new MacroViewModel();
+            BindingContext = _viewModel;
+        }
+
+        private async void OnInfoClicked(object sender, EventArgs e)
+        {
+            await DisplayAlert(
+                "How to Use - Macro Calculator",
+                "1. Enter your DAILY CALORIES - your total energy intake\n\n" +
+                "2. Select your DIET TYPE:\n" +
+                "   • Balanced (40/30/30): Even split\n" +
+                "   • Low Carb (30/40/30): Reduced carbs\n" +
+                "   • High Carb (50/25/25): Increased carbs\n" +
+                "   • Keto (5/25/70): Very low carb\n\n" +
+                "The calculator will automatically compute your daily macronutrient targets:\n" +
+                "   • Protein (4 kcal/g)\n" +
+                "   • Carbs (4 kcal/g)\n" +
+                "   • Fat (9 kcal/g)",
+                "Got it");
+        }
+
+        private async void OnSaveClicked(object sender, EventArgs e)
+        {
+            var name = await DisplayPromptAsync(
+                "Save Calculation",
+                "Enter a name for this calculation:",
+                "Save",
+                "Cancel",
+                "e.g., My Diet Plan");
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                await _viewModel.SaveCalculationAsync(name);
+                await DisplayAlert("Success", "Calculation saved successfully", "OK");
+            }
+        }
+
+        private async void OnLoadClicked(object sender, EventArgs e)
+        {
+            var calculations = await _viewModel.GetSavedCalculationsAsync();
+
+            if (calculations.Count == 0)
+            {
+                await DisplayAlert("No Calculations", "You haven't saved any calculations yet", "OK");
+                return;
+            }
+
+            // Create a custom dialog with delete buttons
+            await ShowLoadDialog(calculations);
+        }
+
+        private async Task ShowLoadDialog(List<SavedCalculation> calculations)
+        {
+            var selectedCalculation = await DisplayActionSheet(
+                "Load Calculation",
+                "Cancel",
+                null,
+                calculations.Select(c => $"{c.Name} ({c.SavedDate:d})").ToArray());
+
+            if (selectedCalculation == null || selectedCalculation == "Cancel")
+                return;
+
+            var selected = calculations.FirstOrDefault(c => $"{c.Name} ({c.SavedDate:d})" == selectedCalculation);
+            if (selected != null)
+            {
+                await _viewModel.LoadCalculationAsync(selected.Id);
+
+                // Ask for confirmation before loading
+                var shouldLoad = await DisplayAlert(
+                    "Loaded",
+                    $"Calculation '{selected.Name}' loaded successfully",
+                    "OK",
+                    "Cancel");
+            }
+        }
+    }
+}

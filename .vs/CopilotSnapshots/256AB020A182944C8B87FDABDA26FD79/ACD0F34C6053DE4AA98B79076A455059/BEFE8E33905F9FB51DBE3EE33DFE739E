@@ -1,0 +1,127 @@
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+namespace Diet_calulator.ViewModels
+{
+    public class MetabolismViewModel : INotifyPropertyChanged
+    {
+        private double _startWeight = 80;
+        private double _endWeight = 75;
+        private int _weeks = 12;
+        private double _kcalPerDay = 2000;
+        private double _cardioKcalPerKg = 0.5;
+        private double _metabolism = 0;
+        private string _errorMessage = "";
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public double StartWeight
+        {
+            get => _startWeight;
+            set { SetProperty(ref _startWeight, value); CalculateMetabolism(); }
+        }
+
+        public double EndWeight
+        {
+            get => _endWeight;
+            set { SetProperty(ref _endWeight, value); CalculateMetabolism(); }
+        }
+
+        public int Weeks
+        {
+            get => _weeks;
+            set { SetProperty(ref _weeks, value); CalculateMetabolism(); }
+        }
+
+        public double KcalPerDay
+        {
+            get => _kcalPerDay;
+            set { SetProperty(ref _kcalPerDay, value); CalculateMetabolism(); }
+        }
+
+        public double CardioKcalPerKg
+        {
+            get => _cardioKcalPerKg;
+            set { SetProperty(ref _cardioKcalPerKg, value); CalculateMetabolism(); }
+        }
+
+        public double Metabolism
+        {
+            get => _metabolism;
+            set => SetProperty(ref _metabolism, value);
+        }
+
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set => SetProperty(ref _errorMessage, value);
+        }
+
+        private void CalculateMetabolism()
+        {
+            ErrorMessage = "";
+
+            // Validera inmatade värden
+            if (_startWeight <= 0 || _endWeight <= 0 || _weeks <= 0 || _kcalPerDay <= 0 || _cardioKcalPerKg < 0)
+            {
+                ErrorMessage = "Alla värden måste vara större än 0";
+                Metabolism = 0;
+                return;
+            }
+
+            try
+            {
+                double totalDays = _weeks * 7;
+                double averageWeight = (_startWeight + _endWeight) / 2;
+                double weightChange = Math.Abs(_startWeight - _endWeight);
+                double totalKcal;
+                double metabolism;
+
+                // Beräkna totala cardio-kalorier
+                double cardioKcal = _cardioKcalPerKg * averageWeight;
+
+                if (_startWeight > _endWeight)
+                {
+                    // Viktnedgång - använd 7700 kcal per kg fettvikt
+                    double extraKcal = (weightChange * 7700) - cardioKcal;
+                    totalKcal = ((_kcalPerDay * totalDays) + extraKcal) / totalDays;
+                    metabolism = totalKcal / averageWeight;
+                }
+                else if (_startWeight < _endWeight)
+                {
+                    // Viktökning - använd 5150 kcal per kg muskeluppbyggnad
+                    double extraKcal = (weightChange * 5150) - cardioKcal;
+                    totalKcal = ((_kcalPerDay * totalDays) - extraKcal) / totalDays;
+                    metabolism = totalKcal / averageWeight;
+                }
+                else
+                {
+                    // Samma vikt - metabolism = kcal / genomsnittsvikt
+                    metabolism = _kcalPerDay / averageWeight;
+                }
+
+                Metabolism = Math.Round(metabolism, 1);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Fel vid beräkning: {ex.Message}";
+                Metabolism = 0;
+            }
+        }
+
+        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string? propertyName = null)
+        {
+            if (Equals(storage, value))
+                return false;
+
+            storage = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}

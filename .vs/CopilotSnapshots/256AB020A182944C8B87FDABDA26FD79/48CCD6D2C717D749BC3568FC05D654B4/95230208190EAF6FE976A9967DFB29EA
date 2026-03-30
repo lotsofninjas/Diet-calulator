@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Diet_calulator.Views.MetabolismPage"
+             Title="Metabolism Calculator"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Info Button -->
+            <Button Text="How to use" 
+                    Clicked="OnInfoClicked"
+                    BackgroundColor="#4ECDC4"
+                    TextColor="White"
+                    Padding="10,5"
+                    HorizontalOptions="Start"/>
+
+            <!-- Weight Unit -->
+            <VerticalStackLayout Spacing="8">
+                <HorizontalStackLayout Spacing="5" VerticalOptions="Center">
+                    <Label Text="Weight Unit:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Button Text="kg" 
+                            Clicked="OnKgClicked"
+                            x:Name="KgButton"
+                            BackgroundColor="#95E1D3"
+                            TextColor="White"
+                            Padding="15,5"
+                            HorizontalOptions="Start"/>
+                    <Button Text="lbs" 
+                            Clicked="OnLbsClicked"
+                            x:Name="LbsButton"
+                            BackgroundColor="#E0E0E0"
+                            TextColor="#333333"
+                            Padding="15,5"
+                            HorizontalOptions="Start"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            <!-- Starting Weight -->
+            <HorizontalStackLayout Spacing="5" VerticalOptions="Center">
+                <Label Text="Starting Weight:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" WidthRequest="140"/>
+                <Border Stroke="Transparent" 
+                        BackgroundColor="Transparent"
+                        Padding="0"
+                        HorizontalOptions="Start"
+                        WidthRequest="80">
+                    <Entry x:Name="StartWeightEntry"
+                           Keyboard="Numeric"
+                           Text="{Binding StartWeight}"
+                           HorizontalOptions="Fill"
+                           BackgroundColor="Transparent"
+                           HasBorder="False"/>
+                </Border>
+                <Label Text="{Binding WeightUnit}" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+            </HorizontalStackLayout>
+
+            <!-- Ending Weight -->
+            <HorizontalStackLayout Spacing="5" VerticalOptions="Center">
+                <Label Text="Ending Weight:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" WidthRequest="140"/>
+                <Border Stroke="Transparent" 
+                        BackgroundColor="Transparent"
+                        Padding="0"
+                        HorizontalOptions="Start"
+                        WidthRequest="80">
+                    <Entry x:Name="EndWeightEntry"
+                           Keyboard="Numeric"
+                           Text="{Binding EndWeight}"
+                           HorizontalOptions="Fill"
+                           BackgroundColor="Transparent"
+                           HasBorder="False"/>
+                </Border>
+                <Label Text="{Binding WeightUnit}" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+            </HorizontalStackLayout>
+
+            <!-- Weeks -->
+            <HorizontalStackLayout Spacing="5" VerticalOptions="Center">
+                <Label Text="Weeks:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" WidthRequest="140"/>
+                <Picker Title="Select weeks"
+                        ItemsSource="{Binding WeekOptions}"
+                        SelectedItem="{Binding Weeks}"
+                        HorizontalOptions="Start"
+                        WidthRequest="80"/>
+            </HorizontalStackLayout>
+
+            <!-- Average kcal per day -->
+            <HorizontalStackLayout Spacing="5" VerticalOptions="Center">
+                <Label Text="Average kcal/day:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" WidthRequest="140"/>
+                <Border Stroke="Transparent" 
+                        BackgroundColor="Transparent"
+                        Padding="0"
+                        HorizontalOptions="Start"
+                        WidthRequest="80">
+                    <Entry x:Name="KcalEntry"
+                           Keyboard="Numeric"
+                           Text="{Binding KcalPerDay}"
+                           HorizontalOptions="Fill"
+                           BackgroundColor="Transparent"
+                           HasBorder="False"/>
+                </Border>
+            </HorizontalStackLayout>
+
+            <!-- Cardio (optional) -->
+            <VerticalStackLayout Spacing="5">
+                <HorizontalStackLayout Spacing="5" VerticalOptions="Center">
+                    <Label Text="Cardio:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" WidthRequest="140"/>
+                    <Border Stroke="Transparent" 
+                            BackgroundColor="Transparent"
+                            Padding="0"
+                            HorizontalOptions="Start"
+                            WidthRequest="80">
+                        <Entry x:Name="CardioEntry"
+                               Keyboard="Numeric"
+                               Text="{Binding CardioKcal}"
+                               HorizontalOptions="Fill"
+                               BackgroundColor="Transparent"
+                               HasBorder="False"/>
+                    </Border>
+                    <Label Text="kcal/week" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+                <Label FontSize="12" TextColor="#666666">Leave empty if not tracking cardio</Label>
+            </VerticalStackLayout>
+
+            <!-- Result -->
+            <Frame BorderColor="#FF6B6B" CornerRadius="10" Padding="15" HasShadow="True">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Calculated Metabolism" FontSize="18" FontAttributes="Bold" />
+                    
+                    <Label FontSize="16">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding Metabolism, StringFormat='{0:F2}'}" FontSize="24" FontAttributes="Bold" />
+                                <Span Text=" kcal/kg/day" FontSize="14" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    
+                    <Label FontSize="12" TextColor="#666666">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Based on weight from " />
+                                <Span Text="{Binding StartWeight, StringFormat='{0:F0}'}" FontAttributes="Bold" />
+                                <Span Text=" to " />
+                                <Span Text="{Binding EndWeight, StringFormat='{0:F0}'}" FontAttributes="Bold" />
+                                <Span Text=" over " />
+                                <Span Text="{Binding Weeks}" FontAttributes="Bold" />
+                                <Span Text=" weeks" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Save/Load Buttons at Bottom -->
+            <HorizontalStackLayout Spacing="10">
+                <Button Text="Save" 
+                        Clicked="OnSaveClicked"
+                        BackgroundColor="#95E1D3"
+                        TextColor="White"
+                        HorizontalOptions="FillAndExpand"/>
+                <Button Text="Load" 
+                        Clicked="OnLoadClicked"
+                        BackgroundColor="#95E1D3"
+                        TextColor="White"
+                        HorizontalOptions="FillAndExpand"/>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

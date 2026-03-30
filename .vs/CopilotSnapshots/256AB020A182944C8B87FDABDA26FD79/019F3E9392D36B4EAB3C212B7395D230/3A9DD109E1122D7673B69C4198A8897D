@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Diet_calulator.Views.MetabolismPage"
+             Title="Metabolism Calculator"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Info Button -->
+            <Button Text="ℹ️ How to use" 
+                    Clicked="OnInfoClicked"
+                    BackgroundColor="#4ECDC4"
+                    TextColor="White"
+                    Padding="10,5"/>
+
+            <!-- Starting Weight -->
+            <VerticalStackLayout Spacing="8">
+                <Label FontSize="16" FontAttributes="Bold">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Starting Weight: " />
+                            <Span Text="{Binding StartWeight, StringFormat='{0:F0}'}" />
+                            <Span Text=" kg" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Entry Placeholder="Enter starting weight (kg)" 
+                       Keyboard="Numeric"
+                       Text="{Binding StartWeight}"/>
+            </VerticalStackLayout>
+
+            <!-- Ending Weight -->
+            <VerticalStackLayout Spacing="8">
+                <Label FontSize="16" FontAttributes="Bold">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Ending Weight: " />
+                            <Span Text="{Binding EndWeight, StringFormat='{0:F0}'}" />
+                            <Span Text=" kg" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Entry Placeholder="Enter ending weight (kg)" 
+                       Keyboard="Numeric"
+                       Text="{Binding EndWeight}"/>
+            </VerticalStackLayout>
+
+            <!-- Weeks -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Weeks" FontSize="16" FontAttributes="Bold" />
+                <Picker Title="Select number of weeks"
+                        ItemsSource="{Binding WeekOptions}"
+                        SelectedItem="{Binding Weeks}"/>
+            </VerticalStackLayout>
+
+            <!-- Average kcal per day -->
+            <VerticalStackLayout Spacing="8">
+                <Label FontSize="16" FontAttributes="Bold">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Average kcal/day: " />
+                            <Span Text="{Binding KcalPerDay}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Entry Placeholder="Enter kcal/day" 
+                       Keyboard="Numeric"
+                       Text="{Binding KcalPerDay}"/>
+            </VerticalStackLayout>
+
+            <!-- Cardio (optional) -->
+            <VerticalStackLayout Spacing="8">
+                <Label FontSize="16" FontAttributes="Bold">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Cardio (optional): " />
+                            <Span Text="{Binding CardioKcal}" />
+                            <Span Text=" kcal total" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Entry Placeholder="Enter total cardio kcal (or leave empty)" 
+                       Keyboard="Numeric"
+                       Text="{Binding CardioKcal}"/>
+                <Label FontSize="12" TextColor="#666666">Tip: Leave empty or enter 0 if not using cardio counter</Label>
+            </VerticalStackLayout>
+
+            <!-- Result -->
+            <Frame BorderColor="#FF6B6B" CornerRadius="10" Padding="15" HasShadow="True">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Calculated Metabolism" FontSize="18" FontAttributes="Bold" />
+                    
+                    <Label FontSize="16">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding Metabolism}" FontSize="24" FontAttributes="Bold" />
+                                <Span Text=" kcal/kg/day" FontSize="14" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    
+                    <Label FontSize="12" TextColor="#666666">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Based on weight from " />
+                                <Span Text="{Binding StartWeight, StringFormat='{0:F0}'}" FontAttributes="Bold" />
+                                <Span Text=" kg to " />
+                                <Span Text="{Binding EndWeight, StringFormat='{0:F0}'}" FontAttributes="Bold" />
+                                <Span Text=" over " />
+                                <Span Text="{Binding Weeks}" FontAttributes="Bold" />
+                                <Span Text=" weeks" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

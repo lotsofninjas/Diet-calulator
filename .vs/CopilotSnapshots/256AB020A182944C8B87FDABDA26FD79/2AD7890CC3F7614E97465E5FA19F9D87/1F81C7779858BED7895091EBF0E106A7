@@ -1,0 +1,146 @@
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using Diet_calulator.Models;
+using Diet_calulator.Services;
+
+namespace Diet_calulator.ViewModels
+{
+    public class MacroViewModel : INotifyPropertyChanged
+    {
+        private int _calories = 2000;
+        private int _protein = 0;
+        private int _carbs = 0;
+        private int _fat = 0;
+        private string _diet = "Balanced (40/30/30)";
+        private readonly IStorageService _storageService;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public int Calories
+        {
+            get => _calories;
+            set { SetProperty(ref _calories, value); CalculateMacros(); }
+        }
+
+        public int Protein
+        {
+            get => _protein;
+            set => SetProperty(ref _protein, value);
+        }
+
+        public int Carbs
+        {
+            get => _carbs;
+            set => SetProperty(ref _carbs, value);
+        }
+
+        public int Fat
+        {
+            get => _fat;
+            set => SetProperty(ref _fat, value);
+        }
+
+        public string Diet
+        {
+            get => _diet;
+            set { SetProperty(ref _diet, value); CalculateMacros(); }
+        }
+
+        public List<string> DietOptions => new()
+        {
+            "Balanced (40/30/30)",
+            "Low Carb (30/40/30)",
+            "High Carb (50/25/25)",
+            "Keto (5/25/70)"
+        };
+
+        public MacroViewModel()
+        {
+            _storageService = new FileStorageService();
+        }
+
+        private void CalculateMacros()
+        {
+            var (proteinPercent, carbsPercent, fatPercent) = _diet switch
+            {
+                "Balanced (40/30/30)" => (0.40, 0.30, 0.30),
+                "Low Carb (30/40/30)" => (0.30, 0.40, 0.30),
+                "High Carb (50/25/25)" => (0.50, 0.25, 0.25),
+                "Keto (5/25/70)" => (0.05, 0.25, 0.70),
+                _ => (0.40, 0.30, 0.30)
+            };
+
+            // Protein and carbs: 4 kcal/gram, Fat: 9 kcal/gram
+            Protein = (int)Math.Round((_calories * proteinPercent) / 4);
+            Carbs = (int)Math.Round((_calories * carbsPercent) / 4);
+            Fat = (int)Math.Round((_calories * fatPercent) / 9);
+        }
+
+        public async Task SaveCalculationAsync(string name)
+        {
+            try
+            {
+                var calculation = new SavedCalculation(name, "Macro")
+                {
+                    Data = new Dictionary<string, string>
+                    {
+                        { "Calories", _calories.ToString() },
+                        { "Diet", _diet },
+                        { "Protein", _protein.ToString() },
+                        { "Carbs", _carbs.ToString() },
+                        { "Fat", _fat.ToString() }
+                    }
+                };
+
+                await _storageService.SaveCalculationAsync(calculation);
+            }
+            catch (Exception ex)
+            {
+                // Handle error
+                Debug.WriteLine($"Error saving calculation: {ex.Message}");
+            }
+        }
+
+        public async Task LoadCalculationAsync(string id)
+        {
+            try
+            {
+                var calculation = await _storageService.GetCalculationAsync(id);
+                if (calculation != null)
+                {
+                    Calories = int.Parse(calculation.Data["Calories"]);
+                    Diet = calculation.Data["Diet"];
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error loading calculation: {ex.Message}");
+            }
+        }
+
+        public async Task<List<SavedCalculation>> GetSavedCalculationsAsync()
+        {
+            return await _storageService.GetCalculationsAsync("Macro");
+        }
+
+        public async Task DeleteCalculationAsync(string id)
+        {
+            await _storageService.DeleteCalculationAsync(id);
+        }
+
+        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string? propertyName = null)
+        {
+            if (Equals(storage, value))
+                return false;
+
+            storage = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}

@@ -1,0 +1,112 @@
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+namespace Diet_calulator.ViewModels
+{
+    public class MetabolismViewModel : INotifyPropertyChanged
+    {
+        private string _gender = "Man";
+        private int _age = 30;
+        private int _weight = 70;
+        private int _height = 180;
+        private double _bmr = 0;
+        private double _tdee = 0;
+        private string _activityLevel = "Sedentär (lite eller ingen träning)";
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public string Gender
+        {
+            get => _gender;
+            set { SetProperty(ref _gender, value); CalculateMetabolism(); }
+        }
+
+        public int Age
+        {
+            get => _age;
+            set { SetProperty(ref _age, value); CalculateMetabolism(); }
+        }
+
+        public int Weight
+        {
+            get => _weight;
+            set { SetProperty(ref _weight, value); CalculateMetabolism(); }
+        }
+
+        public int Height
+        {
+            get => _height;
+            set { SetProperty(ref _height, value); CalculateMetabolism(); }
+        }
+
+        public double BMR
+        {
+            get => _bmr;
+            set => SetProperty(ref _bmr, value);
+        }
+
+        public double TDEE
+        {
+            get => _tdee;
+            set => SetProperty(ref _tdee, value);
+        }
+
+        public string ActivityLevel
+        {
+            get => _activityLevel;
+            set { SetProperty(ref _activityLevel, value); CalculateMetabolism(); }
+        }
+
+        public List<string> GenderOptions => new() { "Man", "Kvinna" };
+
+        public List<string> ActivityLevelOptions => new()
+        {
+            "Sedentär (lite eller ingen träning)",
+            "Lätt aktiv (1-3 dagar träning/vecka)",
+            "Måttligt aktiv (3-5 dagar träning/vecka)",
+            "Mycket aktiv (6-7 dagar träning/vecka)",
+            "Extremt aktiv (fysiskt jobb eller tränar två gånger dagligen)"
+        };
+
+        private void CalculateMetabolism()
+        {
+            // Harris-Benedict formel för basmetabolism (BMR)
+            if (_gender == "Man")
+            {
+                BMR = 88.362 + (13.397 * _weight) + (4.799 * _height) - (5.677 * _age);
+            }
+            else
+            {
+                BMR = 447.593 + (9.247 * _weight) + (3.098 * _height) - (4.330 * _age);
+            }
+
+            // Beräkna TDEE baserat på aktivitetsnivå
+            double activityMultiplier = _activityLevel switch
+            {
+                "Sedentär (lite eller ingen träning)" => 1.2,
+                "Lätt aktiv (1-3 dagar träning/vecka)" => 1.375,
+                "Måttligt aktiv (3-5 dagar träning/vecka)" => 1.55,
+                "Mycket aktiv (6-7 dagar träning/vecka)" => 1.725,
+                "Extremt aktiv (fysiskt jobb eller tränar två gånger dagligen)" => 1.9,
+                _ => 1.2
+            };
+
+            TDEE = BMR * activityMultiplier;
+        }
+
+        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string? propertyName = null)
+        {
+            if (Equals(storage, value))
+                return false;
+
+            storage = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}

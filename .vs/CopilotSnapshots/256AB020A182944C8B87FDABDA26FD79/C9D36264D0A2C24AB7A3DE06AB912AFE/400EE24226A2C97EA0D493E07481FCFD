@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Diet_calulator.Views.MacroPage"
+             Title="Macro Calculator"
+             BackgroundColor="#F5F5F5">
+
+    <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*" Padding="20,20,20,0" RowSpacing="20">
+        <!-- Header Row with "How to use" button -->
+        <Button Grid.Row="0" 
+                Text="How to use" 
+                Clicked="OnInfoClicked"
+                BackgroundColor="#4ECDC4"
+                TextColor="White"
+                Padding="10,5"
+                FontSize="14"
+                HorizontalOptions="Start"
+                VerticalOptions="Center"/>
+
+        <!-- Scrollable Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="0,0,20,0" Spacing="31">
+                <!-- Calories -->
+                <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
+                    <Label Text="Daily Calories:" FontSize="14" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Label x:Name="CaloriesDisplay"
+                           Text="{Binding Calories, StringFormat='{0:F0}'}"
+                           FontSize="14"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCaloriesTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label Text="kcal" FontSize="14" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#666666"/>
+                </HorizontalStackLayout>
+
+                <!-- Diet Type -->
+                <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
+                    <Label Text="Diet Type:" FontSize="14" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Picker Title="Select diet type"
+                            ItemsSource="{Binding DietOptions}"
+                            SelectedItem="{Binding Diet}"
+                            HorizontalOptions="Start"
+                            WidthRequest="150"
+                            FontSize="14"/>
+                </HorizontalStackLayout>
+
+                <!-- Hidden Entry for numeric input -->
+                <Entry x:Name="HiddenEntry"
+                       Keyboard="Numeric"
+                       IsVisible="True"
+                       BackgroundColor="Transparent"
+                       Opacity="0"
+                       HeightRequest="0"/>
+
+                <!-- Result -->
+                <Frame BorderColor="#4ECDC4" CornerRadius="10" Padding="15" HasShadow="True" Margin="0,31,0,0">
+                    <VerticalStackLayout Spacing="20">
+                        <Label Text="Macronutrients" FontSize="16" FontAttributes="Bold" />
+                        
+                        <!-- Protein -->
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="Protein:" FontSize="14" FontAttributes="Bold" VerticalOptions="Center"/>
+                            <Label Text="{Binding Protein}" FontSize="14" VerticalOptions="Center"/>
+                            <Label Text="g" FontSize="14" FontAttributes="Bold" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                        <!-- Carbohydrates -->
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="Carbs:" FontSize="14" FontAttributes="Bold" VerticalOptions="Center"/>
+                            <Label Text="{Binding Carbs}" FontSize="14" VerticalOptions="Center"/>
+                            <Label Text="g" FontSize="14" FontAttributes="Bold" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                        <!-- Fat -->
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="Fat:" FontSize="14" FontAttributes="Bold" VerticalOptions="Center"/>
+                            <Label Text="{Binding Fat}" FontSize="14" VerticalOptions="Center"/>
+                            <Label Text="g" FontSize="14" FontAttributes="Bold" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Save/Load Buttons - Fixed at bottom above tab bar -->
+        <HorizontalStackLayout Grid.Row="2" Spacing="13" Margin="0,0,20,20" HorizontalOptions="Center">
+            <Button Text="Save" 
+                    Clicked="OnSaveClicked"
+                    BackgroundColor="#95E1D3"
+                    TextColor="White"
+                    FontSize="14"
+                    Padding="20,10"
+                    WidthRequest="100"/>
+            <Button Text="Load" 
+                    Clicked="OnLoadClicked"
+                    BackgroundColor="#95E1D3"
+                    TextColor="White"
+                    FontSize="14"
+                    Padding="20,10"
+                    WidthRequest="100"/>
+        </HorizontalStackLayout>
+
+    </Grid>
+
+</ContentPage>

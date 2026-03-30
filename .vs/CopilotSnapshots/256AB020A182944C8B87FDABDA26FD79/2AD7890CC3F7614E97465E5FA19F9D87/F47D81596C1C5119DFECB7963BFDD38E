@@ -1,0 +1,30 @@
+﻿using Diet_calulator.ViewModels;
+
+namespace Diet_calulator.Views
+{
+    public partial class MacroPage : ContentPage
+    {
+        public MacroPage()
+        {
+            InitializeComponent();
+            BindingContext = new MacroViewModel();
+        }
+
+        private async void OnInfoClicked(object sender, EventArgs e)
+        {
+            await DisplayAlert(
+                "How to Use - Macro Calculator",
+                "1. Enter your DAILY CALORIES - your total energy intake\n\n" +
+                "2. Select your DIET TYPE:\n" +
+                "   • Balanced (40/30/30): Even split\n" +
+                "   • Low Carb (30/40/30): Reduced carbs\n" +
+                "   • High Carb (50/25/25): Increased carbs\n" +
+                "   • Keto (5/25/70): Very low carb\n\n" +
+                "The calculator will automatically compute your daily macronutrient targets:\n" +
+                "   • Protein (4 kcal/g)\n" +
+                "   • Carbs (4 kcal/g)\n" +
+                "   • Fat (9 kcal/g)",
+                "Got it!");
+        }
+    }
+}

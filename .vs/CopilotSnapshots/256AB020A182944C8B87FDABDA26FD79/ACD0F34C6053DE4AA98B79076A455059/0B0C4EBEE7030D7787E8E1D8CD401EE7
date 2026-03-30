@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Diet_calulator.Views.MetabolismPage"
+             Title="Metabolism Kalkylator"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+            
+            <!-- Köns val -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Kön" FontSize="16" FontAttributes="Bold" />
+                <Picker x:Name="GenderPicker" 
+                        Title="Välj kön"
+                        ItemsSource="{Binding GenderOptions}"
+                        SelectedItem="{Binding Gender}"/>
+            </VerticalStackLayout>
+
+            <!-- Ålder -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Ålder: {0} år" StringFormat="Ålder: {0} år">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Ålder: " FontAttributes="Bold" />
+                            <Span Text="{Binding Age}" />
+                            <Span Text=" år" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Slider x:Name="AgeSLider" 
+                        Minimum="15" 
+                        Maximum="100" 
+                        Value="{Binding Age}"
+                        MinimumTrackColor="#FF6B6B"
+                        MaximumTrackColor="#E0E0E0"/>
+            </VerticalStackLayout>
+
+            <!-- Vikt -->
+            <VerticalStackLayout Spacing="8">
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Vikt: " FontAttributes="Bold" />
+                            <Span Text="{Binding Weight}" />
+                            <Span Text=" kg" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Entry x:Name="WeightEntry" 
+                       Placeholder="Ange vikt (kg)" 
+                       Keyboard="Numeric"
+                       Text="{Binding Weight}"/>
+            </VerticalStackLayout>
+
+            <!-- Längd -->
+            <VerticalStackLayout Spacing="8">
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Längd: " FontAttributes="Bold" />
+                            <Span Text="{Binding Height}" />
+                            <Span Text=" cm" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Entry x:Name="HeightEntry" 
+                       Placeholder="Ange längd (cm)" 
+                       Keyboard="Numeric"
+                       Text="{Binding Height}"/>
+            </VerticalStackLayout>
+
+            <!-- Aktivitetsnivå -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Aktivitetsnivå" FontSize="16" FontAttributes="Bold" />
+                <Picker Title="Välj aktivitetsnivå"
+                        ItemsSource="{Binding ActivityLevelOptions}"
+                        SelectedItem="{Binding ActivityLevel}"/>
+            </VerticalStackLayout>
+
+            <!-- Resultat -->
+            <Frame BorderColor="#FF6B6B" CornerRadius="10" Padding="15" HasShadow="True">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Resultat" FontSize="18" FontAttributes="Bold" />
+                    
+                    <VerticalStackLayout Spacing="8">
+                        <Label FontSize="14">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Basmetabolism (BMR): " FontAttributes="Bold" />
+                                    <Span Text="{Binding BMR, StringFormat='{0:F0}'}" />
+                                    <Span Text=" kcal/dag" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        
+                        <Label FontSize="14">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Dagligt energibehov (TDEE): " FontAttributes="Bold" />
+                                    <Span Text="{Binding TDEE, StringFormat='{0:F0}'}" />
+                                    <Span Text=" kcal/dag" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

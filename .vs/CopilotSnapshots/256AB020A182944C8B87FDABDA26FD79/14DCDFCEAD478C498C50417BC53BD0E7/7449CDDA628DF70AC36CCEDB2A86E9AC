@@ -1,0 +1,185 @@
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using Diet_calulator.Models;
+using Diet_calulator.Services;
+
+namespace Diet_calulator.ViewModels
+{
+    public class MetabolismViewModel : INotifyPropertyChanged
+    {
+        private double _startWeight = 80;
+        private double _endWeight = 75;
+        private int _weeks = 2;
+        private int _kcalPerDay = 2000;
+        private int _cardioKcal = 0;
+        private int _metabolism = 0;
+        private string _errorMessage = "";
+        private string _weightUnit = "kg";
+        private readonly IStorageService _storageService;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public double StartWeight
+        {
+            get => _startWeight;
+            set { SetProperty(ref _startWeight, value); CalculateMetabolism(); }
+        }
+
+        public double EndWeight
+        {
+            get => _endWeight;
+            set { SetProperty(ref _endWeight, value); CalculateMetabolism(); }
+        }
+
+        public int Weeks
+        {
+            get => _weeks;
+            set { SetProperty(ref _weeks, value); CalculateMetabolism(); }
+        }
+
+        public int KcalPerDay
+        {
+            get => _kcalPerDay;
+            set { SetProperty(ref _kcalPerDay, value); CalculateMetabolism(); }
+        }
+
+        public int CardioKcal
+        {
+            get => _cardioKcal;
+            set { SetProperty(ref _cardioKcal, value); CalculateMetabolism(); }
+        }
+
+        public int Metabolism
+        {
+            get => _metabolism;
+            set => SetProperty(ref _metabolism, value);
+        }
+
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set => SetProperty(ref _errorMessage, value);
+        }
+
+        public string WeightUnit
+        {
+            get => _weightUnit;
+            set { SetProperty(ref _weightUnit, value); CalculateMetabolism(); }
+        }
+
+        public List<int> WeekOptions => new() { 2, 3, 4 };
+        public List<string> WeightUnitOptions => new() { "kg", "lbs" };
+
+        public MetabolismViewModel()
+        {
+            _storageService = new FileStorageService();
+        }
+
+        private void CalculateMetabolism()
+        {
+            ErrorMessage = "";
+
+            // Validate input values
+            if (_startWeight <= 0 || _endWeight <= 0 || _weeks <= 0 || _kcalPerDay <= 0)
+            {
+                Metabolism = 0;
+                return;
+            }
+
+            try
+            {
+                // Work with the weight values in their original unit
+                double weightChangedInCurrentUnit = Math.Abs(_startWeight - _endWeight);
+                double averageWeightInCurrentUnit = (_startWeight + _endWeight) / 2.0;
+
+                double totalDays = _weeks * 7.0;
+
+                // Total calories consumed over the period (diet + cardio)
+                double totalKcalInput = (_kcalPerDay * totalDays) + (_cardioKcal * _weeks);
+
+                // Metabolism = total kcal consumed / total days / average weight
+                // This gives us kcal per unit of body weight per day
+                double metabolismPerUnitPerDay = totalKcalInput / totalDays / averageWeightInCurrentUnit;
+
+                Metabolism = Math.Max(0, (int)Math.Round(metabolismPerUnitPerDay));
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Error during calculation: {ex.Message}";
+                Metabolism = 0;
+            }
+        }
+
+        public async Task SaveCalculationAsync(string name)
+        {
+            try
+            {
+                var calculation = new SavedCalculation(name, "Metabolism")
+                {
+                    Data = new Dictionary<string, string>
+                    {
+                        { "StartWeight", _startWeight.ToString() },
+                        { "EndWeight", _endWeight.ToString() },
+                        { "Weeks", _weeks.ToString() },
+                        { "KcalPerDay", _kcalPerDay.ToString() },
+                        { "CardioKcal", _cardioKcal.ToString() },
+                        { "Metabolism", _metabolism.ToString() },
+                        { "WeightUnit", _weightUnit }
+                    }
+                };
+
+                await _storageService.SaveCalculationAsync(calculation);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Error saving calculation: {ex.Message}";
+            }
+        }
+
+        public async Task LoadCalculationAsync(string id)
+        {
+            try
+            {
+                var calculation = await _storageService.GetCalculationAsync(id);
+                if (calculation != null)
+                {
+                    StartWeight = double.Parse(calculation.Data["StartWeight"]);
+                    EndWeight = double.Parse(calculation.Data["EndWeight"]);
+                    Weeks = int.Parse(calculation.Data["Weeks"]);
+                    KcalPerDay = int.Parse(calculation.Data["KcalPerDay"]);
+                    CardioKcal = int.Parse(calculation.Data["CardioKcal"]);
+                    WeightUnit = calculation.Data["WeightUnit"];
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Error loading calculation: {ex.Message}";
+            }
+        }
+
+        public async Task<List<SavedCalculation>> GetSavedCalculationsAsync()
+        {
+            return await _storageService.GetCalculationsAsync("Metabolism");
+        }
+
+        public async Task DeleteCalculationAsync(string id)
+        {
+            await _storageService.DeleteCalculationAsync(id);
+        }
+
+        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string? propertyName = null)
+        {
+            if (Equals(storage, value))
+                return false;
+
+            storage = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}

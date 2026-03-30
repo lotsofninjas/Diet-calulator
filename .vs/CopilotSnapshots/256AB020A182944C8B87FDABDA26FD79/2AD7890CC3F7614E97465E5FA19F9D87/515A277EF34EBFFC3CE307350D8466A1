@@ -1,0 +1,138 @@
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+namespace Diet_calulator.ViewModels
+{
+    public class MetabolismViewModel : INotifyPropertyChanged
+    {
+        private double _startWeight = 80;
+        private double _endWeight = 75;
+        private int _weeks = 2;
+        private int _kcalPerDay = 2000;
+        private int _cardioKcal = 0;
+        private int _metabolism = 0;
+        private string _errorMessage = "";
+        private string _weightUnit = "kg";
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public double StartWeight
+        {
+            get => _startWeight;
+            set { SetProperty(ref _startWeight, value); CalculateMetabolism(); }
+        }
+
+        public double EndWeight
+        {
+            get => _endWeight;
+            set { SetProperty(ref _endWeight, value); CalculateMetabolism(); }
+        }
+
+        public int Weeks
+        {
+            get => _weeks;
+            set { SetProperty(ref _weeks, value); CalculateMetabolism(); }
+        }
+
+        public int KcalPerDay
+        {
+            get => _kcalPerDay;
+            set { SetProperty(ref _kcalPerDay, value); CalculateMetabolism(); }
+        }
+
+        public int CardioKcal
+        {
+            get => _cardioKcal;
+            set { SetProperty(ref _cardioKcal, value); CalculateMetabolism(); }
+        }
+
+        public int Metabolism
+        {
+            get => _metabolism;
+            set => SetProperty(ref _metabolism, value);
+        }
+
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set => SetProperty(ref _errorMessage, value);
+        }
+
+        public string WeightUnit
+        {
+            get => _weightUnit;
+            set { SetProperty(ref _weightUnit, value); CalculateMetabolism(); }
+        }
+
+        public List<int> WeekOptions => new() { 2, 3, 4 };
+        public List<string> WeightUnitOptions => new() { "kg", "lbs" };
+
+        private void CalculateMetabolism()
+        {
+            ErrorMessage = "";
+
+            // Convert to kg if needed for calculation
+            double startWeightKg = _weightUnit == "kg" ? _startWeight : _startWeight / 2.20462;
+            double endWeightKg = _weightUnit == "kg" ? _endWeight : _endWeight / 2.20462;
+
+            // Validate input values
+            if (startWeightKg <= 0 || endWeightKg <= 0 || _weeks <= 0 || _kcalPerDay <= 0 || _cardioKcal < 0)
+            {
+                ErrorMessage = "All values must be greater than 0";
+                Metabolism = 0;
+                return;
+            }
+
+            try
+            {
+                double totalDays = _weeks * 7;
+                double averageWeight = (startWeightKg + endWeightKg) / 2;
+                double weightChange = Math.Abs(startWeightKg - endWeightKg);
+                double totalKcal;
+                double metabolism;
+
+                if (startWeightKg > endWeightKg)
+                {
+                    // Weight loss - use 7700 kcal per kg of fat
+                    double extraKcal = (weightChange * 7700) - _cardioKcal;
+                    totalKcal = ((_kcalPerDay * totalDays) + extraKcal) / totalDays;
+                    metabolism = totalKcal / averageWeight;
+                }
+                else if (startWeightKg < endWeightKg)
+                {
+                    // Weight gain - use 5150 kcal per kg of muscle
+                    double extraKcal = (weightChange * 5150) - _cardioKcal;
+                    totalKcal = ((_kcalPerDay * totalDays) - extraKcal) / totalDays;
+                    metabolism = totalKcal / averageWeight;
+                }
+                else
+                {
+                    // Same weight - metabolism = kcal / average weight
+                    metabolism = _kcalPerDay / averageWeight;
+                }
+
+                Metabolism = (int)Math.Round(metabolism);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Error during calculation: {ex.Message}";
+                Metabolism = 0;
+            }
+        }
+
+        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string? propertyName = null)
+        {
+            if (Equals(storage, value))
+                return false;
+
+            storage = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}

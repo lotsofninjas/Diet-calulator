@@ -1,0 +1,371 @@
+﻿using Diet_calulator.ViewModels;
+using Xunit;
+
+namespace Diet_calulator.Tests
+{
+    public class MacroViewModelTests
+    {
+        [Fact]
+        public void MacroViewModel_InitializesWithDefaultValues()
+        {
+            // Arrange & Act
+            var viewModel = new MacroViewModel();
+
+            // Assert
+            Assert.Equal("Maintain", viewModel.Mode);
+            Assert.Equal("Preset", viewModel.MacroInputMode);
+            Assert.Equal("Same Everyday", viewModel.EatingPattern);
+            Assert.Equal(80, viewModel.Weight);
+            Assert.Equal(25, viewModel.Metabolism);
+            Assert.Equal("Balanced", viewModel.PresetProfile);
+        }
+
+        [Fact]
+        public void Mode_BulkSelected_EnablesBulkSpecificFields()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+
+            // Act
+            viewModel.Mode = "Bulk";
+
+            // Assert
+            Assert.Equal("Bulk", viewModel.Mode);
+            Assert.True(viewModel.DailyCalories > 0);
+        }
+
+        [Fact]
+        public void Mode_CutSelected_EnablesCutSpecificFields()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+
+            // Act
+            viewModel.Mode = "Cut";
+            viewModel.ChangePerWeek = 1.0; // 1%
+
+            // Assert
+            Assert.Equal("Cut", viewModel.Mode);
+            Assert.True(viewModel.DailyCalories > 0);
+        }
+
+        [Fact]
+        public void MacroInputMode_CustomSelected_UsesCustomRatios()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+            viewModel.MacroInputMode = "Custom";
+            viewModel.Weight = 100;
+            viewModel.ProteinPerKg = 2.0;
+            viewModel.FatPerKg = 1.0;
+
+            // Act
+            var protein = viewModel.Protein;
+            var fat = viewModel.Fat;
+
+            // Assert
+            Assert.Equal(200, protein); // 100kg * 2.0g/kg
+            Assert.Equal(100, fat); // 100kg * 1.0g/kg
+        }
+
+        [Fact]
+        public void MacroInputMode_PresetSelected_UsesPresetDistribution()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+            viewModel.MacroInputMode = "Preset";
+            viewModel.PresetProfile = "Balanced";
+            viewModel.Weight = 80;
+
+            // Act
+            var protein = viewModel.Protein;
+
+            // Assert
+            Assert.Equal("Preset", viewModel.MacroInputMode);
+            Assert.True(protein > 0);
+        }
+
+        [Fact]
+        public void EatingPattern_SameEveryday_SameMacrosAllDays()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+            viewModel.EatingPattern = "Same Everyday";
+
+            // Act
+            var dailyCalories = viewModel.DailyCalories;
+            var trainingCalories = viewModel.TrainingDayCalories;
+
+            // Assert
+            Assert.Equal(dailyCalories, trainingCalories);
+        }
+
+        [Fact]
+        public void EatingPattern_TrainingDays_DifferentMacrosOnRestDays()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+            viewModel.EatingPattern = "Training Days";
+            viewModel.TrainingDaysPerWeek = 4;
+
+            // Act
+            var trainingCalories = viewModel.TrainingDayCalories;
+            var restCalories = viewModel.RestDayCalories;
+
+            // Assert
+            Assert.NotEqual(trainingCalories, restCalories);
+            Assert.True(trainingCalories > restCalories);
+        }
+
+        [Fact]
+        public void Weight_ChangedValue_RecalculatesCalories()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+            viewModel.Weight = 80;
+            var originalCalories = viewModel.DailyCalories;
+
+            // Act
+            viewModel.Weight = 100;
+            var newCalories = viewModel.DailyCalories;
+
+            // Assert
+            Assert.True(newCalories > originalCalories);
+        }
+
+        [Fact]
+        public void Metabolism_ChangedValue_RecalculatesCalories()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+            viewModel.Metabolism = 25;
+            var originalCalories = viewModel.DailyCalories;
+
+            // Act
+            viewModel.Metabolism = 30;
+            var newCalories = viewModel.DailyCalories;
+
+            // Assert
+            Assert.True(newCalories > originalCalories);
+        }
+
+        [Fact]
+        public void Bulk_WithValidInputs_CalculatesCorrectly()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+            viewModel.Mode = "Bulk";
+            viewModel.Weight = 80;
+            viewModel.Metabolism = 25;
+            viewModel.ChangePerWeek = 0.5;
+            viewModel.TrainingDaysPerWeek = 4;
+
+            // Act
+            var calories = viewModel.DailyCalories;
+            var protein = viewModel.Protein;
+
+            // Assert
+            Assert.True(calories > 0);
+            Assert.True(protein > 0);
+        }
+
+        [Fact]
+        public void Cut_WithValidInputs_CalculatesCorrectly()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+            viewModel.Mode = "Cut";
+            viewModel.Weight = 80;
+            viewModel.Metabolism = 25;
+            viewModel.ChangePerWeek = 1.0; // 1%
+            viewModel.Cardio = 500;
+
+            // Act
+            var calories = viewModel.DailyCalories;
+
+            // Assert
+            Assert.True(calories > 0);
+        }
+
+        [Fact]
+        public void ModeOptions_ReturnsAllModes()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+
+            // Act
+            var options = viewModel.ModeOptions;
+
+            // Assert
+            Assert.Contains("Bulk", options);
+            Assert.Contains("Maintain", options);
+            Assert.Contains("Cut", options);
+        }
+
+        [Fact]
+        public void PresetProfiles_ReturnsAllProfiles()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+
+            // Act
+            var profiles = viewModel.PresetProfiles;
+
+            // Assert
+            Assert.Contains("Balanced", profiles);
+            Assert.Contains("Training Optimized", profiles);
+            Assert.Contains("Hypertrophy", profiles);
+            Assert.Contains("Strength", profiles);
+        }
+
+        [Fact]
+        public async Task SaveCalculationAsync_SavesAllProperties()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+            viewModel.Mode = "Bulk";
+            viewModel.Weight = 85;
+            viewModel.Metabolism = 26;
+            viewModel.ChangePerWeek = 0.4;
+
+            // Act
+            await viewModel.SaveCalculationAsync("Bulk Test");
+            var saved = await viewModel.GetSavedCalculationsAsync();
+
+            // Assert
+            Assert.NotEmpty(saved);
+            var lastCalc = saved.LastOrDefault();
+            Assert.NotNull(lastCalc);
+            Assert.Equal("Bulk Test", lastCalc.Name);
+            Assert.Equal("Macro", lastCalc.Type);
+        }
+
+        [Fact]
+        public async Task LoadCalculationAsync_LoadsAllProperties()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+            viewModel.Mode = "Bulk";
+            viewModel.Weight = 90;
+            viewModel.Metabolism = 26;
+            await viewModel.SaveCalculationAsync("Load Test");
+            var saved = await viewModel.GetSavedCalculationsAsync();
+            var calcId = saved.First().Id;
+
+            // Change values
+            viewModel.Mode = "Maintain";
+            viewModel.Weight = 80;
+
+            // Act
+            await viewModel.LoadCalculationAsync(calcId);
+
+            // Assert
+            Assert.Equal("Bulk", viewModel.Mode);
+            Assert.Equal(90, viewModel.Weight);
+            Assert.Equal(26, viewModel.Metabolism);
+        }
+
+        [Fact]
+        public async Task DeleteCalculationAsync_RemovesCalculation()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+            await viewModel.SaveCalculationAsync("Delete Test");
+            var saved = await viewModel.GetSavedCalculationsAsync();
+            var calcId = saved.First().Id;
+            var countBefore = saved.Count;
+
+            // Act
+            await viewModel.DeleteCalculationAsync(calcId);
+            var updated = await viewModel.GetSavedCalculationsAsync();
+
+            // Assert
+            Assert.Equal(countBefore - 1, updated.Count);
+        }
+
+        [Fact]
+        public void Protein_AlwaysGreaterThanZero()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+
+            // Act
+            var protein = viewModel.Protein;
+
+            // Assert
+            Assert.True(protein > 0);
+        }
+
+        [Fact]
+        public void Fat_AlwaysGreaterThanZero()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+
+            // Act
+            var fat = viewModel.Fat;
+
+            // Assert
+            Assert.True(fat > 0);
+        }
+
+        [Fact]
+        public void Carbs_AlwaysGreaterOrEqualZero()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+
+            // Act
+            var carbs = viewModel.Carbs;
+
+            // Assert
+            Assert.True(carbs >= 0);
+        }
+
+        [Fact]
+        public void TrainingDayOptions_ReturnsValidDayNumbers()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+
+            // Act
+            var options = viewModel.TrainingDayOptions;
+
+            // Assert
+            Assert.Contains(2, options);
+            Assert.Contains(4, options);
+            Assert.Contains(7, options);
+            Assert.Equal(6, options.Count);
+        }
+
+        [Fact]
+        public void BulkChangeOptions_ReturnsValidOptions()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+
+            // Act
+            var options = viewModel.BulkChangeOptions;
+
+            // Assert
+            Assert.Contains("0.25kg", options);
+            Assert.Contains("0.5kg", options);
+            Assert.Equal(7, options.Count);
+        }
+
+        [Fact]
+        public void CutChangeOptions_ReturnsValidOptions()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+
+            // Act
+            var options = viewModel.CutChangeOptions;
+
+            // Assert
+            Assert.Contains("0.5%", options);
+            Assert.Contains("2.0%", options);
+            Assert.Equal(16, options.Count);
+        }
+    }
+}

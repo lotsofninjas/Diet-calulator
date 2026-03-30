@@ -1,0 +1,121 @@
+﻿using Diet_calulator.Models;
+using System.Text.Json;
+
+namespace Diet_calulator.Services
+{
+    public interface IStorageService
+    {
+        Task SaveCalculationAsync(SavedCalculation calculation);
+        Task<List<SavedCalculation>> GetCalculationsAsync(string type);
+        Task<SavedCalculation> GetCalculationAsync(string id);
+        Task DeleteCalculationAsync(string id);
+    }
+
+    public class FileStorageService : IStorageService
+    {
+        private readonly string _storageDirectory;
+        private const string FileName = "calculations.json";
+
+        public FileStorageService()
+        {
+            _storageDirectory = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "DietCalculator");
+
+            if (!Directory.Exists(_storageDirectory))
+            {
+                Directory.CreateDirectory(_storageDirectory);
+            }
+        }
+
+        public async Task SaveCalculationAsync(SavedCalculation calculation)
+        {
+            try
+            {
+                var filePath = Path.Combine(_storageDirectory, FileName);
+                var calculations = await LoadAllCalculationsAsync();
+
+                var existingIndex = calculations.FindIndex(c => c.Id == calculation.Id);
+                if (existingIndex >= 0)
+                {
+                    calculations[existingIndex] = calculation;
+                }
+                else
+                {
+                    calculations.Add(calculation);
+                }
+
+                var json = JsonSerializer.Serialize(calculations);
+                await File.WriteAllTextAsync(filePath, json);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error saving calculation: {ex.Message}");
+            }
+        }
+
+        public async Task<List<SavedCalculation>> GetCalculationsAsync(string type)
+        {
+            try
+            {
+                var calculations = await LoadAllCalculationsAsync();
+                return calculations.Where(c => c.Type == type).OrderByDescending(c => c.SavedDate).ToList();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error loading calculations: {ex.Message}");
+                return new List<SavedCalculation>();
+            }
+        }
+
+        public async Task<SavedCalculation> GetCalculationAsync(string id)
+        {
+            try
+            {
+                var calculations = await LoadAllCalculationsAsync();
+                return calculations.FirstOrDefault(c => c.Id == id);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error loading calculation: {ex.Message}");
+                return null;
+            }
+        }
+
+        public async Task DeleteCalculationAsync(string id)
+        {
+            try
+            {
+                var filePath = Path.Combine(_storageDirectory, FileName);
+                var calculations = await LoadAllCalculationsAsync();
+                calculations.RemoveAll(c => c.Id == id);
+
+                var json = JsonSerializer.Serialize(calculations);
+                await File.WriteAllTextAsync(filePath, json);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error deleting calculation: {ex.Message}");
+            }
+        }
+
+        private async Task<List<SavedCalculation>> LoadAllCalculationsAsync()
+        {
+            try
+            {
+                var filePath = Path.Combine(_storageDirectory, FileName);
+                if (!File.Exists(filePath))
+                {
+                    return new List<SavedCalculation>();
+                }
+
+                var json = await File.ReadAllTextAsync(filePath);
+                return JsonSerializer.Deserialize<List<SavedCalculation>>(json) ?? new List<SavedCalculation>();
+            }
+            catch
+            {
+                return new List<SavedCalculation>();
+            }
+        }
+    }
+}

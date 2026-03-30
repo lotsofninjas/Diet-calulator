@@ -1,0 +1,26 @@
+﻿using Diet_calulator.ViewModels;
+
+namespace Diet_calulator.Views
+{
+    public partial class MetabolismPage : ContentPage
+    {
+        public MetabolismPage()
+        {
+            InitializeComponent();
+            BindingContext = new MetabolismViewModel();
+        }
+
+        private async void OnInfoClicked(object sender, EventArgs e)
+        {
+            await DisplayAlert(
+                "How to Use - Metabolism Calculator",
+                "1. Enter your STARTING weight (kg) at the beginning of the measurement period\n\n" +
+                "2. Enter your ENDING weight (kg) after the measurement period\n\n" +
+                "3. Select the number of WEEKS (2, 3, or 4)\n\n" +
+                "4. Enter your AVERAGE daily calorie intake (kcal/day)\n\n" +
+                "5. (Optional) Enter total CARDIO calories burned during the period. Leave empty if not tracking cardio\n\n" +
+                "The calculator will compute your actual metabolism based on real weight changes, accounting for cardio activity.",
+                "Got it!");
+        }
+    }
+}

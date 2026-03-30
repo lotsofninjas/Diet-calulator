@@ -1,0 +1,214 @@
+﻿using Diet_calulator.ViewModels;
+using Xunit;
+
+namespace Diet_calulator.Tests
+{
+    public class MacroViewModelTests
+    {
+        [Fact]
+        public void MacroViewModel_InitializesWithDefaultValues()
+        {
+            // Arrange & Act
+            var viewModel = new MacroViewModel();
+
+            // Assert
+            Assert.Equal(2000, viewModel.Calories);
+            Assert.Equal("Balanced (40/30/30)", viewModel.Diet);
+        }
+
+        [Fact]
+        public void Calories_ChangingValue_RecalculatesMacros()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+
+            // Act
+            viewModel.Calories = 2500;
+
+            // Assert
+            Assert.Equal(2500, viewModel.Calories);
+            Assert.True(viewModel.Protein > 0);
+            Assert.True(viewModel.Carbs > 0);
+            Assert.True(viewModel.Fat > 0);
+        }
+
+        [Fact]
+        public void Diet_BalancedDistribution_CorrectMacroRatio()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+            viewModel.Calories = 2000;
+
+            // Act
+            viewModel.Diet = "Balanced (40/30/30)";
+            var totalKcal = (viewModel.Protein * 4) + (viewModel.Carbs * 4) + (viewModel.Fat * 9);
+
+            // Assert
+            Assert.InRange(totalKcal, 1900, 2100);
+        }
+
+        [Fact]
+        public void Diet_LowCarbDistribution_CorrectMacroRatio()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+            viewModel.Calories = 2000;
+
+            // Act
+            viewModel.Diet = "Low Carb (30/40/30)";
+
+            // Assert
+            Assert.True(viewModel.Protein > 0);
+            Assert.True(viewModel.Carbs > 0);
+            Assert.True(viewModel.Fat > 0);
+        }
+
+        [Fact]
+        public void Diet_HighCarbDistribution_CorrectMacroRatio()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+            viewModel.Calories = 2000;
+
+            // Act
+            viewModel.Diet = "High Carb (50/25/25)";
+
+            // Assert
+            Assert.True(viewModel.Protein > 0);
+            Assert.True(viewModel.Carbs > 0);
+            Assert.True(viewModel.Fat > 0);
+        }
+
+        [Fact]
+        public void Diet_KetoDistribution_CorrectMacroRatio()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+            viewModel.Calories = 2000;
+
+            // Act
+            viewModel.Diet = "Keto (5/25/70)";
+
+            // Assert
+            Assert.True(viewModel.Protein > 0);
+            Assert.True(viewModel.Carbs >= 0);
+            Assert.True(viewModel.Fat > 0);
+            Assert.True(viewModel.Fat > viewModel.Protein);
+        }
+
+        [Fact]
+        public void DietOptions_ReturnsAllDietTypes()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+
+            // Act
+            var options = viewModel.DietOptions;
+
+            // Assert
+            Assert.NotNull(options);
+            Assert.Contains("Balanced (40/30/30)", options);
+            Assert.Contains("Low Carb (30/40/30)", options);
+            Assert.Contains("High Carb (50/25/25)", options);
+            Assert.Contains("Keto (5/25/70)", options);
+        }
+
+        [Fact]
+        public async Task SaveCalculationAsync_CreatesValidCalculation()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+            viewModel.Calories = 2000;
+            viewModel.Diet = "Balanced (40/30/30)";
+
+            // Act
+            await viewModel.SaveCalculationAsync("Macro Test");
+            var saved = await viewModel.GetSavedCalculationsAsync();
+
+            // Assert
+            Assert.NotEmpty(saved);
+            var lastCalc = saved.LastOrDefault();
+            Assert.NotNull(lastCalc);
+            Assert.Equal("Macro Test", lastCalc.Name);
+            Assert.Equal("Macro", lastCalc.Type);
+        }
+
+        [Fact]
+        public async Task LoadCalculationAsync_LoadsCorrectValues()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+            viewModel.Calories = 2000;
+            await viewModel.SaveCalculationAsync("Load Macro Test");
+            var saved = await viewModel.GetSavedCalculationsAsync();
+            var calcId = saved.First().Id;
+
+            viewModel.Calories = 3000;
+
+            // Act
+            await viewModel.LoadCalculationAsync(calcId);
+
+            // Assert
+            Assert.Equal(2000, viewModel.Calories);
+        }
+
+        [Fact]
+        public async Task DeleteCalculationAsync_RemovesCalculation()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+            await viewModel.SaveCalculationAsync("Delete Macro Test");
+            var saved = await viewModel.GetSavedCalculationsAsync();
+            var calcId = saved.First().Id;
+            var countBefore = saved.Count;
+
+            // Act
+            await viewModel.DeleteCalculationAsync(calcId);
+            var updated = await viewModel.GetSavedCalculationsAsync();
+
+            // Assert
+            Assert.Equal(countBefore - 1, updated.Count);
+            Assert.DoesNotContain(updated, c => c.Id == calcId);
+        }
+
+        [Fact]
+        public void Protein_IsAlwaysGreaterThanZero()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+
+            // Act
+            viewModel.Calories = 1000;
+
+            // Assert
+            Assert.True(viewModel.Protein > 0);
+        }
+
+        [Fact]
+        public void Fat_IsAlwaysGreaterThanZero()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+
+            // Act
+            viewModel.Calories = 1000;
+
+            // Assert
+            Assert.True(viewModel.Fat > 0);
+        }
+
+        [Fact]
+        public void Carbs_CanBeZeroInKetoDiet()
+        {
+            // Arrange
+            var viewModel = new MacroViewModel();
+            viewModel.Calories = 2000;
+
+            // Act
+            viewModel.Diet = "Keto (5/25/70)";
+
+            // Assert
+            Assert.True(viewModel.Carbs >= 0);
+        }
+    }
+}

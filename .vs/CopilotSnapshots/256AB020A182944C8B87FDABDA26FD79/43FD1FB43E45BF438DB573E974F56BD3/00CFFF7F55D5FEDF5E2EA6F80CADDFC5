@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Diet_calulator.MainPage"
+             BackgroundColor="#F5F5F5">
+
+    <VerticalStackLayout
+        Padding="30"
+        Spacing="25"
+        VerticalOptions="Center"
+        HorizontalOptions="Center">
+        
+        <Label
+            Text="Diet Calculator"
+            Style="{StaticResource Headline}"
+            HorizontalTextAlignment="Center" />
+
+        <Label
+            Text="Use the tabs above to choose between metabolism or macro calculator"
+            HorizontalTextAlignment="Center"
+            FontSize="14"
+            TextColor="#666666" />
+    </VerticalStackLayout>
+
+</ContentPage>

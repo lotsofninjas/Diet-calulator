@@ -1,0 +1,163 @@
+﻿using Diet_calulator.ViewModels;
+using Diet_calulator.Models;
+
+namespace Diet_calulator.Views
+{
+    public partial class MacroPage : ContentPage
+    {
+        private MacroViewModel _viewModel;
+
+        public MacroPage()
+        {
+            InitializeComponent();
+            _viewModel = new MacroViewModel();
+            BindingContext = _viewModel;
+        }
+
+        private async void OnInfoClicked(object sender, EventArgs e)
+        {
+            await DisplayAlert(
+                "How to Use - Macro Calculator",
+                "1. Enter your DAILY CALORIES - your total energy intake\n\n" +
+                "2. Select your DIET TYPE:\n" +
+                "   • Balanced (40/30/30): Even split\n" +
+                "   • Low Carb (30/40/30): Reduced carbs\n" +
+                "   • High Carb (50/25/25): Increased carbs\n" +
+                "   • Keto (5/25/70): Very low carb\n\n" +
+                "The calculator will automatically compute your daily macronutrient targets:\n" +
+                "   • Protein (4 kcal/g)\n" +
+                "   • Carbs (4 kcal/g)\n" +
+                "   • Fat (9 kcal/g)",
+                "Got it");
+        }
+
+        private async void OnSaveClicked(object sender, EventArgs e)
+        {
+            var name = await DisplayPromptAsync(
+                "Save Calculation",
+                "Enter a name for this calculation:",
+                "Save",
+                "Cancel",
+                "e.g., My Diet Plan");
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                await _viewModel.SaveCalculationAsync(name);
+                await DisplayAlert("Success", "Calculation saved successfully", "OK");
+            }
+        }
+
+        private async void OnLoadClicked(object sender, EventArgs e)
+        {
+            var calculations = await _viewModel.GetSavedCalculationsAsync();
+
+            if (calculations.Count == 0)
+            {
+                await DisplayAlert("No Calculations", "You haven't saved any calculations yet", "OK");
+                return;
+            }
+
+            await ShowLoadDialog(calculations);
+        }
+
+        private async Task ShowLoadDialog(List<SavedCalculation> calculations)
+        {
+            var content = new VerticalStackLayout { Padding = 20, Spacing = 10 };
+
+            foreach (var calc in calculations)
+            {
+                var itemLayout = new HorizontalStackLayout
+                {
+                    Spacing = 10,
+                    Padding = 10,
+                    BackgroundColor = Colors.White
+                };
+
+                // Name and date in a vertical layout
+                var labelStack = new VerticalStackLayout
+                {
+                    Spacing = 2,
+                    HorizontalOptions = LayoutOptions.FillAndExpand
+                };
+
+                labelStack.Add(new Label
+                {
+                    Text = calc.Name,
+                    FontSize = 14,
+                    FontAttributes = FontAttributes.Bold
+                });
+
+                labelStack.Add(new Label
+                {
+                    Text = calc.SavedDate.ToString("d"),
+                    FontSize = 12,
+                    TextColor = Colors.Gray
+                });
+
+                itemLayout.Add(labelStack);
+
+                // Delete button
+                var deleteBtn = new Button
+                {
+                    Text = "✕",
+                    BackgroundColor = Colors.Red,
+                    TextColor = Colors.White,
+                    FontSize = 18,
+                    Padding = new Thickness(8),
+                    WidthRequest = 40,
+                    HeightRequest = 40,
+                    HorizontalOptions = LayoutOptions.End
+                };
+
+                var calcId = calc.Id;
+                var calcName = calc.Name;
+                deleteBtn.Clicked += async (s, e) =>
+                {
+                    var confirm = await DisplayAlert(
+                        "Delete?",
+                        $"Are you sure you want to delete '{calcName}'?",
+                        "Yes",
+                        "No");
+
+                    if (confirm)
+                    {
+                        await _viewModel.DeleteCalculationAsync(calcId);
+                        await DisplayAlert("Deleted", "Calculation deleted successfully", "OK");
+                        await Navigation.PopModalAsync();
+                        var updated = await _viewModel.GetSavedCalculationsAsync();
+                        if (updated.Count > 0)
+                        {
+                            await ShowLoadDialog(updated);
+                        }
+                    }
+                };
+
+                itemLayout.Add(deleteBtn);
+
+                // Tap gesture to load
+                var tapGesture = new TapGestureRecognizer();
+                var calculation = calc;
+                tapGesture.Tapped += async (s, e) =>
+                {
+                    await _viewModel.LoadCalculationAsync(calculation.Id);
+                    await Navigation.PopModalAsync();
+                };
+
+                labelStack.GestureRecognizers.Add(tapGesture);
+
+                content.Add(itemLayout);
+            }
+
+            var scrollView = new ScrollView { Content = content };
+
+            var page = new ContentPage
+            {
+                Title = "Load Calculation",
+                Content = scrollView,
+                BackgroundColor = Color.Parse("#F5F5F5")
+            };
+
+            await Navigation.PushModalAsync(page);
+        }
+    }
+}
