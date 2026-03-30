@@ -1,3 +1,53 @@
+# Build
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# NuGet
+*.nupkg
+packages/
+.nuget/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# MAUI / Xamarin / Android / iOS
+
+# Android
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+*.jar
+*.keystore
+*.jks
+*.so
+
+# iOS
+*.ipa
+*.dSYM
+*.app
+
+# MacCatalyst
+*.app
+
 # Windows
 *.appx
 *.appxbundle

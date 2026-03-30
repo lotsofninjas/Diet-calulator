@@ -1,4 +1,4 @@
-<api type="debug" assembly-name="Diet calulator" mvid="4aea90022de94c1d8e1299dde8cc255b">
+<api type="debug" assembly-name="Diet calulator" mvid="fd37d01afa3745828c35b8a57c345928">
   <java-to-managed>
     <entry java-name="crc6462274fe0177883e1/MainActivity" managed-name="Diet_calulator.MainActivity, Diet calulator" managed-type-token-id="33554442" />
     <entry java-name="crc6462274fe0177883e1/MainApplication" managed-name="Diet_calulator.MainApplication, Diet calulator" managed-type-token-id="33554443" />

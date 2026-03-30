@@ -6,41 +6,54 @@
              BackgroundColor="#F5F5F5">
 
     <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*" Padding="20,20,20,0" RowSpacing="20">
-        <!-- Header Row -->
-        <Button Grid.Row="0" 
-                Text="How to use" 
-                Clicked="OnInfoClicked"
-                BackgroundColor="#4ECDC4"
-                TextColor="White"
-                Padding="10,5"
-                FontSize="14"
-                HorizontalOptions="Start"
-                VerticalOptions="Center"/>
+        <!-- Header Row - Mode Selection Buttons -->
+        <HorizontalStackLayout Grid.Row="0" Spacing="8" VerticalOptions="Center" HorizontalOptions="Center">
+            <Button x:Name="MaintainButton"
+                    Text="Maintain"
+                    Clicked="OnMaintainClicked"
+                    BackgroundColor="#95E1D3"
+                    TextColor="White"
+                    Padding="15,8"
+                    FontSize="14"
+                    WidthRequest="100"/>
+            <Button x:Name="BulkButton"
+                    Text="Bulk"
+                    Clicked="OnBulkClicked"
+                    BackgroundColor="#E0E0E0"
+                    TextColor="#666666"
+                    Padding="15,8"
+                    FontSize="14"
+                    WidthRequest="100"/>
+            <Button x:Name="CutButton"
+                    Text="Cut"
+                    Clicked="OnCutClicked"
+                    BackgroundColor="#E0E0E0"
+                    TextColor="#666666"
+                    Padding="15,8"
+                    FontSize="14"
+                    WidthRequest="100"/>
+        </HorizontalStackLayout>
 
         <!-- Scrollable Content -->
         <ScrollView Grid.Row="1">
             <VerticalStackLayout Padding="0,0,20,0" Spacing="20" Margin="0,20,0,0">
                 
-                <!-- Goal Selection -->
-                <VerticalStackLayout Spacing="8">
-                    <Label Text="Goal:" FontSize="16" FontAttributes="Bold" />
-                    <Picker Title="Select goal"
-                            ItemsSource="{Binding ModeOptions}"
-                            SelectedItem="{Binding Mode}"
-                            HorizontalOptions="Start"
-                            WidthRequest="150"
-                            FontSize="14"/>
-                </VerticalStackLayout>
-
                 <!-- Input Mode Selection -->
                 <VerticalStackLayout Spacing="8">
                     <Label Text="Macro Input:" FontSize="16" FontAttributes="Bold" />
-                    <Picker Title="Select input mode"
-                            ItemsSource="{Binding InputModeOptions}"
-                            SelectedItem="{Binding MacroInputMode}"
-                            HorizontalOptions="Start"
-                            WidthRequest="150"
-                            FontSize="14"/>
+                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
+                        <Label x:Name="PresetLabel"
+                               Text="Preset" FontSize="14" VerticalOptions="Center" TextColor="Black" FontAttributes="Bold"/>
+                        <Switch x:Name="MacroInputSwitch"
+                                IsToggled="False"
+                                Toggled="OnMacroInputToggled"
+                                VerticalOptions="Center"
+                                ThumbColor="#4ECDC4"
+                                OnColor="#E0E0E0"
+                                OffColor="#E0E0E0"/>
+                        <Label x:Name="CustomLabel"
+                               Text="Custom" FontSize="14" VerticalOptions="Center" TextColor="#CCCCCC" FontAttributes="Bold"/>
+                    </HorizontalStackLayout>
                 </VerticalStackLayout>
 
                 <!-- Weight Input -->
@@ -113,24 +126,56 @@
                 <!-- Preset Profile Selection (conditional) -->
                 <VerticalStackLayout x:Name="PresetSection" Spacing="8">
                     <Label Text="Preset Profile:" FontSize="14" FontAttributes="Bold" Margin="0,10,0,0"/>
-                    <Picker Title="Select profile"
-                            ItemsSource="{Binding PresetProfiles}"
-                            SelectedItem="{Binding PresetProfile}"
-                            HorizontalOptions="Start"
-                            WidthRequest="200"
-                            FontSize="14"/>
+                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
+                        <Label x:Name="PresetProfileDisplay"
+                               Text="{Binding PresetProfile}"
+                               FontSize="14"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Start"
+                               BackgroundColor="Transparent"
+                               TextColor="Black">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnPresetProfileTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
                 </VerticalStackLayout>
 
-                <!-- Training Days Selection -->
-                <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
-                    <Label Text="Training Days/Week:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
-                    <Picker Title="Select days"
-                            ItemsSource="{Binding TrainingDayOptions}"
-                            SelectedItem="{Binding TrainingDaysPerWeek}"
-                            HorizontalOptions="Start"
-                            WidthRequest="80"
-                            FontSize="14"/>
-                </HorizontalStackLayout>
+                <!-- Eating Pattern Selection -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Eating Pattern:" FontSize="14" FontAttributes="Bold" Margin="0,10,0,0"/>
+                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
+                        <Label x:Name="SameEverydayLabel"
+                               Text="Same Everyday" FontSize="14" VerticalOptions="Center" TextColor="Black" FontAttributes="Bold"/>
+                        <Switch x:Name="EatingPatternSwitch"
+                                IsToggled="False"
+                                Toggled="OnEatingPatternToggled"
+                                VerticalOptions="Center"
+                                ThumbColor="#4ECDC4"
+                                OnColor="#E0E0E0"
+                                OffColor="#E0E0E0"/>
+                        <Label x:Name="TrainingDaysLabel"
+                               Text="Training Days" FontSize="14" VerticalOptions="Center" TextColor="#CCCCCC" FontAttributes="Bold"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- Training Days Selection (conditional) -->
+                <VerticalStackLayout x:Name="TrainingDaysSection" Spacing="8" IsVisible="False">
+                    <Label Text="Training Days/Week:" FontSize="14" FontAttributes="Bold" Margin="0,10,0,0"/>
+                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
+                        <Label x:Name="TrainingDaysDisplay"
+                               Text="{Binding TrainingDaysPerWeek, StringFormat='{0}'}"
+                               FontSize="14"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Start"
+                               BackgroundColor="Transparent"
+                               TextColor="Black">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnTrainingDaysTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
 
                 <!-- Cardio Input -->
                 <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
@@ -169,22 +214,19 @@
                 <!-- Change Per Week Selection (Bulk/Cut only) -->
                 <VerticalStackLayout x:Name="ChangePerWeekSection" Spacing="8" IsVisible="False">
                     <Label Text="Change Per Week:" FontSize="14" FontAttributes="Bold" Margin="0,10,0,0"/>
-                    <Picker x:Name="ChangePerWeekPicker"
-                            Title="Select change"
-                            HorizontalOptions="Start"
-                            WidthRequest="150"
-                            FontSize="14"/>
-                </VerticalStackLayout>
-
-                <!-- Eating Pattern Selection -->
-                <VerticalStackLayout Spacing="8">
-                    <Label Text="Eating Pattern:" FontSize="14" FontAttributes="Bold" Margin="0,10,0,0"/>
-                    <Picker Title="Select pattern"
-                            ItemsSource="{Binding EatingPatternOptions}"
-                            SelectedItem="{Binding EatingPattern}"
-                            HorizontalOptions="Start"
-                            WidthRequest="180"
-                            FontSize="14"/>
+                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
+                        <Label x:Name="ChangePerWeekDisplay"
+                               Text="{Binding ChangePerWeek, StringFormat='{0:F2}'}"
+                               FontSize="14"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Start"
+                               BackgroundColor="Transparent"
+                               TextColor="Black">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnChangePerWeekTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
                 </VerticalStackLayout>
 
                 <!-- Hidden Entry for numeric input -->

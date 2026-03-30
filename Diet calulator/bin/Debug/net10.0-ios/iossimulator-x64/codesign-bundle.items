@@ -12,7 +12,7 @@
       <CodesignDisableTimestamp>true</CodesignDisableTimestamp>
       <CodesignKeychain></CodesignKeychain>
       <CodesignUseHardenedRuntime></CodesignUseHardenedRuntime>
-      <SourceProjectPath>C:\Users\Pelle\source\repos\Diet calulator\Diet calulator</SourceProjectPath>
+      <SourceProjectPath>C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator</SourceProjectPath>
     </_CodesignBundle>
   </ItemGroup>
 </Project>

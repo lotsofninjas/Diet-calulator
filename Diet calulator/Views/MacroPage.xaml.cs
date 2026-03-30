@@ -42,27 +42,148 @@ namespace Diet_calulator.Views
 
         private void UpdateUIVisibility()
         {
+            // Update button colors based on selected mode
+            MaintainButton.BackgroundColor = _viewModel.Mode == "Maintain" ? Color.Parse("#95E1D3") : Color.Parse("#E0E0E0");
+            MaintainButton.TextColor = _viewModel.Mode == "Maintain" ? Colors.White : Color.Parse("#666666");
+            
+            BulkButton.BackgroundColor = _viewModel.Mode == "Bulk" ? Color.Parse("#95E1D3") : Color.Parse("#E0E0E0");
+            BulkButton.TextColor = _viewModel.Mode == "Bulk" ? Colors.White : Color.Parse("#666666");
+            
+            CutButton.BackgroundColor = _viewModel.Mode == "Cut" ? Color.Parse("#95E1D3") : Color.Parse("#E0E0E0");
+            CutButton.TextColor = _viewModel.Mode == "Cut" ? Colors.White : Color.Parse("#666666");
+
             // Show custom macros only if MacroInputMode is "Custom"
             CustomMacroSection.IsVisible = _viewModel.MacroInputMode == "Custom";
             PresetSection.IsVisible = _viewModel.MacroInputMode == "Preset";
+
+            // Update macro input switch labels
+            if (_viewModel.MacroInputMode == "Custom")
+            {
+                PresetLabel.TextColor = Color.Parse("#CCCCCC");
+                CustomLabel.TextColor = Colors.Black;
+            }
+            else
+            {
+                PresetLabel.TextColor = Colors.Black;
+                CustomLabel.TextColor = Color.Parse("#CCCCCC");
+            }
 
             // Show snacks and change per week only for Bulk/Cut
             SnacksSection.IsVisible = _viewModel.Mode == "Bulk";
             ChangePerWeekSection.IsVisible = _viewModel.Mode != "Maintain";
 
-            // Update change per week picker options based on mode
+            // Show training/rest day sections only if eating pattern is "Training Days"
+            TrainingDaySection.IsVisible = _viewModel.EatingPattern == "Training Days";
+            RestDaySection.IsVisible = _viewModel.EatingPattern == "Training Days";
+            TrainingDaysSection.IsVisible = _viewModel.EatingPattern == "Training Days";
+
+            // Update eating pattern switch labels
+            if (_viewModel.EatingPattern == "Training Days")
+            {
+                SameEverydayLabel.TextColor = Color.Parse("#CCCCCC");
+                TrainingDaysLabel.TextColor = Colors.Black;
+            }
+            else
+            {
+                SameEverydayLabel.TextColor = Colors.Black;
+                TrainingDaysLabel.TextColor = Color.Parse("#CCCCCC");
+            }
+        }
+
+        private void OnMaintainClicked(object sender, EventArgs e)
+        {
+            _viewModel.Mode = "Maintain";
+            UpdateUIVisibility();
+        }
+
+        private void OnBulkClicked(object sender, EventArgs e)
+        {
+            _viewModel.Mode = "Bulk";
+            UpdateUIVisibility();
+        }
+
+        private void OnCutClicked(object sender, EventArgs e)
+        {
+            _viewModel.Mode = "Cut";
+            UpdateUIVisibility();
+        }
+
+        private void OnMacroInputToggled(object sender, ToggledEventArgs e)
+        {
+            _viewModel.MacroInputMode = e.Value ? "Custom" : "Preset";
+            UpdateUIVisibility();
+        }
+
+        private void OnEatingPatternToggled(object sender, ToggledEventArgs e)
+        {
+            _viewModel.EatingPattern = e.Value ? "Training Days" : "Same Everyday";
+            UpdateUIVisibility();
+        }
+
+        private async void OnPresetProfileTapped(object sender, EventArgs e)
+        {
+            var result = await DisplayActionSheet(
+                "Select Preset Profile",
+                "Cancel",
+                null,
+                "Balanced", "Training Optimized", "Hypertrophy", "Strength");
+
+            if (result != null && result != "Cancel")
+            {
+                _viewModel.PresetProfile = result;
+            }
+        }
+
+        private async void OnTrainingDaysTapped(object sender, EventArgs e)
+        {
+            var result = await DisplayActionSheet(
+                "Select Training Days Per Week",
+                "Cancel",
+                null,
+                "2", "3", "4", "5", "6", "7");
+
+            if (result != null && result != "Cancel" && int.TryParse(result, out var days))
+            {
+                _viewModel.TrainingDaysPerWeek = days;
+            }
+        }
+
+        private async void OnChangePerWeekTapped(object sender, EventArgs e)
+        {
             if (_viewModel.Mode == "Bulk")
             {
-                ChangePerWeekPicker.ItemsSource = _viewModel.BulkChangeOptions;
+                var result = await DisplayActionSheet(
+                    "Select Change Per Week",
+                    "Cancel",
+                    null,
+                    "0.25kg", "0.3kg", "0.35kg", "0.4kg", "0.45kg", "0.5kg", "0.55kg");
+
+                if (result != null && result != "Cancel")
+                {
+                    string cleanValue = result.Replace("kg", "").Trim();
+                    if (double.TryParse(cleanValue, out var change))
+                    {
+                        _viewModel.ChangePerWeek = change;
+                    }
+                }
             }
             else if (_viewModel.Mode == "Cut")
             {
-                ChangePerWeekPicker.ItemsSource = _viewModel.CutChangeOptions;
-            }
+                var result = await DisplayActionSheet(
+                    "Select Change Per Week",
+                    "Cancel",
+                    null,
+                    "0.5%", "0.6%", "0.7%", "0.8%", "0.9%", "1.0%", "1.1%", "1.2%", "1.3%", "1.4%", "1.5%", "1.6%", "1.7%", "1.8%", "1.9%", "2.0%");
 
-            // Show training/rest day sections only if eating pattern is "TrainingDays"
-            TrainingDaySection.IsVisible = _viewModel.EatingPattern == "Training Days";
-            RestDaySection.IsVisible = _viewModel.EatingPattern == "Training Days";
+                if (result != null && result != "Cancel")
+                {
+                    string cleanValue = result.Replace("%", "").Trim();
+                    if (double.TryParse(cleanValue, out var change))
+                    {
+                        _viewModel.ChangePerWeek = change;
+                    }
+                }
+            }
         }
 
         private async void OnInfoClicked(object sender, EventArgs e)
@@ -70,8 +191,8 @@ namespace Diet_calulator.Views
             await DisplayAlert(
                 "How to Use - Macro Calculator",
                 "1. Select your GOAL:\n" +
-                "   • Bulk: Gain weight with surplus calories\n" +
                 "   • Maintain: Keep current weight\n" +
+                "   • Bulk: Gain weight with surplus calories\n" +
                 "   • Cut: Lose weight with deficit calories\n\n" +
                 "2. Choose INPUT MODE:\n" +
                 "   • Preset: Use predefined macro distributions\n" +
@@ -171,25 +292,6 @@ namespace Diet_calulator.Views
                 else if (string.IsNullOrEmpty(value))
                 {
                     _viewModel.Snacks = 0;
-                }
-            };
-            MainThread.BeginInvokeOnMainThread(() => HiddenEntry.Focus());
-        }
-
-        private void OnChangePerWeekTapped(object sender, EventArgs e)
-        {
-            _currentInputType = "ChangePerWeek";
-            HiddenEntry.Text = string.Empty;
-            _currentInputHandler = (value) =>
-            {
-                if (!string.IsNullOrEmpty(value))
-                {
-                    // Remove unit (kg or %)
-                    string cleanValue = value.Replace("kg", "").Replace("%", "").Trim();
-                    if (double.TryParse(cleanValue, out var change))
-                    {
-                        _viewModel.ChangePerWeek = change;
-                    }
                 }
             };
             MainThread.BeginInvokeOnMainThread(() => HiddenEntry.Focus());
