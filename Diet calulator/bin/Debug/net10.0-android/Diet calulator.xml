@@ -4,6 +4,11 @@
         <name>Diet calulator</name>
     </assembly>
     <members>
+        <member name="T:Diet_calulator.Constants.AppConstants">
+            <summary>
+            Centraliserade konstanter för appen för att undvika magiska strängar
+            </summary>
+        </member>
         <member name="T:Diet_calulator.Resource">
             <summary>
             Android Resource Designer class.

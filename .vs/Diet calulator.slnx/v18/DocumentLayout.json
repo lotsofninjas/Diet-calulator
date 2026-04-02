@@ -3,6 +3,21 @@
   "WorkspaceRootPath": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\appshell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\appshell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\views\\macropage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\views\\macropage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\views\\metabolismpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\views\\metabolismpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Pelle\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\271352727\\MacroPage.xaml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator.Tests\\MetabolismViewModelTests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Diet calulator.Tests\\MetabolismViewModelTests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -19,28 +34,8 @@
       "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\viewmodels\\macroviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\views\\metabolismpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\views\\metabolismpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\views\\macropage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\views\\macropage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator.Tests\\MacroViewModelTests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Diet calulator.Tests\\MacroViewModelTests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\views\\metabolismpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\views\\metabolismpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\views\\macropage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\views\\macropage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\appshell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\appshell.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -65,6 +60,75 @@
     {
       "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\services\\storageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\services\\storageservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\views\\macropage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\views\\macropage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\converters\\equalityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\converters\\equalityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\constants\\appconstants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\constants\\appconstants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\views\\metabolismpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\views\\metabolismpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\views\\settingspage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\views\\settingspage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\viewmodels\\settingsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\viewmodels\\settingsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\services\\darkthemeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\services\\darkthemeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Pelle\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\271352727\\MetabolismPage_new.xaml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Pelle\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\271352727\\SettingsPage_fixed.xaml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\services\\themeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\services\\themeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Pelle\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\791302080\\settings.svg||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\resources\\images\\settings.svg||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\resources\\images\\settings.svg||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\views\\cardiopage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\views\\cardiopage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\viewmodels\\cardioviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\viewmodels\\cardioviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|c:\\users\\pelle\\onedrive\\documents\\gitgub\\diet calulator\\diet calulator\\views\\cardiopage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7AA2E303-9ECF-642F-F160-33C6377CD26D}|Diet calulator\\Diet calulator.csproj|solutionrelative:diet calulator\\views\\cardiopage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -74,7 +138,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 18,
           "Children": [
             {
               "$type": "Bookmark",
@@ -86,20 +150,297 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 32,
+              "Title": "CardioPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\CardioPage.xaml.cs",
+              "RelativeDocumentMoniker": "Diet calulator\\Views\\CardioPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\CardioPage.xaml.cs",
+              "RelativeToolTip": "Diet calulator\\Views\\CardioPage.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAMYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-02T06:16:51.832Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "CardioViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\ViewModels\\CardioViewModel.cs",
+              "RelativeDocumentMoniker": "Diet calulator\\ViewModels\\CardioViewModel.cs",
+              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\ViewModels\\CardioViewModel.cs",
+              "RelativeToolTip": "Diet calulator\\ViewModels\\CardioViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-02T06:16:39.622Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "CardioPage.xaml",
+              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\CardioPage.xaml",
+              "RelativeDocumentMoniker": "Diet calulator\\Views\\CardioPage.xaml",
+              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\CardioPage.xaml",
+              "RelativeToolTip": "Diet calulator\\Views\\CardioPage.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAMQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-02T06:16:24.354Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "settings.svg",
+              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Resources\\Images\\settings.svg",
+              "RelativeDocumentMoniker": "Diet calulator\\Resources\\Images\\settings.svg",
+              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Resources\\Images\\settings.svg",
+              "RelativeToolTip": "Diet calulator\\Resources\\Images\\settings.svg",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAGAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAATvSURBVEhLtZZrbFRFFMd/d193724ppYUt2NKHtCAPoYCAgiAIKiRKAMGGgJpoKIJfRIh\u002BMX4RY0KsIESIWBLU4gdqVURJNCiIiYQIbWmxIFCQllcLTbul3b37uHP8cLfbhaIhMZ5k7kwmM//fmTMzZy78nyYi2p19ANXV1duBNdhj6K3vbKeUHStWrFh7u8q/WHV1tdyr1dbWSlVVlezZs2f7nToAjjs7Uq3XQyWCUoIohRKFUgqlLCzL4sKFCyxduhSl1JqKiop\u002BkLsCkqEAQlELK1hL7PonWJcnYNYMpvtng9BvYxDzUnJsaWkplmWt2bp1622QfnuQvvoL1/opvlh86Ciwmpk3fC9j0k5iXD\u002BPisZxBl5COcbhcJpE/tzGwei7LFu2jFgsRiQSYdeuXfj9/h2rVq1a2w8w9PWvC4dkDqwoKRz8\u002BJOTspmZuYn7Yrvo/NXJUVlCI3NIHzaFl2cU4HJo3Pg0m9OFVbS0tBCJRIhGoxQUFHD16lXKyso0AFef\u002BDf5gYy0/U/MGlc8vyjINH0FaZ0HuXRsNvVj36bB9RDnW7u5\u002BMdlrnV08/YzY/EMn8/kyZMoKCggbIYxvAbZ2dlUVlYmnXaQCEtWxoDd82Y9OLL0gRbPLH0JaWcPcmz/LDZa77PneAZtLZ3kBdIZPb6QuqCDd75txF38AobPR25uLsUjisnJycHn8yX3JQnIyhr49Oj8QNGCojZXiWMl7voGTtYtILD8Oz5eXkL5omImpFm0NjaT7nEzJGcItW1hmhyTQAQQRFNJ0X6AAT7XosWTXZmPGGWaq\u002Bk0J2unU/LKAfKzfAAMS/fy4rRcOjpvMdDhxuFy4vL7\u002BLLmalII0RIwUKoP5gLIG6RPmZm12fB1HeX0pefZlLWOjo\u002BOEbOslNuqMHx\u002BTCcYbifidnPqyk0QQbC1e09M6gpcAKunHc/LVZ9rLQcncnj6e4z3BuxJ2B9bwAZZEQurB2JKYcUtFKAJaNigfgDpGTOzp2ObETyky74Z\u002B7UO52D55cAJTcVjtncCQiIPiaCUQhA0hIcLM9HEjk6vI/0BodaFzmvtzn3WumibleGJRq1brmhP\u002Bg\u002BvzyUWj9kC9jQk4a0NtEMiCWUbagfptk2WrvZHg2f0rh\u002BtpTfONbcLSvyB/PvY8FUjp64EiSuhJxqn8VoXr\u002B2tZ86WI8z\u002B4AhzPzxCVe2VpKCG1pdiUlcQatHGeAaqytq64DhPO4MG\u002BLy\u002BnKI8Il3dbDx0iRs3ghgeJ\u002BnpaRSOKmbKSAdtN7u41dTE4gnDEsuzxe8aImViZS6MvZq3vjugm/GfTtWpwpwR\u002Bf7sIQMoLBnN/YnTF41btNwMEmxtJ97RzuZnJ\u002BB0aH2B/wdzaA6\u002Bb/uMN5vLn2sbTv1TWueZmusNdZyuOcPvNWc50fAXp\u002BrP09RwjuDFZgbFeviotISigD95AJKU3ip1DzSXvKG5mX95C7I7460jlb6yA1ON1sMzcvxkhm/hvnmd4WIyNcvF\u002BsfyqVg5kbxMOx3climlD5QKuKtVVFQcFxGJREwxI6aYpimmGRYzHBYzHBIzHJZwOCThUEjC4R4JpdQiIuXl5UnCPz04kwE8Hh3do6PrOrruRfd60b0GuteL12vgNQy8Xh9GSp2Yn9Tq9\u002BAA7Ny5c7uIrOm9vUop\u002B5TcpZAQTG0DOzZs2HDvPwH/xf4Gb5LkTqfRE7EAAAAASUVORK5CYII=",
+              "WhenOpened": "2026-04-02T06:14:31.699Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "settings.svg",
+              "DocumentMoniker": "C:\\Users\\Pelle\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\791302080\\settings.svg",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\791302080\\settings.svg",
+              "ToolTip": "C:\\Users\\Pelle\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\791302080\\settings.svg",
+              "RelativeToolTip": "..\\..\\..\\..\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\791302080\\settings.svg",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAATvSURBVEhLtZZrbFRFFMd/d193724ppYUt2NKHtCAPoYCAgiAIKiRKAMGGgJpoKIJfRIh\u002BMX4RY0KsIESIWBLU4gdqVURJNCiIiYQIbWmxIFCQllcLTbul3b37uHP8cLfbhaIhMZ5k7kwmM//fmTMzZy78nyYi2p19ANXV1duBNdhj6K3vbKeUHStWrFh7u8q/WHV1tdyr1dbWSlVVlezZs2f7nToAjjs7Uq3XQyWCUoIohRKFUgqlLCzL4sKFCyxduhSl1JqKiop\u002BkLsCkqEAQlELK1hL7PonWJcnYNYMpvtng9BvYxDzUnJsaWkplmWt2bp1622QfnuQvvoL1/opvlh86Ciwmpk3fC9j0k5iXD\u002BPisZxBl5COcbhcJpE/tzGwei7LFu2jFgsRiQSYdeuXfj9/h2rVq1a2w8w9PWvC4dkDqwoKRz8\u002BJOTspmZuYn7Yrvo/NXJUVlCI3NIHzaFl2cU4HJo3Pg0m9OFVbS0tBCJRIhGoxQUFHD16lXKyso0AFef\u002BDf5gYy0/U/MGlc8vyjINH0FaZ0HuXRsNvVj36bB9RDnW7u5\u002BMdlrnV08/YzY/EMn8/kyZMoKCggbIYxvAbZ2dlUVlYmnXaQCEtWxoDd82Y9OLL0gRbPLH0JaWcPcmz/LDZa77PneAZtLZ3kBdIZPb6QuqCDd75txF38AobPR25uLsUjisnJycHn8yX3JQnIyhr49Oj8QNGCojZXiWMl7voGTtYtILD8Oz5eXkL5omImpFm0NjaT7nEzJGcItW1hmhyTQAQQRFNJ0X6AAT7XosWTXZmPGGWaq\u002Bk0J2unU/LKAfKzfAAMS/fy4rRcOjpvMdDhxuFy4vL7\u002BLLmalII0RIwUKoP5gLIG6RPmZm12fB1HeX0pefZlLWOjo\u002BOEbOslNuqMHx\u002BTCcYbifidnPqyk0QQbC1e09M6gpcAKunHc/LVZ9rLQcncnj6e4z3BuxJ2B9bwAZZEQurB2JKYcUtFKAJaNigfgDpGTOzp2ObETyky74Z\u002B7UO52D55cAJTcVjtncCQiIPiaCUQhA0hIcLM9HEjk6vI/0BodaFzmvtzn3WumibleGJRq1brmhP\u002Bg\u002BvzyUWj9kC9jQk4a0NtEMiCWUbagfptk2WrvZHg2f0rh\u002BtpTfONbcLSvyB/PvY8FUjp64EiSuhJxqn8VoXr\u002B2tZ86WI8z\u002B4AhzPzxCVe2VpKCG1pdiUlcQatHGeAaqytq64DhPO4MG\u002BLy\u002BnKI8Il3dbDx0iRs3ghgeJ\u002BnpaRSOKmbKSAdtN7u41dTE4gnDEsuzxe8aImViZS6MvZq3vjugm/GfTtWpwpwR\u002Bf7sIQMoLBnN/YnTF41btNwMEmxtJ97RzuZnJ\u002BB0aH2B/wdzaA6\u002Bb/uMN5vLn2sbTv1TWueZmusNdZyuOcPvNWc50fAXp\u002BrP09RwjuDFZgbFeviotISigD95AJKU3ip1DzSXvKG5mX95C7I7460jlb6yA1ON1sMzcvxkhm/hvnmd4WIyNcvF\u002BsfyqVg5kbxMOx3climlD5QKuKtVVFQcFxGJREwxI6aYpimmGRYzHBYzHBIzHJZwOCThUEjC4R4JpdQiIuXl5UnCPz04kwE8Hh3do6PrOrruRfd60b0GuteL12vgNQy8Xh9GSp2Yn9Tq9\u002BAA7Ny5c7uIrOm9vUop\u002B5TcpZAQTG0DOzZs2HDvPwH/xf4Gb5LkTqfRE7EAAAAASUVORK5CYII=",
+              "WhenOpened": "2026-04-02T06:10:39.202Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "ThemeService.cs",
+              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Services\\ThemeService.cs",
+              "RelativeDocumentMoniker": "Diet calulator\\Services\\ThemeService.cs",
+              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Services\\ThemeService.cs",
+              "RelativeToolTip": "Diet calulator\\Services\\ThemeService.cs",
+              "ViewState": "AgIAAJwAAAAAAAAAAAAmwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-02T06:01:53.934Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "SettingsPage_fixed.xaml",
+              "DocumentMoniker": "C:\\Users\\Pelle\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\271352727\\SettingsPage_fixed.xaml",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\271352727\\SettingsPage_fixed.xaml",
+              "ToolTip": "C:\\Users\\Pelle\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\271352727\\SettingsPage_fixed.xaml",
+              "RelativeToolTip": "..\\..\\..\\..\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\271352727\\SettingsPage_fixed.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-01T20:08:57.367Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "MetabolismPage_new.xaml",
+              "DocumentMoniker": "C:\\Users\\Pelle\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\271352727\\MetabolismPage_new.xaml",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\271352727\\MetabolismPage_new.xaml",
+              "ToolTip": "C:\\Users\\Pelle\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\271352727\\MetabolismPage_new.xaml",
+              "RelativeToolTip": "..\\..\\..\\..\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\271352727\\MetabolismPage_new.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-01T20:08:57.287Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "DarkThemeService.cs",
+              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Services\\DarkThemeService.cs",
+              "RelativeDocumentMoniker": "Diet calulator\\Services\\DarkThemeService.cs",
+              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Services\\DarkThemeService.cs",
+              "RelativeToolTip": "Diet calulator\\Services\\DarkThemeService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T20:08:57.171Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "SettingsViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\ViewModels\\SettingsViewModel.cs",
+              "RelativeDocumentMoniker": "Diet calulator\\ViewModels\\SettingsViewModel.cs",
+              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\ViewModels\\SettingsViewModel.cs",
+              "RelativeToolTip": "Diet calulator\\ViewModels\\SettingsViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T17:54:54.069Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "SettingsPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\SettingsPage.xaml.cs",
+              "RelativeDocumentMoniker": "Diet calulator\\Views\\SettingsPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\SettingsPage.xaml.cs",
+              "RelativeToolTip": "Diet calulator\\Views\\SettingsPage.xaml.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAABRwDQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T17:52:40.15Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MetabolismPage.xaml",
+              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\MetabolismPage.xaml",
+              "RelativeDocumentMoniker": "Diet calulator\\Views\\MetabolismPage.xaml",
+              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\MetabolismPage.xaml",
+              "RelativeToolTip": "Diet calulator\\Views\\MetabolismPage.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-01T17:07:54.294Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MacroPage.xaml",
+              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\MacroPage.xaml",
+              "RelativeDocumentMoniker": "Diet calulator\\Views\\MacroPage.xaml",
+              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\MacroPage.xaml",
+              "RelativeToolTip": "Diet calulator\\Views\\MacroPage.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkBAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-01T15:13:56.832Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\App.xaml",
+              "RelativeDocumentMoniker": "Diet calulator\\App.xaml",
+              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\App.xaml",
+              "RelativeToolTip": "Diet calulator\\App.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-01T14:56:59.974Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "MauiProgram.cs",
+              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\MauiProgram.cs",
+              "RelativeDocumentMoniker": "Diet calulator\\MauiProgram.cs",
+              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\MauiProgram.cs",
+              "RelativeToolTip": "Diet calulator\\MauiProgram.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T14:55:39.101Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "EqualityConverter.cs",
+              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Converters\\EqualityConverter.cs",
+              "RelativeDocumentMoniker": "Diet calulator\\Converters\\EqualityConverter.cs",
+              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Converters\\EqualityConverter.cs",
+              "RelativeToolTip": "Diet calulator\\Converters\\EqualityConverter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T14:55:30.155Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AppShell.xaml",
+              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\AppShell.xaml",
+              "RelativeDocumentMoniker": "Diet calulator\\AppShell.xaml",
+              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\AppShell.xaml",
+              "RelativeToolTip": "Diet calulator\\AppShell.xaml",
+              "ViewState": "AgIAACsAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-03-29T05:59:27.673Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "MetabolismPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\MetabolismPage.xaml.cs",
+              "RelativeDocumentMoniker": "Diet calulator\\Views\\MetabolismPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\MetabolismPage.xaml.cs",
+              "RelativeToolTip": "Diet calulator\\Views\\MetabolismPage.xaml.cs",
+              "ViewState": "AgIAAEIBAAAAAAAAAEBVwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T17:38:01.524Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\App.xaml.cs",
+              "RelativeDocumentMoniker": "Diet calulator\\App.xaml.cs",
+              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\App.xaml.cs",
+              "RelativeToolTip": "Diet calulator\\App.xaml.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAABRwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T16:30:07.383Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "AppConstants.cs",
+              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Constants\\AppConstants.cs",
+              "RelativeDocumentMoniker": "Diet calulator\\Constants\\AppConstants.cs",
+              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Constants\\AppConstants.cs",
+              "RelativeToolTip": "Diet calulator\\Constants\\AppConstants.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T16:50:42.85Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "MacroPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\MacroPage.xaml.cs",
+              "RelativeDocumentMoniker": "Diet calulator\\Views\\MacroPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\MacroPage.xaml.cs",
+              "RelativeToolTip": "Diet calulator\\Views\\MacroPage.xaml.cs",
+              "ViewState": "AgIAAOgBAAAAAAAAAABBwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T14:16:46.897Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MacroPage.xaml",
+              "DocumentMoniker": "C:\\Users\\Pelle\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\271352727\\MacroPage.xaml",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\271352727\\MacroPage.xaml",
+              "ToolTip": "C:\\Users\\Pelle\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\271352727\\MacroPage.xaml",
+              "RelativeToolTip": "..\\..\\..\\..\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\271352727\\MacroPage.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-01T13:25:27.084Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "AppShell.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\AppShell.xaml.cs",
               "RelativeDocumentMoniker": "Diet calulator\\AppShell.xaml.cs",
               "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\AppShell.xaml.cs",
               "RelativeToolTip": "Diet calulator\\AppShell.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAABwAAAAAAAAAAABRwB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-30T07:43:37.545Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "MetabolismViewModelTests.cs",
               "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator.Tests\\MetabolismViewModelTests.cs",
               "RelativeDocumentMoniker": "Diet calulator.Tests\\MetabolismViewModelTests.cs",
@@ -107,12 +448,11 @@
               "RelativeToolTip": "Diet calulator.Tests\\MetabolismViewModelTests.cs",
               "ViewState": "AgIAAO8AAAAAAAAAAAAAAAsBAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-29T07:51:20.108Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-29T07:51:20.108Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 9,
               "Title": "MainPage.xaml",
               "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\MainPage.xaml",
               "RelativeDocumentMoniker": "Diet calulator\\MainPage.xaml",
@@ -120,51 +460,11 @@
               "RelativeToolTip": "Diet calulator\\MainPage.xaml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-03-29T05:59:42.66Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "AppShell.xaml",
-              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\AppShell.xaml",
-              "RelativeDocumentMoniker": "Diet calulator\\AppShell.xaml",
-              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\AppShell.xaml",
-              "RelativeToolTip": "Diet calulator\\AppShell.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-03-29T05:59:27.673Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-29T05:59:42.66Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "MacroPage.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\MacroPage.xaml.cs",
-              "RelativeDocumentMoniker": "Diet calulator\\Views\\MacroPage.xaml.cs",
-              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\MacroPage.xaml.cs",
-              "RelativeToolTip": "Diet calulator\\Views\\MacroPage.xaml.cs",
-              "ViewState": "AgIAAKwBAAAAAAAAAAAmwMgBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-29T05:59:23.69Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "MetabolismPage.xaml",
-              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\MetabolismPage.xaml",
-              "RelativeDocumentMoniker": "Diet calulator\\Views\\MetabolismPage.xaml",
-              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\MetabolismPage.xaml",
-              "RelativeToolTip": "Diet calulator\\Views\\MetabolismPage.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAALwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-03-29T05:59:10.343Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
               "Title": "MacroViewModelTests.cs",
               "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator.Tests\\MacroViewModelTests.cs",
               "RelativeDocumentMoniker": "Diet calulator.Tests\\MacroViewModelTests.cs",
@@ -172,51 +472,24 @@
               "RelativeToolTip": "Diet calulator.Tests\\MacroViewModelTests.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAHMBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-29T07:51:32.997Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-29T07:51:32.997Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "MacroPage.xaml",
-              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\MacroPage.xaml",
-              "RelativeDocumentMoniker": "Diet calulator\\Views\\MacroPage.xaml",
-              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\MacroPage.xaml",
-              "RelativeToolTip": "Diet calulator\\Views\\MacroPage.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGkBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-03-29T05:59:20.996Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MetabolismPage.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\MetabolismPage.xaml.cs",
-              "RelativeDocumentMoniker": "Diet calulator\\Views\\MetabolismPage.xaml.cs",
-              "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Views\\MetabolismPage.xaml.cs",
-              "RelativeToolTip": "Diet calulator\\Views\\MetabolismPage.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD4BAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-29T05:59:12.733Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "MacroViewModel.cs",
               "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\ViewModels\\MacroViewModel.cs",
               "RelativeDocumentMoniker": "Diet calulator\\ViewModels\\MacroViewModel.cs",
               "ToolTip": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\ViewModels\\MacroViewModel.cs",
               "RelativeToolTip": "Diet calulator\\ViewModels\\MacroViewModel.cs",
-              "ViewState": "AgIAAIUBAAAAAAAAAAAmwJ4BAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAK4BAAAAAAAAAOBiwLUBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-29T05:59:01.835Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "MetabolismViewModel.cs",
               "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\ViewModels\\MetabolismViewModel.cs",
               "RelativeDocumentMoniker": "Diet calulator\\ViewModels\\MetabolismViewModel.cs",
@@ -224,12 +497,11 @@
               "RelativeToolTip": "Diet calulator\\ViewModels\\MetabolismViewModel.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAN4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-29T05:58:55.571Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-29T05:58:55.571Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "SavedCalculationTests.cs",
               "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator.Tests\\SavedCalculationTests.cs",
               "RelativeDocumentMoniker": "Diet calulator.Tests\\SavedCalculationTests.cs",
@@ -237,12 +509,11 @@
               "RelativeToolTip": "Diet calulator.Tests\\SavedCalculationTests.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAH8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-29T07:51:39.727Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-29T07:51:39.727Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 11,
               "Title": "MainPage.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\MainPage.xaml.cs",
               "RelativeDocumentMoniker": "Diet calulator\\MainPage.xaml.cs",
@@ -254,7 +525,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 12,
               "Title": "SavedCalculation.cs",
               "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Models\\SavedCalculation.cs",
               "RelativeDocumentMoniker": "Diet calulator\\Models\\SavedCalculation.cs",
@@ -266,7 +537,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 13,
               "Title": "Styles.xaml",
               "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Resources\\Styles\\Styles.xaml",
               "RelativeDocumentMoniker": "Diet calulator\\Resources\\Styles\\Styles.xaml",
@@ -278,7 +549,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 14,
               "Title": "StorageService.cs",
               "DocumentMoniker": "C:\\Users\\Pelle\\OneDrive\\Documents\\GitGub\\Diet calulator\\Diet calulator\\Services\\StorageService.cs",
               "RelativeDocumentMoniker": "Diet calulator\\Services\\StorageService.cs",

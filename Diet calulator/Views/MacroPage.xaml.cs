@@ -1,5 +1,6 @@
 using Diet_calulator.ViewModels;
 using Diet_calulator.Models;
+using Diet_calulator.Services;
 
 namespace Diet_calulator.Views
 {
@@ -40,21 +41,32 @@ namespace Diet_calulator.Views
             UpdateUIVisibility();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ThemeService.ApplyTheme(this);
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+        }
+
         private void UpdateUIVisibility()
         {
-            // Update button colors based on selected mode
-            MaintainButton.BackgroundColor = _viewModel.Mode == "Maintain" ? Color.Parse("#95E1D3") : Color.Parse("#E0E0E0");
+            // Update button appearance based on mode
+            MaintainButton.BackgroundColor = _viewModel.Mode == "Maintain" ? Color.Parse("#4ECDC4") : Color.Parse("#E0E0E0");
             MaintainButton.TextColor = _viewModel.Mode == "Maintain" ? Colors.White : Color.Parse("#666666");
             
-            BulkButton.BackgroundColor = _viewModel.Mode == "Bulk" ? Color.Parse("#95E1D3") : Color.Parse("#E0E0E0");
+            BulkButton.BackgroundColor = _viewModel.Mode == "Bulk" ? Color.Parse("#4ECDC4") : Color.Parse("#E0E0E0");
             BulkButton.TextColor = _viewModel.Mode == "Bulk" ? Colors.White : Color.Parse("#666666");
             
-            CutButton.BackgroundColor = _viewModel.Mode == "Cut" ? Color.Parse("#95E1D3") : Color.Parse("#E0E0E0");
+            CutButton.BackgroundColor = _viewModel.Mode == "Cut" ? Color.Parse("#4ECDC4") : Color.Parse("#E0E0E0");
             CutButton.TextColor = _viewModel.Mode == "Cut" ? Colors.White : Color.Parse("#666666");
 
             // Show custom macros only if MacroInputMode is "Custom"
-            CustomMacroSection.IsVisible = _viewModel.MacroInputMode == "Custom";
-            PresetSection.IsVisible = _viewModel.MacroInputMode == "Preset";
+            CustomMacroProteinSection.IsVisible = _viewModel.MacroInputMode == "Custom";
+            CustomMacroFatSection.IsVisible = _viewModel.MacroInputMode == "Custom";
 
             // Update macro input switch labels
             if (_viewModel.MacroInputMode == "Custom")
@@ -75,19 +87,11 @@ namespace Diet_calulator.Views
             // Show training/rest day sections only if eating pattern is "Training Days"
             TrainingDaySection.IsVisible = _viewModel.EatingPattern == "Training Days";
             RestDaySection.IsVisible = _viewModel.EatingPattern == "Training Days";
-            TrainingDaysSection.IsVisible = _viewModel.EatingPattern == "Training Days";
-
-            // Update eating pattern switch labels
-            if (_viewModel.EatingPattern == "Training Days")
-            {
-                SameEverydayLabel.TextColor = Color.Parse("#CCCCCC");
-                TrainingDaysLabel.TextColor = Colors.Black;
-            }
-            else
-            {
-                SameEverydayLabel.TextColor = Colors.Black;
-                TrainingDaysLabel.TextColor = Color.Parse("#CCCCCC");
-            }
+            TrainingPatternSection.IsVisible = _viewModel.EatingPattern == "Training Days";
+            CarbsMoreSection.IsVisible = _viewModel.EatingPattern == "Training Days";
+            
+            // Hide daily macros when showing training/rest day breakdown
+            DailyMacrosSection.IsVisible = _viewModel.EatingPattern == "Same Everyday";
         }
 
         private void OnMaintainClicked(object sender, EventArgs e)
@@ -146,6 +150,38 @@ namespace Diet_calulator.Views
             {
                 _viewModel.TrainingDaysPerWeek = days;
             }
+        }
+
+        private async void OnTrainingPatternTapped(object sender, EventArgs e)
+        {
+            var result = await DisplayActionSheet(
+                "Select Training Pattern",
+                "Cancel",
+                null,
+                "Every Other Day", "2 on 1 off", "3 on 1 off", "1", "2", "3", "4", "5", "6", "7");
+
+            if (result != null && result != "Cancel")
+            {
+                _viewModel.TrainingPattern = result;
+            }
+        }
+
+        private void OnCarbsMoreTapped(object sender, EventArgs e)
+        {
+            _currentInputType = "CarbsMore";
+            HiddenEntry.Text = string.Empty;
+            _currentInputHandler = (value) =>
+            {
+                if (!string.IsNullOrEmpty(value) && int.TryParse(value, out var carbsMore))
+                {
+                    _viewModel.CarbsMore = carbsMore;
+                }
+                else if (string.IsNullOrEmpty(value))
+                {
+                    _viewModel.CarbsMore = 0;
+                }
+            };
+            MainThread.BeginInvokeOnMainThread(() => HiddenEntry.Focus());
         }
 
         private async void OnChangePerWeekTapped(object sender, EventArgs e)
@@ -225,7 +261,7 @@ namespace Diet_calulator.Views
             HiddenEntry.Text = string.Empty;
             _currentInputHandler = (value) =>
             {
-                if (!string.IsNullOrEmpty(value) && double.TryParse(value, out var metabolism))
+                if (!string.IsNullOrEmpty(value) && int.TryParse(value, out var metabolism))
                 {
                     _viewModel.Metabolism = metabolism;
                 }

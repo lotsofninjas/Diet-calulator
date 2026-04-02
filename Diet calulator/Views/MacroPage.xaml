@@ -11,7 +11,7 @@
             <Button x:Name="MaintainButton"
                     Text="Maintain"
                     Clicked="OnMaintainClicked"
-                    BackgroundColor="#95E1D3"
+                    BackgroundColor="#4ECDC4"
                     TextColor="White"
                     Padding="15,8"
                     FontSize="14"
@@ -36,12 +36,12 @@
 
         <!-- Scrollable Content -->
         <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="0,0,20,0" Spacing="20" Margin="0,20,0,0">
+            <VerticalStackLayout Padding="0,0,20,20" Spacing="15" Margin="0,10,0,0">
                 
-                <!-- Input Mode Selection -->
-                <VerticalStackLayout Spacing="8">
-                    <Label Text="Macro Input:" FontSize="16" FontAttributes="Bold" />
-                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
+                <!-- Input Mode Selection - Macro Input with Preset/Custom switch on same row -->
+                <HorizontalStackLayout Spacing="20" VerticalOptions="Center" HorizontalOptions="Fill">
+                    <Label Text="Macro Input:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start"/>
+                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="End">
                         <Label x:Name="PresetLabel"
                                Text="Preset" FontSize="14" VerticalOptions="Center" TextColor="Black" FontAttributes="Bold"/>
                         <Switch x:Name="MacroInputSwitch"
@@ -54,10 +54,10 @@
                         <Label x:Name="CustomLabel"
                                Text="Custom" FontSize="14" VerticalOptions="Center" TextColor="#CCCCCC" FontAttributes="Bold"/>
                     </HorizontalStackLayout>
-                </VerticalStackLayout>
+                </HorizontalStackLayout>
 
                 <!-- Weight Input -->
-                <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
+                <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,14">
                     <Label Text="Weight:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
                     <Label x:Name="WeightDisplay"
                            Text="{Binding Weight, StringFormat='{0:F1}'}"
@@ -73,14 +73,9 @@
                 </HorizontalStackLayout>
 
                 <!-- Metabolism Input -->
-                <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
+                <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,14">
                     <Label Text="Metabolism:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
-                    <Label x:Name="MetabolismDisplay"
-                           Text="{Binding Metabolism, StringFormat='{0:F2}'}"
-                           FontSize="16"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Start"
-                           BackgroundColor="Transparent">
+                    <Label x:Name="MetabolismDisplay" Text="{Binding Metabolism, StringFormat='{0}'}" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" BackgroundColor="Transparent">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnMetabolismTapped"/>
                         </Label.GestureRecognizers>
@@ -89,103 +84,40 @@
                 </HorizontalStackLayout>
 
                 <!-- Custom Macro Inputs (conditional) -->
-                <VerticalStackLayout x:Name="CustomMacroSection" Spacing="8" IsVisible="False">
-                    <Label Text="Custom Macros:" FontSize="14" FontAttributes="Bold" Margin="0,10,0,0"/>
-                    
-                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
-                        <Label Text="Protein:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
-                        <Label x:Name="ProteinPerKgDisplay"
-                               Text="{Binding ProteinPerKg, StringFormat='{0:F2}'}"
-                               FontSize="16"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Start"
-                               BackgroundColor="Transparent">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnProteinPerKgTapped"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                        <Label Text="g/kg" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#666666"/>
-                    </HorizontalStackLayout>
+                <HorizontalStackLayout x:Name="CustomMacroProteinSection" Spacing="8" VerticalOptions="Center" HorizontalOptions="Start" IsVisible="False" Margin="0,0,0,14">
+                    <Label Text="Protein:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Label x:Name="ProteinPerKgDisplay" Text="{Binding ProteinPerKg, StringFormat='{0:F2}'}" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" BackgroundColor="Transparent">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnProteinPerKgTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label Text="g/kg" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#666666"/>
+                </HorizontalStackLayout>
 
-                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
-                        <Label Text="Fat:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
-                        <Label x:Name="FatPerKgDisplay"
-                               Text="{Binding FatPerKg, StringFormat='{0:F2}'}"
-                               FontSize="16"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Start"
-                               BackgroundColor="Transparent">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnFatPerKgTapped"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                        <Label Text="g/kg" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#666666"/>
-                    </HorizontalStackLayout>
-                </VerticalStackLayout>
+                <HorizontalStackLayout x:Name="CustomMacroFatSection" Spacing="8" VerticalOptions="Center" HorizontalOptions="Start" IsVisible="False" Margin="0,0,0,14">
+                    <Label Text="Fat:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Label x:Name="FatPerKgDisplay" Text="{Binding FatPerKg, StringFormat='{0:F2}'}" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" BackgroundColor="Transparent">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnFatPerKgTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label Text="g/kg" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#666666"/>
+                </HorizontalStackLayout>
 
-                <!-- Preset Profile Selection (conditional) -->
-                <VerticalStackLayout x:Name="PresetSection" Spacing="8">
-                    <Label Text="Preset Profile:" FontSize="14" FontAttributes="Bold" Margin="0,10,0,0"/>
-                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
-                        <Label x:Name="PresetProfileDisplay"
-                               Text="{Binding PresetProfile}"
-                               FontSize="14"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Start"
-                               BackgroundColor="Transparent"
-                               TextColor="Black">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnPresetProfileTapped"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </HorizontalStackLayout>
-                </VerticalStackLayout>
-
-                <!-- Eating Pattern Selection -->
-                <VerticalStackLayout Spacing="8">
-                    <Label Text="Eating Pattern:" FontSize="14" FontAttributes="Bold" Margin="0,10,0,0"/>
-                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
-                        <Label x:Name="SameEverydayLabel"
-                               Text="Same Everyday" FontSize="14" VerticalOptions="Center" TextColor="Black" FontAttributes="Bold"/>
-                        <Switch x:Name="EatingPatternSwitch"
-                                IsToggled="False"
-                                Toggled="OnEatingPatternToggled"
-                                VerticalOptions="Center"
-                                ThumbColor="#4ECDC4"
-                                OnColor="#E0E0E0"
-                                OffColor="#E0E0E0"/>
-                        <Label x:Name="TrainingDaysLabel"
-                               Text="Training Days" FontSize="14" VerticalOptions="Center" TextColor="#CCCCCC" FontAttributes="Bold"/>
-                    </HorizontalStackLayout>
-                </VerticalStackLayout>
-
-                <!-- Training Days Selection (conditional) -->
-                <VerticalStackLayout x:Name="TrainingDaysSection" Spacing="8" IsVisible="False">
-                    <Label Text="Training Days/Week:" FontSize="14" FontAttributes="Bold" Margin="0,10,0,0"/>
-                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
-                        <Label x:Name="TrainingDaysDisplay"
-                               Text="{Binding TrainingDaysPerWeek, StringFormat='{0}'}"
-                               FontSize="14"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Start"
-                               BackgroundColor="Transparent"
-                               TextColor="Black">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnTrainingDaysTapped"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </HorizontalStackLayout>
-                </VerticalStackLayout>
+                <!-- Preset Profile Selection -->
+                <HorizontalStackLayout Spacing="20" VerticalOptions="Center" HorizontalOptions="Fill" Margin="0,0,0,14">
+                    <Label Text="Preset Profile:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start"/>
+                    <Label x:Name="PresetProfileDisplay" Text="{Binding PresetProfile}" FontSize="16" VerticalOptions="Center" HorizontalOptions="End" BackgroundColor="Transparent" TextColor="Black">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPresetProfileTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
 
                 <!-- Cardio Input -->
-                <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
+                <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,14">
                     <Label Text="Cardio:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
-                    <Label x:Name="CardioDisplay"
-                           Text="{Binding Cardio, StringFormat='{0:F0}'}"
-                           FontSize="16"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Start"
-                           BackgroundColor="Transparent">
+                    <Label x:Name="CardioDisplay" Text="{Binding Cardio, StringFormat='{0:F0}'}" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" BackgroundColor="Transparent">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnCardioTapped"/>
                         </Label.GestureRecognizers>
@@ -193,90 +125,104 @@
                     <Label Text="kcal/week" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#666666"/>
                 </HorizontalStackLayout>
 
-                <!-- Snacks Input (Bulk only) -->
-                <VerticalStackLayout x:Name="SnacksSection" Spacing="8" IsVisible="False">
-                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
-                        <Label Text="Snacks:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
-                        <Label x:Name="SnacksDisplay"
-                               Text="{Binding Snacks, StringFormat='{0:F0}'}"
-                               FontSize="16"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Start"
-                               BackgroundColor="Transparent">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnSnacksTapped"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                        <Label Text="kcal/week" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#666666"/>
+                <!-- More carbs on training days -->
+                <VerticalStackLayout Padding="0,-8,0,0" Margin="0,0,0,0">    
+                    <HorizontalStackLayout Spacing="20" VerticalOptions="Center" HorizontalOptions="Fill" Margin="0,0,0,0">
+                        <Label Text="More carbs on training days:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start"/>
+                        <Switch x:Name="EatingPatternSwitch" IsToggled="False" Toggled="OnEatingPatternToggled" VerticalOptions="Center" ThumbColor="#4ECDC4" OnColor="#4ECDC4" OffColor="#E0E0E0" HorizontalOptions="End"/>
                     </HorizontalStackLayout>
-                </VerticalStackLayout>
+                </VerticalStackLayout >
+
+                <!-- Training Days Selection (conditional) -->
+                <HorizontalStackLayout x:Name="TrainingPatternSection" Spacing="20" VerticalOptions="Center" HorizontalOptions="Fill" IsVisible="False" Margin="0,0,0,14">
+                    <Label Text="Training Days:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start"/>
+                    <Label x:Name="TrainingPatternDisplay" Text="{Binding TrainingPattern}" FontSize="16" VerticalOptions="Center" HorizontalOptions="End" BackgroundColor="Transparent" TextColor="Black">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTrainingPatternTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+
+                <!-- Extra Carbs Input (conditional) -->
+                <HorizontalStackLayout x:Name="CarbsMoreSection" Spacing="8" VerticalOptions="Center" HorizontalOptions="Start" IsVisible="False" Margin="0,0,0,14">
+                    <Label Text="Extra Carbs:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Label x:Name="CarbsMoreDisplay" Text="{Binding CarbsMore, StringFormat='{0:F0}'}" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" BackgroundColor="Transparent">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCarbsMoreTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label Text="g/day" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#666666"/>
+                </HorizontalStackLayout>
+
+                <!-- Snacks Input (Bulk only) -->
+                <HorizontalStackLayout x:Name="SnacksSection" Spacing="8" VerticalOptions="Center" HorizontalOptions="Start" IsVisible="False" Margin="0,0,0,14">
+                    <Label Text="Snacks:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Label x:Name="SnacksDisplay" Text="{Binding Snacks, StringFormat='{0:F0}'}" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" BackgroundColor="Transparent">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSnacksTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label Text="kcal/week" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#666666"/>
+                </HorizontalStackLayout>
 
                 <!-- Change Per Week Selection (Bulk/Cut only) -->
-                <VerticalStackLayout x:Name="ChangePerWeekSection" Spacing="8" IsVisible="False">
-                    <Label Text="Change Per Week:" FontSize="14" FontAttributes="Bold" Margin="0,10,0,0"/>
-                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
-                        <Label x:Name="ChangePerWeekDisplay"
-                               Text="{Binding ChangePerWeek, StringFormat='{0:F2}'}"
-                               FontSize="14"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Start"
-                               BackgroundColor="Transparent"
-                               TextColor="Black">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnChangePerWeekTapped"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </HorizontalStackLayout>
-                </VerticalStackLayout>
+                <HorizontalStackLayout x:Name="ChangePerWeekSection" Spacing="20" VerticalOptions="Center" HorizontalOptions="Fill" IsVisible="False" Margin="0,0,0,14">
+                    <Label Text="Change Per Week:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start"/>
+                    <Label x:Name="ChangePerWeekDisplay" Text="{Binding ChangePerWeek, StringFormat='{0:F2}'}" FontSize="16" VerticalOptions="Center" HorizontalOptions="End" BackgroundColor="Transparent" TextColor="Black">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnChangePerWeekTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
 
                 <!-- Hidden Entry for numeric input -->
-                <Entry x:Name="HiddenEntry"
-                       Keyboard="Numeric"
-                       IsVisible="True"
-                       BackgroundColor="Transparent"
-                       Opacity="0"
-                       HeightRequest="0"/>
+                <Entry x:Name="HiddenEntry" Keyboard="Numeric" IsVisible="False" BackgroundColor="Transparent" Opacity="0" HeightRequest="0"/>
 
                 <!-- Results Section -->
                 <Frame BorderColor="#4ECDC4" CornerRadius="10" Padding="15" HasShadow="True" Margin="0,20,0,0">
                     <VerticalStackLayout Spacing="15">
-                        <Label Text="Results" FontSize="16" FontAttributes="Bold" />
+                        <Label Text="Results" FontSize="16" FontAttributes="Bold"/>
                         
                         <!-- Daily/Average Calories -->
                         <Frame BorderColor="#E0E0E0" CornerRadius="8" Padding="12" HasShadow="False">
                             <VerticalStackLayout Spacing="8">
-                                <Label Text="Daily Calories" FontSize="14" FontAttributes="Bold" />
+                                <Label x:Name="CaloriesLabelSameEveryday"
+                                       Text="Daily Calories" FontSize="14" FontAttributes="Bold"
+                                       IsVisible="{Binding EatingPattern, StringFormat='{0}', ConverterParameter='Same Everyday', Converter={StaticResource EqualityConverter}}"/>
+                                <Label x:Name="CaloriesLabelTrainingDays"
+                                       Text="Average Daily Calories" FontSize="14" FontAttributes="Bold"
+                                       IsVisible="{Binding EatingPattern, StringFormat='{0}', ConverterParameter='Training Days', Converter={StaticResource EqualityConverter}}"/>
                                 <Label FontSize="20" FontAttributes="Bold">
                                     <Label.FormattedText>
                                         <FormattedString>
-                                            <Span Text="{Binding DailyCalories}" />
-                                            <Span Text=" kcal" FontSize="14" />
+                                            <Span Text="{Binding DailyCalories}"/>
+                                            <Span Text=" kcal" FontSize="14"/>
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
                             </VerticalStackLayout>
                         </Frame>
 
-                        <!-- Macros for Same Everyday or Average -->
-                        <VerticalStackLayout Spacing="8">
-                            <Label Text="Daily Macros" FontSize="14" FontAttributes="Bold" />
+                        <!-- Daily Macros (visible when eating same everyday) -->
+                        <VerticalStackLayout x:Name="DailyMacrosSection" Spacing="8" IsVisible="{Binding EatingPattern, StringFormat='{0}', ConverterParameter='Same Everyday', Converter={StaticResource EqualityConverter}}">
+                            <Label Text="Daily Macros" FontSize="14" FontAttributes="Bold"/>
                             <HorizontalStackLayout Spacing="10" HorizontalOptions="Start">
                                 <Frame BorderColor="#FFD700" CornerRadius="8" Padding="10" HasShadow="False" WidthRequest="100">
                                     <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
-                                        <Label Text="Protein" FontSize="12" HorizontalOptions="Center" />
-                                        <Label Text="{Binding Protein, StringFormat='{0}g'}" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center" />
+                                        <Label Text="Protein" FontSize="12" HorizontalOptions="Center"/>
+                                        <Label Text="{Binding Protein, StringFormat='{0}g'}" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center"/>
                                     </VerticalStackLayout>
                                 </Frame>
                                 <Frame BorderColor="#FF6B6B" CornerRadius="8" Padding="10" HasShadow="False" WidthRequest="100">
                                     <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
-                                        <Label Text="Carbs" FontSize="12" HorizontalOptions="Center" />
-                                        <Label Text="{Binding Carbs, StringFormat='{0}g'}" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center" />
+                                        <Label Text="Carbs" FontSize="12" HorizontalOptions="Center"/>
+                                        <Label Text="{Binding Carbs, StringFormat='{0}g'}" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center"/>
                                     </VerticalStackLayout>
                                 </Frame>
                                 <Frame BorderColor="#95E1D3" CornerRadius="8" Padding="10" HasShadow="False" WidthRequest="100">
                                     <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
-                                        <Label Text="Fat" FontSize="12" HorizontalOptions="Center" />
-                                        <Label Text="{Binding Fat, StringFormat='{0}g'}" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center" />
+                                        <Label Text="Fat" FontSize="12" HorizontalOptions="Center"/>
+                                        <Label Text="{Binding Fat, StringFormat='{0}g'}" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center"/>
                                     </VerticalStackLayout>
                                 </Frame>
                             </HorizontalStackLayout>
@@ -284,25 +230,25 @@
 
                         <!-- Training Day Macros (conditional) -->
                         <VerticalStackLayout x:Name="TrainingDaySection" Spacing="8" IsVisible="False" Margin="0,10,0,0">
-                            <Label Text="Training Days" FontSize="14" FontAttributes="Bold" />
-                            <Label Text="{Binding TrainingDayCalories, StringFormat='Calories: {0} kcal'}" FontSize="13" />
+                            <Label Text="Training Days" FontSize="14" FontAttributes="Bold"/>
+                            <Label Text="{Binding TrainingDayCalories, StringFormat='Calories: {0} kcal'}" FontSize="13"/>
                             <HorizontalStackLayout Spacing="10" HorizontalOptions="Start">
                                 <Frame BorderColor="#FFD700" CornerRadius="8" Padding="10" HasShadow="False" WidthRequest="100">
                                     <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
-                                        <Label Text="Protein" FontSize="12" HorizontalOptions="Center" />
-                                        <Label Text="{Binding TrainingDayProtein, StringFormat='{0}g'}" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center" />
+                                        <Label Text="Protein" FontSize="12" HorizontalOptions="Center"/>
+                                        <Label Text="{Binding TrainingDayProtein, StringFormat='{0}g'}" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center"/>
                                     </VerticalStackLayout>
                                 </Frame>
                                 <Frame BorderColor="#FF6B6B" CornerRadius="8" Padding="10" HasShadow="False" WidthRequest="100">
                                     <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
-                                        <Label Text="Carbs" FontSize="12" HorizontalOptions="Center" />
-                                        <Label Text="{Binding TrainingDayCarbs, StringFormat='{0}g'}" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center" />
+                                        <Label Text="Carbs" FontSize="12" HorizontalOptions="Center"/>
+                                        <Label Text="{Binding TrainingDayCarbs, StringFormat='{0}g'}" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center"/>
                                     </VerticalStackLayout>
                                 </Frame>
                                 <Frame BorderColor="#95E1D3" CornerRadius="8" Padding="10" HasShadow="False" WidthRequest="100">
                                     <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
-                                        <Label Text="Fat" FontSize="12" HorizontalOptions="Center" />
-                                        <Label Text="{Binding TrainingDayFat, StringFormat='{0}g'}" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center" />
+                                        <Label Text="Fat" FontSize="12" HorizontalOptions="Center"/>
+                                        <Label Text="{Binding TrainingDayFat, StringFormat='{0}g'}" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center"/>
                                     </VerticalStackLayout>
                                 </Frame>
                             </HorizontalStackLayout>
@@ -310,25 +256,25 @@
 
                         <!-- Rest Day Macros (conditional) -->
                         <VerticalStackLayout x:Name="RestDaySection" Spacing="8" IsVisible="False" Margin="0,10,0,0">
-                            <Label Text="Rest Days" FontSize="14" FontAttributes="Bold" />
-                            <Label Text="{Binding RestDayCalories, StringFormat='Calories: {0} kcal'}" FontSize="13" />
+                            <Label Text="Rest Days" FontSize="14" FontAttributes="Bold"/>
+                            <Label Text="{Binding RestDayCalories, StringFormat='Calories: {0} kcal'}" FontSize="13"/>
                             <HorizontalStackLayout Spacing="10" HorizontalOptions="Start">
                                 <Frame BorderColor="#FFD700" CornerRadius="8" Padding="10" HasShadow="False" WidthRequest="100">
                                     <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
-                                        <Label Text="Protein" FontSize="12" HorizontalOptions="Center" />
-                                        <Label Text="{Binding RestDayProtein, StringFormat='{0}g'}" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center" />
+                                        <Label Text="Protein" FontSize="12" HorizontalOptions="Center"/>
+                                        <Label Text="{Binding RestDayProtein, StringFormat='{0}g'}" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center"/>
                                     </VerticalStackLayout>
                                 </Frame>
                                 <Frame BorderColor="#FF6B6B" CornerRadius="8" Padding="10" HasShadow="False" WidthRequest="100">
                                     <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
-                                        <Label Text="Carbs" FontSize="12" HorizontalOptions="Center" />
-                                        <Label Text="{Binding RestDayCarbs, StringFormat='{0}g'}" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center" />
+                                        <Label Text="Carbs" FontSize="12" HorizontalOptions="Center"/>
+                                        <Label Text="{Binding RestDayCarbs, StringFormat='{0}g'}" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center"/>
                                     </VerticalStackLayout>
                                 </Frame>
                                 <Frame BorderColor="#95E1D3" CornerRadius="8" Padding="10" HasShadow="False" WidthRequest="100">
                                     <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
-                                        <Label Text="Fat" FontSize="12" HorizontalOptions="Center" />
-                                        <Label Text="{Binding RestDayFat, StringFormat='{0}g'}" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center" />
+                                        <Label Text="Fat" FontSize="12" HorizontalOptions="Center"/>
+                                        <Label Text="{Binding RestDayFat, StringFormat='{0}g'}" FontSize="14" FontAttributes="Bold" HorizontalOptions="Center"/>
                                     </VerticalStackLayout>
                                 </Frame>
                             </HorizontalStackLayout>
@@ -342,14 +288,14 @@
         <HorizontalStackLayout Grid.Row="2" Spacing="13" Margin="0,0,20,20" HorizontalOptions="Center">
             <Button Text="Save" 
                     Clicked="OnSaveClicked"
-                    BackgroundColor="#95E1D3"
+                    BackgroundColor="#4ECDC4"
                     TextColor="White"
                     FontSize="14"
                     Padding="20,10"
                     WidthRequest="100"/>
             <Button Text="Load" 
                     Clicked="OnLoadClicked"
-                    BackgroundColor="#95E1D3"
+                    BackgroundColor="#4ECDC4"
                     TextColor="White"
                     FontSize="14"
                     Padding="20,10"

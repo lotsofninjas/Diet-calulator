@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Diet_calulator.Views.CardioPage"
+             Title="Cardio Calculator"
+             BackgroundColor="#F5F5F5">
+
+    <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*" Padding="20,20,20,0" RowSpacing="20">
+        <!-- Header Row - Activity Type Selection -->
+        <HorizontalStackLayout Grid.Row="0" Spacing="8" VerticalOptions="Center" HorizontalOptions="Center">
+            <Button x:Name="WalkingButton"
+                    Text="Walking"
+                    Clicked="OnActivityClicked"
+                    BackgroundColor="#4ECDC4"
+                    TextColor="White"
+                    Padding="15,8"
+                    FontSize="14"
+                    WidthRequest="100"/>
+            <Button x:Name="RunningButton"
+                    Text="Running"
+                    Clicked="OnActivityClicked"
+                    BackgroundColor="#E0E0E0"
+                    TextColor="#666666"
+                    Padding="15,8"
+                    FontSize="14"
+                    WidthRequest="100"/>
+            <Button x:Name="CyclingButton"
+                    Text="Cycling"
+                    Clicked="OnActivityClicked"
+                    BackgroundColor="#E0E0E0"
+                    TextColor="#666666"
+                    Padding="15,8"
+                    FontSize="14"
+                    WidthRequest="100"/>
+        </HorizontalStackLayout>
+
+        <!-- Scrollable Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="0,0,20,20" Spacing="15" Margin="0,10,0,0">
+                
+                <!-- Weight Input -->
+                <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,14">
+                    <Label Text="Weight:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Label x:Name="WeightDisplay"
+                           Text="{Binding Weight, StringFormat='{0:F1}'}"
+                           FontSize="16"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"
+                           BackgroundColor="Transparent">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnWeightTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label Text="kg" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#666666"/>
+                </HorizontalStackLayout>
+
+                <!-- Duration Input -->
+                <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,14">
+                    <Label Text="Duration:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Label x:Name="DurationDisplay"
+                           Text="{Binding Duration, StringFormat='{0}'}"
+                           FontSize="16"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"
+                           BackgroundColor="Transparent">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnDurationTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label Text="minutes" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#666666"/>
+                </HorizontalStackLayout>
+
+                <!-- Intensity (conditional) -->
+                <VerticalStackLayout x:Name="IntensitySection" IsVisible="False" Margin="0,0,0,14">
+                    <HorizontalStackLayout Spacing="20" VerticalOptions="Center" HorizontalOptions="Fill">
+                        <Label Text="Intensity:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start"/>
+                        <Label x:Name="IntensityDisplay" Text="{Binding Intensity}" FontSize="16" VerticalOptions="Center" HorizontalOptions="End" BackgroundColor="Transparent" TextColor="Black">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnIntensityTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- Speed/Pace (for running) -->
+                <VerticalStackLayout x:Name="SpeedSection" IsVisible="False" Margin="0,0,0,14">
+                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,0">
+                        <Label Text="Speed:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+                        <Label x:Name="SpeedDisplay"
+                               Text="{Binding Speed, StringFormat='{0:F1}'}"
+                               FontSize="16"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Start"
+                               BackgroundColor="Transparent">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnSpeedTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label Text="km/h" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#666666"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- Frequency Input -->
+                <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,14">
+                    <Label Text="Frequency:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Label x:Name="FrequencyDisplay"
+                           Text="{Binding Frequency, StringFormat='{0}'}"
+                           FontSize="16"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"
+                           BackgroundColor="Transparent">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnFrequencyTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label Text="times/week" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#666666"/>
+                </HorizontalStackLayout>
+
+                <!-- Hidden Entry for numeric input -->
+                <Entry x:Name="HiddenEntry" Keyboard="Numeric" IsVisible="False" BackgroundColor="Transparent" Opacity="0" HeightRequest="0"/>
+
+                <!-- Results Section -->
+                <Frame BorderColor="#4ECDC4" CornerRadius="10" Padding="15" HasShadow="True" Margin="0,20,0,0">
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="Results" FontSize="16" FontAttributes="Bold"/>
+                        
+                        <!-- Per Session Calories -->
+                        <Frame BorderColor="#E0E0E0" CornerRadius="8" Padding="12" HasShadow="False">
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="Calories per session" FontSize="14" FontAttributes="Bold"/>
+                                <Label FontSize="20" FontAttributes="Bold">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding CaloriesPerSession, StringFormat='{0}'}" />
+                                            <Span Text=" kcal" FontSize="14"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </VerticalStackLayout>
+                        </Frame>
+
+                        <!-- Weekly Calories -->
+                        <Frame BorderColor="#E0E0E0" CornerRadius="8" Padding="12" HasShadow="False">
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="Weekly Total" FontSize="14" FontAttributes="Bold"/>
+                                <Label FontSize="20" FontAttributes="Bold">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding CaloriesPerWeek, StringFormat='{0}'}" />
+                                            <Span Text=" kcal" FontSize="14"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </VerticalStackLayout>
+                        </Frame>
+
+                        <!-- Daily Average -->
+                        <Frame BorderColor="#E0E0E0" CornerRadius="8" Padding="12" HasShadow="False">
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="Daily Average" FontSize="14" FontAttributes="Bold"/>
+                                <Label FontSize="20" FontAttributes="Bold">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding CaloriesPerDay, StringFormat='{0}'}" />
+                                            <Span Text=" kcal" FontSize="14"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Save/Load Buttons - Fixed at bottom above tab bar -->
+        <HorizontalStackLayout Grid.Row="2" Spacing="13" Margin="0,0,20,20" HorizontalOptions="Center">
+            <Button Text="Save" 
+                    Clicked="OnSaveClicked"
+                    BackgroundColor="#4ECDC4"
+                    TextColor="White"
+                    FontSize="14"
+                    Padding="20,10"
+                    WidthRequest="100"/>
+            <Button Text="Load" 
+                    Clicked="OnLoadClicked"
+                    BackgroundColor="#4ECDC4"
+                    TextColor="White"
+                    FontSize="14"
+                    Padding="20,10"
+                    WidthRequest="100"/>
+        </HorizontalStackLayout>
+
+    </Grid>
+
+</ContentPage>

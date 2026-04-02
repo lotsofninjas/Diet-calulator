@@ -2,25 +2,28 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Diet_calulator.Models;
 using Diet_calulator.Services;
+using Diet_calulator.Constants;
 
 namespace Diet_calulator.ViewModels
 {
     public class MacroViewModel : INotifyPropertyChanged
     {
         // Mode selection
-        private string _mode = "Maintain"; // Bulk, Maintain, Cut
-        private string _macroInputMode = "Preset"; // Preset or Custom
-        private string _eatingPattern = "SameEveryday"; // SameEveryday or TrainingDays
+        private string _mode = AppConstants.Mode_Maintain;
+        private string _macroInputMode = AppConstants.MacroInputMode_Preset;
+        private string _eatingPattern = AppConstants.EatingPattern_SameEveryday;
+        private string _trainingPattern = AppConstants.TrainingPattern_EveryOtherDay;
+        private int _carbsMore = 0;
         
         // User inputs
         private double _weight = 80;
-        private double _metabolism = 25; // kcal/kg
+        private int _metabolism = 25;
         private double _proteinPerKg = 2.0;
         private double _fatPerKg = 1.0;
         private int _cardio = 0;
         private int _snacks = 0;
         private int _trainingDaysPerWeek = 4;
-        private double _changePerWeek = 0.35; // kg for bulk, % for cut
+        private double _changePerWeek = 0.35;
         
         // Preset selection
         private string _presetProfile = "Balanced";
@@ -46,7 +49,7 @@ namespace Diet_calulator.ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        #region Mode & Input Properties
+        #region Properties
         public string Mode
         {
             get => _mode;
@@ -64,16 +67,26 @@ namespace Diet_calulator.ViewModels
             get => _eatingPattern;
             set { SetProperty(ref _eatingPattern, value); RecalculateAll(); }
         }
-        #endregion
 
-        #region User Input Properties
+        public string TrainingPattern
+        {
+            get => _trainingPattern;
+            set { SetProperty(ref _trainingPattern, value); RecalculateAll(); }
+        }
+
+        public int CarbsMore
+        {
+            get => _carbsMore;
+            set { SetProperty(ref _carbsMore, value); RecalculateAll(); }
+        }
+
         public double Weight
         {
             get => _weight;
             set { SetProperty(ref _weight, value); RecalculateAll(); }
         }
 
-        public double Metabolism
+        public int Metabolism
         {
             get => _metabolism;
             set { SetProperty(ref _metabolism, value); RecalculateAll(); }
@@ -120,114 +133,88 @@ namespace Diet_calulator.ViewModels
             get => _presetProfile;
             set { SetProperty(ref _presetProfile, value); RecalculateAll(); }
         }
-        #endregion
 
-        #region Result Properties
         public int DailyCalories
         {
             get => _dailyCalories;
-            set => SetProperty(ref _dailyCalories, value);
+            set { SetProperty(ref _dailyCalories, value); }
         }
 
         public int TrainingDayCalories
         {
             get => _trainingDayCalories;
-            set => SetProperty(ref _trainingDayCalories, value);
+            set { SetProperty(ref _trainingDayCalories, value); }
         }
 
         public int RestDayCalories
         {
             get => _restDayCalories;
-            set => SetProperty(ref _restDayCalories, value);
+            set { SetProperty(ref _restDayCalories, value); }
         }
 
         public int Protein
         {
             get => _protein;
-            set => SetProperty(ref _protein, value);
+            set { SetProperty(ref _protein, value); }
         }
 
         public int Carbs
         {
             get => _carbs;
-            set => SetProperty(ref _carbs, value);
+            set { SetProperty(ref _carbs, value); }
         }
 
         public int Fat
         {
             get => _fat;
-            set => SetProperty(ref _fat, value);
+            set { SetProperty(ref _fat, value); }
         }
 
         public int TrainingDayProtein
         {
             get => _trainingDayProtein;
-            set => SetProperty(ref _trainingDayProtein, value);
+            set { SetProperty(ref _trainingDayProtein, value); }
         }
 
         public int TrainingDayCarbs
         {
             get => _trainingDayCarbs;
-            set => SetProperty(ref _trainingDayCarbs, value);
+            set { SetProperty(ref _trainingDayCarbs, value); }
         }
 
         public int TrainingDayFat
         {
             get => _trainingDayFat;
-            set => SetProperty(ref _trainingDayFat, value);
+            set { SetProperty(ref _trainingDayFat, value); }
         }
 
         public int RestDayProtein
         {
             get => _restDayProtein;
-            set => SetProperty(ref _restDayProtein, value);
+            set { SetProperty(ref _restDayProtein, value); }
         }
 
         public int RestDayCarbs
         {
             get => _restDayCarbs;
-            set => SetProperty(ref _restDayCarbs, value);
+            set { SetProperty(ref _restDayCarbs, value); }
         }
 
         public int RestDayFat
         {
             get => _restDayFat;
-            set => SetProperty(ref _restDayFat, value);
+            set { SetProperty(ref _restDayFat, value); }
         }
+
+        public List<string> PresetProfiles => new() { "Balanced", "High Protein", "Low Carb" };
+        public List<string> ModeOptions => AppConstants.Modes.ToList();
+        public List<string> EatingPatternOptions => AppConstants.EatingPatterns.ToList();
+        public List<string> TrainingPatternOptions => AppConstants.TrainingPatterns.ToList();
         #endregion
 
-        #region Options
-        public List<string> ModeOptions => new() { "Bulk", "Maintain", "Cut" };
-        
-        public List<string> InputModeOptions => new() { "Preset", "Custom" };
-        
-        public List<string> EatingPatternOptions => new() { "Same Everyday", "Training Days" };
-        
-        public List<string> PresetProfiles => new()
+        public MacroViewModel(IStorageService? storageService = null)
         {
-            "Balanced",
-            "Training Optimized",
-            "Hypertrophy",
-            "Strength"
-        };
-
-        public List<int> TrainingDayOptions => new() { 2, 3, 4, 5, 6, 7 };
-        
-        public List<string> BulkChangeOptions => new()
-        {
-            "0.25kg", "0.3kg", "0.35kg", "0.4kg", "0.45kg", "0.5kg", "0.55kg"
-        };
-        
-        public List<string> CutChangeOptions => new()
-        {
-            "0.5%", "0.6%", "0.7%", "0.8%", "0.9%", "1.0%", "1.1%", "1.2%", "1.3%", "1.4%", "1.5%", "1.6%", "1.7%", "1.8%", "1.9%", "2.0%"
-        };
-        #endregion
-
-        public MacroViewModel()
-        {
-            _storageService = new FileStorageService();
-            RecalculateAll();
+            _storageService = storageService ?? new FileStorageService();
         }
 
         private void RecalculateAll()
@@ -239,62 +226,47 @@ namespace Diet_calulator.ViewModels
 
         private void CalculateBaseCalories()
         {
-            int baseCalories = (int)Math.Round(_weight * _metabolism);
-            
-            if (_mode == "Bulk")
+            DailyCalories = (int)(Weight * Metabolism) + Cardio / 7 + Snacks / 7;
+
+            if (Mode == AppConstants.Mode_Bulk)
             {
-                // Surplus = (change * 5150) / trainingDaysPerWeek + (cardio per day - snacks per day)
-                double cardioPerDay = (_cardio * _weight) / _trainingDaysPerWeek;
-                double snacksPerDay = _snacks / (double)_trainingDaysPerWeek;
-                double surplus = ((_changePerWeek * 5150) / _trainingDaysPerWeek) + (cardioPerDay - snacksPerDay);
-                DailyCalories = (int)Math.Round(baseCalories + surplus);
+                DailyCalories += (int)(Weight * ChangePerWeek * 770 / 7);
             }
-            else if (_mode == "Cut")
+            else if (Mode == AppConstants.Mode_Cut)
             {
-                // Deficit = (weight * change% * 1100) - cardio
-                double deficit = (_weight * (_changePerWeek / 100) * 1100) - _cardio;
-                DailyCalories = (int)Math.Round(baseCalories - deficit);
-            }
-            else // Maintain
-            {
-                DailyCalories = baseCalories;
+                DailyCalories -= (int)(DailyCalories * ChangePerWeek / 100 / 7);
             }
         }
 
         private void CalculateMacros()
         {
-            if (_macroInputMode == "Custom")
+            if (MacroInputMode == AppConstants.MacroInputMode_Preset)
             {
-                Protein = (int)Math.Round(_weight * _proteinPerKg);
-                Fat = (int)Math.Round(_weight * _fatPerKg);
-                Carbs = (int)Math.Round((_dailyCalories - (Protein * 4) - (Fat * 9)) / 4.0);
+                CalculatePresetMacros();
             }
             else
             {
-                // Preset calculations based on PresetProfile
-                ApplyPresetMacros();
+                CalculateCustomMacros();
             }
         }
 
-        private void ApplyPresetMacros()
+        private void CalculatePresetMacros()
         {
-            var (proteinPerKg, fatPerKg) = _presetProfile switch
-            {
-                "Balanced" => (1.8, 0.9),
-                "Training Optimized" => (2.0, 0.85),
-                "Hypertrophy" => (2.2, 0.8),
-                "Strength" => (1.6, 1.0),
-                _ => (1.8, 0.9)
-            };
+            Protein = (int)(Weight * (PresetProfile == "High Protein" ? 2.5 : 2.0));
+            Fat = (int)(Weight * (PresetProfile == "Low Carb" ? 1.5 : 1.0));
+            Carbs = (DailyCalories - (Protein * 4) - (Fat * 9)) / 4;
+        }
 
-            Protein = (int)Math.Round(_weight * proteinPerKg);
-            Fat = (int)Math.Round(_weight * fatPerKg);
-            Carbs = (int)Math.Round((_dailyCalories - (Protein * 4) - (Fat * 9)) / 4.0);
+        private void CalculateCustomMacros()
+        {
+            Protein = (int)(Weight * ProteinPerKg);
+            Fat = (int)(Weight * FatPerKg);
+            Carbs = (DailyCalories - (Protein * 4) - (Fat * 9)) / 4;
         }
 
         private void CalculateTrainingAndRestDayMacros()
         {
-            if (_eatingPattern == "SameEveryday")
+            if (_eatingPattern == AppConstants.EatingPattern_SameEveryday)
             {
                 TrainingDayCalories = DailyCalories;
                 RestDayCalories = DailyCalories;
@@ -305,90 +277,118 @@ namespace Diet_calulator.ViewModels
                 RestDayCarbs = Carbs;
                 RestDayFat = Fat;
             }
-            else // TrainingDays
+            else
             {
-                // For training days: increase calories (mainly carbs)
-                // For rest days: decrease calories proportionally
-                int totalWeekCalories = (DailyCalories * _trainingDaysPerWeek) + (DailyCalories * (7 - _trainingDaysPerWeek));
-                
-                // Distribute evenly, but training days get more
-                TrainingDayCalories = (int)Math.Round(DailyCalories * 1.15); // 15% more on training days
-                RestDayCalories = (int)Math.Round(DailyCalories * 0.85); // 15% less on rest days
-                
-                // Protein stays the same, adjust carbs based on calorie difference
+                int totalWeeklyCalories = DailyCalories * 7;
+                int trainingDayCount = GetTrainingDaysCount();
+                int restDayCount = 7 - trainingDayCount;
+
+                TrainingDayCalories = (totalWeeklyCalories + (CarbsMore * trainingDayCount * 4)) / 7;
+                RestDayCalories = (totalWeeklyCalories - (CarbsMore * trainingDayCount * 4)) / 7;
+
                 TrainingDayProtein = Protein;
-                RestDayProtein = Protein;
                 TrainingDayFat = Fat;
+                TrainingDayCarbs = (TrainingDayCalories - (TrainingDayProtein * 4) - (TrainingDayFat * 9)) / 4;
+
+                RestDayProtein = Protein;
                 RestDayFat = Fat;
-                
-                int calbDiff = TrainingDayCalories - DailyCalories;
-                int trainingCarbsExtra = calbDiff / 4;
-                TrainingDayCarbs = Carbs + trainingCarbsExtra;
-                RestDayCarbs = Carbs - trainingCarbsExtra;
+                RestDayCarbs = (RestDayCalories - (RestDayProtein * 4) - (RestDayFat * 9)) / 4;
+            }
+        }
+
+        private int GetTrainingDaysCount()
+        {
+            return TrainingPattern switch
+            {
+                AppConstants.TrainingPattern_EveryOtherDay => 3,
+                AppConstants.TrainingPattern_2On1Off => 4,
+                AppConstants.TrainingPattern_3On1Off => 5,
+                _ => int.TryParse(TrainingPattern, out var days) ? days : 4
+            };
+        }
+
+        public async Task SaveAsync()
+        {
+            var calculation = new SavedCalculation
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Current",
+                Data = new Dictionary<string, string>
+                {
+                    { "Mode", _mode },
+                    { "Weight", _weight.ToString() },
+                    { "Metabolism", _metabolism.ToString() },
+                    { "PresetProfile", _presetProfile },
+                    { "MacroInputMode", _macroInputMode },
+                    { "ProteinPerKg", _proteinPerKg.ToString() },
+                    { "FatPerKg", _fatPerKg.ToString() },
+                    { "Cardio", _cardio.ToString() },
+                    { "EatingPattern", _eatingPattern },
+                    { "TrainingPattern", _trainingPattern },
+                    { "CarbsMore", _carbsMore.ToString() },
+                    { "Snacks", _snacks.ToString() },
+                    { "ChangePerWeek", _changePerWeek.ToString() }
+                }
+            };
+
+            await _storageService.SaveCalculationAsync(calculation);
+        }
+
+        public async Task LoadAsync()
+        {
+            var calculations = await _storageService.GetCalculationsAsync("Current");
+            var calculation = calculations.FirstOrDefault();
+            
+            if (calculation?.Data != null)
+            {
+                _mode = calculation.Data.GetValueOrDefault("Mode") ?? _mode;
+                _weight = double.TryParse(calculation.Data.GetValueOrDefault("Weight"), out var w) ? w : _weight;
+                _metabolism = int.TryParse(calculation.Data.GetValueOrDefault("Metabolism"), out var m) ? m : _metabolism;
+                _presetProfile = calculation.Data.GetValueOrDefault("PresetProfile") ?? _presetProfile;
+                _macroInputMode = calculation.Data.GetValueOrDefault("MacroInputMode") ?? _macroInputMode;
+                _proteinPerKg = double.TryParse(calculation.Data.GetValueOrDefault("ProteinPerKg"), out var p) ? p : _proteinPerKg;
+                _fatPerKg = double.TryParse(calculation.Data.GetValueOrDefault("FatPerKg"), out var f) ? f : _fatPerKg;
+                _cardio = int.TryParse(calculation.Data.GetValueOrDefault("Cardio"), out var c) ? c : _cardio;
+                _eatingPattern = calculation.Data.GetValueOrDefault("EatingPattern") ?? _eatingPattern;
+                _trainingPattern = calculation.Data.GetValueOrDefault("TrainingPattern") ?? _trainingPattern;
+                _carbsMore = int.TryParse(calculation.Data.GetValueOrDefault("CarbsMore"), out var cm) ? cm : _carbsMore;
+                _snacks = int.TryParse(calculation.Data.GetValueOrDefault("Snacks"), out var s) ? s : _snacks;
+                _changePerWeek = double.TryParse(calculation.Data.GetValueOrDefault("ChangePerWeek"), out var ch) ? ch : _changePerWeek;
+
+                RecalculateAll();
             }
         }
 
         public async Task SaveCalculationAsync(string name)
         {
-            try
+            var calculation = new SavedCalculation
             {
-                var calculation = new SavedCalculation(name, "Macro")
+                Id = Guid.NewGuid().ToString(),
+                Name = name,
+                Data = new Dictionary<string, string>
                 {
-                    Data = new Dictionary<string, string>
-                    {
-                        { "Mode", _mode },
-                        { "MacroInputMode", _macroInputMode },
-                        { "EatingPattern", _eatingPattern },
-                        { "Weight", _weight.ToString() },
-                        { "Metabolism", _metabolism.ToString() },
-                        { "ProteinPerKg", _proteinPerKg.ToString() },
-                        { "FatPerKg", _fatPerKg.ToString() },
-                        { "Cardio", _cardio.ToString() },
-                        { "Snacks", _snacks.ToString() },
-                        { "TrainingDaysPerWeek", _trainingDaysPerWeek.ToString() },
-                        { "ChangePerWeek", _changePerWeek.ToString() },
-                        { "PresetProfile", _presetProfile }
-                    }
-                };
-
-                await _storageService.SaveCalculationAsync(calculation);
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error saving calculation: {ex.Message}");
-            }
-        }
-
-        public async Task LoadCalculationAsync(string id)
-        {
-            try
-            {
-                var calculation = await _storageService.GetCalculationAsync(id);
-                if (calculation != null)
-                {
-                    Mode = calculation.Data["Mode"];
-                    MacroInputMode = calculation.Data["MacroInputMode"];
-                    EatingPattern = calculation.Data["EatingPattern"];
-                    Weight = double.Parse(calculation.Data["Weight"]);
-                    Metabolism = double.Parse(calculation.Data["Metabolism"]);
-                    ProteinPerKg = double.Parse(calculation.Data["ProteinPerKg"]);
-                    FatPerKg = double.Parse(calculation.Data["FatPerKg"]);
-                    Cardio = int.Parse(calculation.Data["Cardio"]);
-                    Snacks = int.Parse(calculation.Data["Snacks"]);
-                    TrainingDaysPerWeek = int.Parse(calculation.Data["TrainingDaysPerWeek"]);
-                    ChangePerWeek = double.Parse(calculation.Data["ChangePerWeek"]);
-                    PresetProfile = calculation.Data["PresetProfile"];
+                    { "Mode", _mode },
+                    { "Weight", _weight.ToString() },
+                    { "Metabolism", _metabolism.ToString() },
+                    { "PresetProfile", _presetProfile },
+                    { "MacroInputMode", _macroInputMode },
+                    { "ProteinPerKg", _proteinPerKg.ToString() },
+                    { "FatPerKg", _fatPerKg.ToString() },
+                    { "Cardio", _cardio.ToString() },
+                    { "EatingPattern", _eatingPattern },
+                    { "TrainingPattern", _trainingPattern },
+                    { "CarbsMore", _carbsMore.ToString() },
+                    { "Snacks", _snacks.ToString() },
+                    { "ChangePerWeek", _changePerWeek.ToString() }
                 }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error loading calculation: {ex.Message}");
-            }
+            };
+
+            await _storageService.SaveCalculationAsync(calculation);
         }
 
         public async Task<List<SavedCalculation>> GetSavedCalculationsAsync()
         {
-            return await _storageService.GetCalculationsAsync("Macro");
+            return await _storageService.GetCalculationsAsync("Current");
         }
 
         public async Task DeleteCalculationAsync(string id)
@@ -396,17 +396,40 @@ namespace Diet_calulator.ViewModels
             await _storageService.DeleteCalculationAsync(id);
         }
 
-        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string? propertyName = null)
+        public async Task LoadCalculationAsync(string id)
         {
-            if (Equals(storage, value))
+            var calculation = await _storageService.GetCalculationAsync(id);
+            if (calculation?.Data != null)
+            {
+                _mode = calculation.Data.GetValueOrDefault("Mode") ?? _mode;
+                _weight = double.TryParse(calculation.Data.GetValueOrDefault("Weight"), out var w) ? w : _weight;
+                _metabolism = int.TryParse(calculation.Data.GetValueOrDefault("Metabolism"), out var m) ? m : _metabolism;
+                _presetProfile = calculation.Data.GetValueOrDefault("PresetProfile") ?? _presetProfile;
+                _macroInputMode = calculation.Data.GetValueOrDefault("MacroInputMode") ?? _macroInputMode;
+                _proteinPerKg = double.TryParse(calculation.Data.GetValueOrDefault("ProteinPerKg"), out var p) ? p : _proteinPerKg;
+                _fatPerKg = double.TryParse(calculation.Data.GetValueOrDefault("FatPerKg"), out var f) ? f : _fatPerKg;
+                _cardio = int.TryParse(calculation.Data.GetValueOrDefault("Cardio"), out var c) ? c : _cardio;
+                _eatingPattern = calculation.Data.GetValueOrDefault("EatingPattern") ?? _eatingPattern;
+                _trainingPattern = calculation.Data.GetValueOrDefault("TrainingPattern") ?? _trainingPattern;
+                _carbsMore = int.TryParse(calculation.Data.GetValueOrDefault("CarbsMore"), out var cm) ? cm : _carbsMore;
+                _snacks = int.TryParse(calculation.Data.GetValueOrDefault("Snacks"), out var s) ? s : _snacks;
+                _changePerWeek = double.TryParse(calculation.Data.GetValueOrDefault("ChangePerWeek"), out var ch) ? ch : _changePerWeek;
+
+                RecalculateAll();
+            }
+        }
+
+        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "")
+        {
+            if (EqualityComparer<T>.Default.Equals(backingStore, value))
                 return false;
 
-            storage = value;
+            backingStore = value;
             OnPropertyChanged(propertyName);
             return true;
         }
 
-        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

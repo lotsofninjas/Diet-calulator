@@ -1,5 +1,7 @@
 using Diet_calulator.ViewModels;
 using Diet_calulator.Models;
+using Diet_calulator.Services;
+using Diet_calulator.Services; // Lägg till Services-using
 
 namespace Diet_calulator.Views
 {
@@ -28,6 +30,12 @@ namespace Diet_calulator.Views
             {
                 HiddenEntry.Text = string.Empty;
             };
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ThemeService.ApplyTheme(this);
         }
 
         private void UpdateWeightUnitSwitch()

@@ -1043,3 +1043,13 @@ C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-windows10.0.19041.0\win-x64\qualifiers.txt
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-windows10.0.19041.0\win-x64\qualifiers.txt.intermediate
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-windows10.0.19041.0\win-x64\MultipleQualifiersPerDimensionFound.txt
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-windows10.0.19041.0\win-x64\settings.scale-100.png
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-windows10.0.19041.0\win-x64\settings.scale-125.png
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-windows10.0.19041.0\win-x64\settings.scale-150.png
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-windows10.0.19041.0\win-x64\settings.scale-200.png
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-windows10.0.19041.0\win-x64\settings.scale-400.png
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-windows10.0.19041.0\win-x64\resizetizer\r\settings.scale-100.png
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-windows10.0.19041.0\win-x64\resizetizer\r\settings.scale-125.png
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-windows10.0.19041.0\win-x64\resizetizer\r\settings.scale-150.png
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-windows10.0.19041.0\win-x64\resizetizer\r\settings.scale-200.png
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-windows10.0.19041.0\win-x64\resizetizer\r\settings.scale-400.png

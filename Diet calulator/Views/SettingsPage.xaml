@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Diet_calulator.Views.SettingsPage"
+             Title="Settings"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Theme Section -->
+            <Frame BorderColor="#4ECDC4" CornerRadius="10" Padding="15" HasShadow="True">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Appearance" FontSize="16" FontAttributes="Bold"/>
+                    
+                    <HorizontalStackLayout Spacing="20" VerticalOptions="Center">
+                        <Label Text="Theme:" FontSize="14" FontAttributes="Bold" VerticalOptions="Center"/>
+                        <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                            <Label x:Name="LightLabel" Text="Light" FontSize="12" VerticalOptions="Center" TextColor="Black" FontAttributes="Bold"/>
+                            <Switch x:Name="ThemeSwitch" Toggled="OnThemeToggled" VerticalOptions="Center" ThumbColor="#4ECDC4" OnColor="#4ECDC4" OffColor="#E0E0E0"/>
+                            <Label x:Name="DarkLabel" Text="Dark" FontSize="12" VerticalOptions="Center" TextColor="#CCCCCC" FontAttributes="Bold"/>
+                        </HorizontalStackLayout>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Units Section -->
+            <Frame BorderColor="#4ECDC4" CornerRadius="10" Padding="15" HasShadow="True">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Units" FontSize="16" FontAttributes="Bold"/>
+                    
+                    <HorizontalStackLayout Spacing="20" VerticalOptions="Center" Margin="0,0,0,10">
+                        <Label Text="Weight:" FontSize="14" FontAttributes="Bold" VerticalOptions="Center"/>
+                        <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                            <Label x:Name="KgLabel" Text="kg" FontSize="12" VerticalOptions="Center" TextColor="Black" FontAttributes="Bold"/>
+                            <Switch x:Name="WeightUnitSwitch" Toggled="OnWeightUnitToggled" VerticalOptions="Center" ThumbColor="#4ECDC4" OnColor="#4ECDC4" OffColor="#E0E0E0"/>
+                            <Label x:Name="LbsLabel" Text="lbs" FontSize="12" VerticalOptions="Center" TextColor="#CCCCCC" FontAttributes="Bold"/>
+                        </HorizontalStackLayout>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="20" VerticalOptions="Center">
+                        <Label Text="Distance:" FontSize="14" FontAttributes="Bold" VerticalOptions="Center"/>
+                        <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                            <Label x:Name="KmLabel" Text="km" FontSize="12" VerticalOptions="Center" TextColor="Black" FontAttributes="Bold"/>
+                            <Switch x:Name="DistanceUnitSwitch" Toggled="OnDistanceUnitToggled" VerticalOptions="Center" ThumbColor="#4ECDC4" OnColor="#4ECDC4" OffColor="#E0E0E0"/>
+                            <Label x:Name="MilesLabel" Text="miles" FontSize="12" VerticalOptions="Center" TextColor="#CCCCCC" FontAttributes="Bold"/>
+                        </HorizontalStackLayout>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Info Section -->
+            <Frame BorderColor="#E0E0E0" CornerRadius="10" Padding="15" HasShadow="False">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="About" FontSize="14" FontAttributes="Bold"/>
+                    <Label Text="Diet Calculator v1.0" FontSize="12" TextColor="#666666"/>
+                    <Label Text="Macro &amp; Nutrition Planner" FontSize="11" TextColor="#999999"/>
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

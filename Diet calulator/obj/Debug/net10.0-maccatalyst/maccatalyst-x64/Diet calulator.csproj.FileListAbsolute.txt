@@ -621,3 +621,6 @@ C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-maccatalyst\maccatalyst-x64\Diet calulator.pdb
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-maccatalyst\maccatalyst-x64\Diet calulator.genruntimeconfig.cache
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-maccatalyst\maccatalyst-x64\ref\Diet calulator.dll
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-maccatalyst\maccatalyst-x64\resizetizer\r\settings@3x.png
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-maccatalyst\maccatalyst-x64\resizetizer\r\settings@2x.png
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-maccatalyst\maccatalyst-x64\resizetizer\r\settings.png
