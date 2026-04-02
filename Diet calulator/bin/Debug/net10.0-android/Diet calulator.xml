@@ -9,6 +9,71 @@
             Centraliserade konstanter för appen för att undvika magiska strängar
             </summary>
         </member>
+        <member name="M:Diet_calulator.Services.AppSettings.Initialize">
+            <summary>
+            Initialize settings - must be called during app startup
+            </summary>
+        </member>
+        <member name="M:Diet_calulator.Services.AppSettings.GetWeightUnit">
+            <summary>
+            Gets the global weight unit preference (kg or lbs)
+            </summary>
+        </member>
+        <member name="M:Diet_calulator.Services.AppSettings.SetWeightUnit(System.String)">
+            <summary>
+            Sets the global weight unit preference (kg or lbs)
+            </summary>
+        </member>
+        <member name="M:Diet_calulator.Services.AppSettings.GetDistanceUnit">
+            <summary>
+            Gets the global distance unit preference (km or miles)
+            </summary>
+        </member>
+        <member name="M:Diet_calulator.Services.AppSettings.SetDistanceUnit(System.String)">
+            <summary>
+            Sets the global distance unit preference (km or miles)
+            </summary>
+        </member>
+        <member name="M:Diet_calulator.Services.AppSettings.IsUsingLbs">
+            <summary>
+            Checks if using lbs (returns true if lbs, false if kg)
+            </summary>
+        </member>
+        <member name="M:Diet_calulator.Services.AppSettings.IsUsingMiles">
+            <summary>
+            Checks if using miles (returns true if miles, false if km)
+            </summary>
+        </member>
+        <member name="M:Diet_calulator.Services.AppSettings.ConvertToKg(System.Double)">
+            <summary>
+            Converts weight to kg if needed based on current unit setting
+            </summary>
+        </member>
+        <member name="M:Diet_calulator.Services.AppSettings.ConvertFromKg(System.Double)">
+            <summary>
+            Converts weight from kg to current unit setting
+            </summary>
+        </member>
+        <member name="M:Diet_calulator.Services.AppSettings.ConvertToKm(System.Double)">
+            <summary>
+            Converts distance to km if needed based on current unit setting
+            </summary>
+        </member>
+        <member name="M:Diet_calulator.Services.AppSettings.ConvertFromKm(System.Double)">
+            <summary>
+            Converts distance from km to current unit setting
+            </summary>
+        </member>
+        <member name="M:Diet_calulator.Services.CardioCalculator.LbsToKg(System.Double)">
+            <summary>
+            Converts pounds to kilograms
+            </summary>
+        </member>
+        <member name="M:Diet_calulator.Services.CardioCalculator.KgToLbs(System.Double)">
+            <summary>
+            Converts kilograms to pounds
+            </summary>
+        </member>
         <member name="T:Diet_calulator.Resource">
             <summary>
             Android Resource Designer class.

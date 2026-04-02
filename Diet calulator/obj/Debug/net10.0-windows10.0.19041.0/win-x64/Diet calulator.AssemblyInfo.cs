@@ -18,7 +18,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Diet calulator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+a9684010b128e93ce9b1db0e903f34c4eba9097c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+b2959eb7536210fc00a3386e601a9f92868d24ba")]
 [assembly: System.Reflection.AssemblyProductAttribute("Diet calulator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Diet calulator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -18,35 +18,48 @@ public partial class SettingsPage : ContentPage
     {
         base.OnAppearing();
         
-        // Uppdatera Switch med sparad tema-inställning
-        ThemeSwitch.IsToggled = ThemeService.CurrentTheme == ThemeService.Theme.Dark;
-        
-        ThemeService.ApplyTheme(this);
-    }
+        // Uppdatera weight unit switch från globala inställningar
+        WeightUnitSwitch.IsToggled = AppSettings.IsUsingLbs();
+        UpdateWeightUnitLabels();
 
-    private void OnThemeToggled(object sender, ToggledEventArgs e)
-    {
-        ThemeService.CurrentTheme = e.Value ? ThemeService.Theme.Dark : ThemeService.Theme.Light;
-        ThemeService.ApplyTheme(this);
+        // Uppdatera distance unit switch från globala inställningar
+        DistanceUnitSwitch.IsToggled = AppSettings.IsUsingMiles();
+        UpdateDistanceUnitLabels();
         
-        // Applicera på andra sidor om de är synliga
-        if (Application.Current?.MainPage is Shell shell)
-        {
-            shell.BackgroundColor = Color.Parse(ThemeService.GetBackground());
-            if (shell.FindByName<Label>("TitleLabel") is Label titleLabel)
-            {
-                titleLabel.TextColor = Color.Parse(ThemeService.GetTextPrimary());
-            }
-        }
+        ThemeService.ApplyTheme(this);
     }
 
     private void OnWeightUnitToggled(object sender, ToggledEventArgs e)
     {
-        _viewModel.WeightUnit = e.Value ? "lbs" : "kg";
+        string unit = e.Value ? "lbs" : "kg";
+        _viewModel.WeightUnit = unit;
+        AppSettings.SetWeightUnit(unit);
+        UpdateWeightUnitLabels();
     }
 
     private void OnDistanceUnitToggled(object sender, ToggledEventArgs e)
     {
-        _viewModel.DistanceUnit = e.Value ? "miles" : "km";
+        string unit = e.Value ? "miles" : "km";
+        _viewModel.DistanceUnit = unit;
+        AppSettings.SetDistanceUnit(unit);
+        UpdateDistanceUnitLabels();
+    }
+
+    private void UpdateWeightUnitLabels()
+    {
+        bool isLbs = AppSettings.IsUsingLbs();
+        KgLabel.TextColor = isLbs ? Color.Parse("#CCCCCC") : Color.Parse("Black");
+        LbsLabel.TextColor = isLbs ? Color.Parse("Black") : Color.Parse("#CCCCCC");
+        KgLabel.FontAttributes = isLbs ? FontAttributes.None : FontAttributes.Bold;
+        LbsLabel.FontAttributes = isLbs ? FontAttributes.Bold : FontAttributes.None;
+    }
+
+    private void UpdateDistanceUnitLabels()
+    {
+        bool isMiles = AppSettings.IsUsingMiles();
+        KmLabel.TextColor = isMiles ? Color.Parse("#CCCCCC") : Color.Parse("Black");
+        MilesLabel.TextColor = isMiles ? Color.Parse("Black") : Color.Parse("#CCCCCC");
+        KmLabel.FontAttributes = isMiles ? FontAttributes.None : FontAttributes.Bold;
+        MilesLabel.FontAttributes = isMiles ? FontAttributes.Bold : FontAttributes.None;
     }
 }

@@ -15,6 +15,9 @@ public static class ThemeService
     }
 
     private static Theme _currentTheme = Theme.Dark;
+    private static bool _isInitialized = false;
+    private static bool _initializationAttempted = false;
+
     public static Theme CurrentTheme 
     { 
         get => _currentTheme;
@@ -27,18 +30,40 @@ public static class ThemeService
 
     static ThemeService()
     {
-        LoadThemePreference();
+        // Don't load preference during static initialization
+        // Initialize() will be called from App.xaml.cs instead
+    }
+
+    public static void Initialize()
+    {
+        if (_isInitialized || _initializationAttempted)
+            return;
+
+        _initializationAttempted = true;
+
+        try
+        {
+            LoadThemePreference();
+            _isInitialized = true;
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error initializing theme: {ex.Message}");
+            _currentTheme = Theme.Dark;
+            _isInitialized = true;
+        }
     }
 
     private static void LoadThemePreference()
     {
         try
         {
-            var savedTheme = Preferences.Get(ThemePreferenceKey, "Dark");
+            var savedTheme = Preferences.Default.Get(ThemePreferenceKey, "Dark");
             _currentTheme = savedTheme == "Light" ? Theme.Light : Theme.Dark;
         }
-        catch
+        catch (Exception ex)
         {
+            System.Diagnostics.Debug.WriteLine($"Error loading theme preference: {ex.Message}");
             _currentTheme = Theme.Dark;
         }
     }
@@ -47,7 +72,7 @@ public static class ThemeService
     {
         try
         {
-            Preferences.Set(ThemePreferenceKey, CurrentTheme == Theme.Light ? "Light" : "Dark");
+            Preferences.Default.Set(ThemePreferenceKey, CurrentTheme == Theme.Light ? "Light" : "Dark");
         }
         catch (Exception ex)
         {

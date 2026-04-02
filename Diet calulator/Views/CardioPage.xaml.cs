@@ -12,12 +12,17 @@ public partial class CardioPage : ContentPage
         InitializeComponent();
         _viewModel = new CardioViewModel();
         BindingContext = _viewModel;
+        UpdateActivityUI();
     }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
         ThemeService.ApplyTheme(this);
+        
+        // Update speed unit label based on distance unit setting
+        var distanceUnit = AppSettings.GetDistanceUnit();
+        SpeedUnitLabel.Text = (distanceUnit == "miles") ? "mph" : "km/h";
     }
 
     private void OnActivityClicked(object sender, EventArgs e)
@@ -50,15 +55,18 @@ public partial class CardioPage : ContentPage
         {
             case "Walking":
                 SpeedSection.IsVisible = true;
-                IntensitySection.IsVisible = false;
+                InclineSection.IsVisible = true;
+                WattsSection.IsVisible = false;
                 break;
             case "Running":
                 SpeedSection.IsVisible = true;
-                IntensitySection.IsVisible = false;
+                InclineSection.IsVisible = true;
+                WattsSection.IsVisible = false;
                 break;
             case "Cycling":
                 SpeedSection.IsVisible = false;
-                IntensitySection.IsVisible = true;
+                InclineSection.IsVisible = false;
+                WattsSection.IsVisible = true;
                 break;
         }
     }
@@ -67,7 +75,7 @@ public partial class CardioPage : ContentPage
     {
         var result = await DisplayPromptAsync(
             "Enter Weight",
-            $"Current: {_viewModel.Weight:F1} kg",
+            $"Current: {_viewModel.Weight:F1} {_viewModel.WeightUnit}",
             "OK",
             "Cancel",
             "Weight",
@@ -97,47 +105,55 @@ public partial class CardioPage : ContentPage
 
     private async void OnSpeedTapped(object sender, TappedEventArgs e)
     {
+        var speedUnit = AppSettings.GetDistanceUnit() == "miles" ? "mph" : "km/h";
+        var isMiles = AppSettings.GetDistanceUnit() == "miles";
+        var currentSpeed = isMiles ? _viewModel.Speed / 1.60934 : _viewModel.Speed;
+        
         var result = await DisplayPromptAsync(
             "Enter Speed",
-            $"Current: {_viewModel.Speed:F1} km/h",
+            $"Current: {currentSpeed:F1} {speedUnit}",
             "OK",
             "Cancel",
-            "km/h",
+            speedUnit,
             keyboard: Keyboard.Numeric);
 
         if (!string.IsNullOrEmpty(result) && double.TryParse(result, out var speed))
         {
-            _viewModel.Speed = speed;
+            // Konvertera från användarens enhet till km/h för lagring
+            var speedKmh = isMiles ? speed * 1.60934 : speed;
+            _viewModel.Speed = speedKmh;
         }
     }
 
-    private async void OnIntensityTapped(object sender, TappedEventArgs e)
-    {
-        var action = await DisplayActionSheet(
-            "Select Intensity",
-            "Cancel",
-            null,
-            _viewModel.IntensityOptions.ToArray());
-
-        if (action != null && action != "Cancel")
-        {
-            _viewModel.Intensity = action;
-        }
-    }
-
-    private async void OnFrequencyTapped(object sender, TappedEventArgs e)
+    private async void OnInclineTapped(object sender, TappedEventArgs e)
     {
         var result = await DisplayPromptAsync(
-            "Enter Frequency",
-            $"Current: {_viewModel.Frequency} times/week",
+            "Enter Incline",
+            $"Current: {_viewModel.Incline:F1}",
             "OK",
             "Cancel",
-            "Times per week",
+            "%",
             keyboard: Keyboard.Numeric);
 
-        if (!string.IsNullOrEmpty(result) && int.TryParse(result, out var frequency))
+        if (!string.IsNullOrEmpty(result) && double.TryParse(result, out var incline))
         {
-            _viewModel.Frequency = frequency;
+            _viewModel.Incline = incline;
+        }
+    }
+
+    private async void OnWattsTapped(object sender, TappedEventArgs e)
+    {
+        var result = await DisplayPromptAsync(
+            "Enter Power",
+            $"Current: {_viewModel.Watts:F0} watts",
+            "OK",
+            "Cancel",
+            "watts",
+            keyboard: Keyboard.Numeric);
+
+        if (!string.IsNullOrEmpty(result) && double.TryParse(result, out var watts))
+        {
+            _viewModel.Watts = watts;
         }
     }
 

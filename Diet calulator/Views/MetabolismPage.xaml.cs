@@ -1,7 +1,6 @@
 using Diet_calulator.ViewModels;
 using Diet_calulator.Models;
 using Diet_calulator.Services;
-using Diet_calulator.Services; // Lägg till Services-using
 
 namespace Diet_calulator.Views
 {
@@ -16,7 +15,6 @@ namespace Diet_calulator.Views
             InitializeComponent();
             _viewModel = new MetabolismViewModel();
             BindingContext = _viewModel;
-            UpdateWeightUnitSwitch();
             
             HiddenEntry.TextChanged += (s, e) => 
             {
@@ -38,42 +36,16 @@ namespace Diet_calulator.Views
             ThemeService.ApplyTheme(this);
         }
 
-        private void UpdateWeightUnitSwitch()
-        {
-            WeightUnitSwitch.IsToggled = (_viewModel.WeightUnit == "lbs");
-            UpdateWeightUnitLabels();
-        }
-
-        private void UpdateWeightUnitLabels()
-        {
-            if (_viewModel.WeightUnit == "kg")
-            {
-                KgLabel.TextColor = Colors.Black;
-                LbsLabel.TextColor = Color.Parse("#CCCCCC");
-            }
-            else
-            {
-                KgLabel.TextColor = Color.Parse("#CCCCCC");
-                LbsLabel.TextColor = Colors.Black;
-            }
-        }
-
-        private void OnWeightUnitToggled(object sender, ToggledEventArgs e)
-        {
-            _viewModel.WeightUnit = e.Value ? "lbs" : "kg";
-            UpdateWeightUnitLabels();
-        }
-
         private async void OnInfoClicked(object sender, EventArgs e)
         {
             await DisplayAlert(
                 "How to Use - Metabolism Calculator",
-                "1. Select your weight unit (kg or lbs)\n\n" +
-                "2. Enter your STARTING weight at the beginning of the measurement period\n\n" +
-                "3. Enter your ENDING weight after the measurement period. Note: More weeks gives more accurate results\n\n" +
-                "4. Select the number of WEEKS (2, 3, or 4)\n\n" +
-                "5. Enter your AVERAGE daily calorie intake. Note: The more precisely you measure your intake, the more accurate the calculation\n\n" +
-                "6. (Optional) Enter total CARDIO calories burned during the period. Including cardio makes the calculation more independent of cardio activity. Leave empty if not tracking cardio\n\n" +
+                "1. Enter your STARTING weight at the beginning of the measurement period\n\n" +
+                "2. Enter your ENDING weight after the measurement period. Note: More weeks gives more accurate results\n\n" +
+                "3. Select the number of WEEKS (2, 3, or 4)\n\n" +
+                "4. Enter your AVERAGE daily calorie intake. Note: The more precisely you measure your intake, the more accurate the calculation\n\n" +
+                "5. (Optional) Enter total CARDIO calories burned during the period. Including cardio makes the calculation more independent of cardio activity. Leave empty if not tracking cardio\n\n" +
+                "6. Your weight unit can be changed in Settings\n\n" +
                 "The calculator will compute your actual metabolism based on real weight changes.",
                 "Got it");
         }
@@ -297,7 +269,6 @@ namespace Diet_calulator.Views
                     try
                     {
                         await _viewModel.LoadCalculationAsync(calculation.Id);
-                        UpdateWeightUnitSwitch();
                         await Navigation.PopModalAsync();
                     }
                     catch (Exception ex)

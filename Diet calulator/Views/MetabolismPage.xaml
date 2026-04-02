@@ -6,46 +6,35 @@
              BackgroundColor="#F5F5F5">
 
     <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*" Padding="20,20,20,0" RowSpacing="20">
-        <!-- Header Row with Weight Unit Slider (left - enlarged) and "How to use" (far right) -->
-        <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto" VerticalOptions="Center">
-            <!-- Weight Unit Slider - Left side (ENLARGED by 15%) -->
-            <HorizontalStackLayout Grid.Column="0" Spacing="8" VerticalOptions="Center" HorizontalOptions="Start">
-                <Label x:Name="KgLabel"
-                       Text="kg" FontSize="16" VerticalOptions="Center" TextColor="Black" FontAttributes="Bold"/>
-                <Switch x:Name="WeightUnitSwitch"
-                        IsToggled="False"
-                        Toggled="OnWeightUnitToggled"
-                        VerticalOptions="Center"
-                        ThumbColor="#4ECDC4"
-                        OnColor="#E0E0E0"
-                        OffColor="#E0E0E0"
-                        Scale="1.15"/>
-                <Label x:Name="LbsLabel"
-                       Text="lbs" FontSize="16" VerticalOptions="Center" TextColor="#CCCCCC" FontAttributes="Bold"/>
-            </HorizontalStackLayout>
+        <!-- Header Row with "How to use" Button -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" VerticalOptions="Center">
+            <Label Grid.Column="0" />
 
             <!-- "How to use" Button - Far right -->
-            <Button Grid.Column="2" 
+            <Button Grid.Column="1" 
                     Text="How to use" 
                     Clicked="OnInfoClicked"
                     BackgroundColor="#4ECDC4"
                     TextColor="White"
-                    Padding="10,5"
+                    Padding="12,8"
                     FontSize="14"
+                    FontAttributes="Bold"
                     HorizontalOptions="End"
-                    VerticalOptions="Center"/>
+                    VerticalOptions="Center"
+                    CornerRadius="8"/>
         </Grid>
 
         <!-- Scrollable Content -->
         <ScrollView Grid.Row="1">
-            <VerticalStackLayout Padding="0,0,20,20" Spacing="15" Margin="0,10,0,0">
-                <!-- Input Section -->
+            <VerticalStackLayout Padding="0,0,20,20" Spacing="20" Margin="0,10,0,0">
+                
                 <!-- Starting Weight -->
-                <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,14">
-                    <Label Text="Starting Weight:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+                <HorizontalStackLayout Spacing="12" VerticalOptions="Center" HorizontalOptions="Start">
+                    <Label Text="Starting Weight:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" WidthRequest="130"/>
                     <Label x:Name="StartWeightDisplay"
                            Text="{Binding StartWeight, StringFormat='{0:F0}'}"
                            FontSize="16"
+                           FontAttributes="Bold"
                            VerticalOptions="Center"
                            HorizontalOptions="Start"
                            BackgroundColor="Transparent">
@@ -53,15 +42,16 @@
                             <TapGestureRecognizer Tapped="OnStartWeightTapped"/>
                         </Label.GestureRecognizers>
                     </Label>
-                    <Label Text="{Binding WeightUnit}" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#666666"/>
+                    <Label Text="{Binding GlobalWeightUnit}" FontSize="14" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#999999"/>
                 </HorizontalStackLayout>
 
                 <!-- Ending Weight -->
-                <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,14">
-                    <Label Text="Ending Weight:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+                <HorizontalStackLayout Spacing="12" VerticalOptions="Center" HorizontalOptions="Start">
+                    <Label Text="Ending Weight:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" WidthRequest="130"/>
                     <Label x:Name="EndWeightDisplay"
                            Text="{Binding EndWeight, StringFormat='{0:F0}'}"
                            FontSize="16"
+                           FontAttributes="Bold"
                            VerticalOptions="Center"
                            HorizontalOptions="Start"
                            BackgroundColor="Transparent">
@@ -69,15 +59,16 @@
                             <TapGestureRecognizer Tapped="OnEndWeightTapped"/>
                         </Label.GestureRecognizers>
                     </Label>
-                    <Label Text="{Binding WeightUnit}" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#666666"/>
+                    <Label Text="{Binding GlobalWeightUnit}" FontSize="14" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#999999"/>
                 </HorizontalStackLayout>
 
                 <!-- Average kcal per day -->
-                <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,14">
-                    <Label Text="Average kcal/day:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+                <HorizontalStackLayout Spacing="12" VerticalOptions="Center" HorizontalOptions="Start">
+                    <Label Text="Avg kcal/day:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" WidthRequest="130"/>
                     <Label x:Name="KcalDisplay"
                            Text="{Binding KcalPerDay, StringFormat='{0:F0}'}"
                            FontSize="16"
+                           FontAttributes="Bold"
                            VerticalOptions="Center"
                            HorizontalOptions="Start"
                            BackgroundColor="Transparent">
@@ -88,11 +79,12 @@
                 </HorizontalStackLayout>
 
                 <!-- Weeks -->
-                <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,14">
-                    <Label Text="Weeks:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+                <HorizontalStackLayout Spacing="12" VerticalOptions="Center" HorizontalOptions="Start">
+                    <Label Text="Weeks:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" WidthRequest="130"/>
                     <Label x:Name="WeeksDisplay"
                            Text="{Binding Weeks}"
                            FontSize="16"
+                           FontAttributes="Bold"
                            VerticalOptions="Center"
                            HorizontalOptions="Start"
                            BackgroundColor="Transparent">
@@ -103,12 +95,13 @@
                 </HorizontalStackLayout>
 
                 <!-- Cardio (optional) -->
-                <VerticalStackLayout Padding="0,0,0,0" Margin="0,0,0,0">
-                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,14">
-                        <Label Text="Cardio:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center"/>
+                <VerticalStackLayout Spacing="6">
+                    <HorizontalStackLayout Spacing="12" VerticalOptions="Center" HorizontalOptions="Start">
+                        <Label Text="Cardio:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" WidthRequest="130"/>
                         <Label x:Name="CardioDisplay"
                                Text="{Binding CardioKcal, StringFormat='{0:F0}'}"
                                FontSize="16"
+                               FontAttributes="Bold"
                                VerticalOptions="Center"
                                HorizontalOptions="Start"
                                BackgroundColor="Transparent">
@@ -116,9 +109,9 @@
                                 <TapGestureRecognizer Tapped="OnCardioTapped"/>
                             </Label.GestureRecognizers>
                         </Label>
-                        <Label Text="kcal/week" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#666666"/>
+                        <Label Text="kcal/week" FontSize="14" VerticalOptions="Center" HorizontalOptions="Start" TextColor="#999999"/>
                     </HorizontalStackLayout>
-                    <Label FontSize="13" TextColor="#999999" Margin="0,2,0,0">Tap to edit (leave empty if not tracking)</Label>
+                    <Label FontSize="12" TextColor="#999999" Margin="0,0,0,0">Tap to edit (optional)</Label>
                 </VerticalStackLayout>
 
                 <!-- Hidden Entry for numeric input -->
@@ -130,55 +123,62 @@
                        HeightRequest="0"/>
 
                 <!-- Result -->
-                <Frame BorderColor="#FF6B6B" CornerRadius="10" Padding="15" HasShadow="True" Margin="0,20,0,0">
-                    <VerticalStackLayout Spacing="15">
-                        <Label Text="Calculated Metabolism" FontSize="16" FontAttributes="Bold" />
+                <Frame BorderColor="#E0E0E0" CornerRadius="12" Padding="20" HasShadow="False" Margin="0,20,0,0">
+                    <VerticalStackLayout Spacing="16">
+                        <Label Text="Calculated Metabolism" FontSize="16" FontAttributes="Bold" TextColor="#666666"/>
                         
-                        <Label FontSize="14">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="{Binding Metabolism, StringFormat='{0:D}'}" FontSize="28" FontAttributes="Bold" />
-                                    <Span Text=" kcal/" FontSize="14" />
-                                    <Span Text="{Binding WeightUnit}" FontSize="14" />
-                                    <Span Text="/day" FontSize="14" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        
-                        <Label FontSize="13" TextColor="#666666">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Based on weight from " />
-                                    <Span Text="{Binding StartWeight, StringFormat='{0:F0}'}" FontAttributes="Bold" />
-                                    <Span Text=" to " />
-                                    <Span Text="{Binding EndWeight, StringFormat='{0:F0}'}" FontAttributes="Bold" />
-                                    <Span Text=" over " />
-                                    <Span Text="{Binding Weeks}" FontAttributes="Bold" />
-                                    <Span Text=" weeks" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
+                        <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                            <Label FontSize="32" FontAttributes="Bold" HorizontalOptions="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding Metabolism, StringFormat='{0:D}'}" TextColor="#4ECDC4"/>
+                                        <Span Text=" " TextColor="#4ECDC4"/>
+                                        <Span Text="kcal/" FontSize="14" TextColor="#999999"/>
+                                        <Span Text="{Binding GlobalWeightUnit}" FontSize="14" TextColor="#999999"/>
+                                        <Span Text="/day" FontSize="14" TextColor="#999999"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            
+                            <Label FontSize="12" TextColor="#999999" HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Based on " />
+                                        <Span Text="{Binding StartWeight, StringFormat='{0:F0}'}" FontAttributes="Bold" />
+                                        <Span Text=" → " />
+                                        <Span Text="{Binding EndWeight, StringFormat='{0:F0}'}" FontAttributes="Bold" />
+                                        <Span Text=" over " />
+                                        <Span Text="{Binding Weeks}" FontAttributes="Bold" />
+                                        <Span Text=" weeks" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </VerticalStackLayout>
                     </VerticalStackLayout>
                 </Frame>
             </VerticalStackLayout>
         </ScrollView>
 
         <!-- Save/Load Buttons - Fixed at bottom above tab bar -->
-        <HorizontalStackLayout Grid.Row="2" Spacing="13" Margin="0,0,20,20" HorizontalOptions="Center">
+        <HorizontalStackLayout Grid.Row="2" Spacing="12" Margin="0,0,20,20" HorizontalOptions="Center">
             <Button Text="Save" 
                     Clicked="OnSaveClicked"
                     BackgroundColor="#4ECDC4"
                     TextColor="White"
                     FontSize="14"
+                    FontAttributes="Bold"
                     Padding="20,10"
-                    WidthRequest="100"/>
+                    WidthRequest="100"
+                    CornerRadius="8"/>
             <Button Text="Load" 
                     Clicked="OnLoadClicked"
                     BackgroundColor="#4ECDC4"
                     TextColor="White"
                     FontSize="14"
+                    FontAttributes="Bold"
                     Padding="20,10"
-                    WidthRequest="100"/>
+                    WidthRequest="100"
+                    CornerRadius="8"/>
         </HorizontalStackLayout>
 
     </Grid>

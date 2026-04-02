@@ -8,6 +8,11 @@ namespace Diet_calulator
         public AppShell()
         {
             InitializeComponent();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
             ApplyTheme();
         }
 
@@ -21,11 +26,6 @@ namespace Diet_calulator
             {
                 titleLabel.TextColor = Color.Parse(ThemeService.GetTextPrimary());
             }
-        }
-
-        private async void OnSettingsClicked(object sender, EventArgs e)
-        {
-            await Shell.Current.GoToAsync("settings");
         }
     }
 }

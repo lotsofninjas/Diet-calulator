@@ -13,14 +13,12 @@ namespace Diet_calulator.ViewModels
         // User inputs
         private double _weight = 75;
         private int _duration = 30;
-        private int _frequency = 3;
         private double _speed = 5.0;
-        private string _intensity = "Moderate";
+        private double _incline = 0.0;
+        private double _watts = 100;
         
         // Results
-        private int _caloriesPerSession = 0;
-        private int _caloriesPerWeek = 0;
-        private int _caloriesPerDay = 0;
+        private int _caloriesBurned = 0;
 
         private readonly IStorageService _storageService;
 
@@ -45,44 +43,37 @@ namespace Diet_calulator.ViewModels
             set { SetProperty(ref _duration, value); RecalculateAll(); }
         }
 
-        public int Frequency
-        {
-            get => _frequency;
-            set { SetProperty(ref _frequency, value); RecalculateAll(); }
-        }
-
         public double Speed
         {
             get => _speed;
             set { SetProperty(ref _speed, value); RecalculateAll(); }
         }
 
-        public string Intensity
+        public double Incline
         {
-            get => _intensity;
-            set { SetProperty(ref _intensity, value); RecalculateAll(); }
+            get => _incline;
+            set { SetProperty(ref _incline, value); RecalculateAll(); }
         }
 
-        public int CaloriesPerSession
+        public double Watts
         {
-            get => _caloriesPerSession;
-            set { SetProperty(ref _caloriesPerSession, value); }
+            get => _watts;
+            set { SetProperty(ref _watts, value); RecalculateAll(); }
         }
 
-        public int CaloriesPerWeek
+        public int CaloriesBurned
         {
-            get => _caloriesPerWeek;
-            set { SetProperty(ref _caloriesPerWeek, value); }
+            get => _caloriesBurned;
+            set { SetProperty(ref _caloriesBurned, value); }
         }
 
-        public int CaloriesPerDay
-        {
-            get => _caloriesPerDay;
-            set { SetProperty(ref _caloriesPerDay, value); }
-        }
+        public string WeightUnit => AppSettings.GetWeightUnit();
+
+        public double SpeedDisplay => AppSettings.GetDistanceUnit() == "miles" 
+            ? _speed / 1.60934 
+            : _speed;
 
         public List<string> ActivityTypes => new() { "Walking", "Running", "Cycling" };
-        public List<string> IntensityOptions => new() { "Low", "Moderate", "High", "Very High" };
         #endregion
 
         public CardioViewModel(IStorageService? storageService = null)
@@ -98,62 +89,27 @@ namespace Diet_calulator.ViewModels
 
         private void CalculateCalories()
         {
-            // MET (Metabolic Equivalent) values for different activities
-            double met = GetMET();
-            
-            // Formula: Calories = MET * Weight (kg) * Duration (hours)
-            double hours = Duration / 60.0;
-            CaloriesPerSession = (int)(met * Weight * hours);
-            
-            CaloriesPerWeek = CaloriesPerSession * Frequency;
-            CaloriesPerDay = CaloriesPerWeek / 7;
-        }
+            // Konvertera vikt till kg om behövs
+            double weightKg = AppSettings.ConvertToKg(_weight);
 
-        private double GetMET()
-        {
-            return ActivityType switch
-            {
-                "Walking" => GetWalkingMET(),
-                "Running" => GetRunningMET(),
-                "Cycling" => GetCyclingMET(),
-                _ => 3.0
-            };
-        }
+            // Konvertera hastighet från användarens enhet till km/h
+            double speedKmh = AppSettings.GetDistanceUnit() == "miles" 
+                ? _speed * 1.60934 
+                : _speed;
 
-        private double GetWalkingMET()
-        {
-            // Walking MET values based on speed (km/h)
-            return Speed switch
+            double calories = ActivityType switch
             {
-                <= 3.0 => 2.8,    // Slow walking
-                <= 4.0 => 3.5,    // Normal pace
-                <= 5.0 => 4.0,    // Brisk walking
-                _ => 5.0          // Very fast walking
+                "Walking" => _incline > 0 
+                    ? CardioCalculator.WalkingKcalIncline(speedKmh, _incline, weightKg, _duration)
+                    : CardioCalculator.WalkingKcal(speedKmh, weightKg, _duration),
+                "Running" => _incline > 0 
+                    ? CardioCalculator.RunningKcalIncline(speedKmh, _incline, weightKg, _duration)
+                    : CardioCalculator.RunningKcal(speedKmh, weightKg, _duration),
+                "Cycling" => CardioCalculator.CyclingKcal(_watts, weightKg, _duration),
+                _ => 0
             };
-        }
 
-        private double GetRunningMET()
-        {
-            // Running MET values based on speed (km/h)
-            return Speed switch
-            {
-                <= 8.0 => 8.3,    // Slow jogging
-                <= 10.0 => 9.8,   // Moderate running
-                <= 12.0 => 11.0,  // Fast running
-                _ => 13.5         // Very fast running
-            };
-        }
-
-        private double GetCyclingMET()
-        {
-            return Intensity switch
-            {
-                "Low" => 5.8,      // Leisurely cycling
-                "Moderate" => 7.5, // Moderate pace
-                "High" => 10.0,    // Vigorous cycling
-                "Very High" => 14.0, // Very intense
-                _ => 7.5
-            };
+            CaloriesBurned = (int)Math.Round(calories);
         }
 
         public async Task SaveAsync()
@@ -168,9 +124,9 @@ namespace Diet_calulator.ViewModels
                     { "ActivityType", _activityType },
                     { "Weight", _weight.ToString() },
                     { "Duration", _duration.ToString() },
-                    { "Frequency", _frequency.ToString() },
                     { "Speed", _speed.ToString() },
-                    { "Intensity", _intensity }
+                    { "Incline", _incline.ToString() },
+                    { "Watts", _watts.ToString() }
                 }
             };
 
@@ -187,9 +143,9 @@ namespace Diet_calulator.ViewModels
                 _activityType = calculation.Data.GetValueOrDefault("ActivityType") ?? _activityType;
                 _weight = double.TryParse(calculation.Data.GetValueOrDefault("Weight"), out var w) ? w : _weight;
                 _duration = int.TryParse(calculation.Data.GetValueOrDefault("Duration"), out var d) ? d : _duration;
-                _frequency = int.TryParse(calculation.Data.GetValueOrDefault("Frequency"), out var f) ? f : _frequency;
                 _speed = double.TryParse(calculation.Data.GetValueOrDefault("Speed"), out var s) ? s : _speed;
-                _intensity = calculation.Data.GetValueOrDefault("Intensity") ?? _intensity;
+                _incline = double.TryParse(calculation.Data.GetValueOrDefault("Incline"), out var inc) ? inc : _incline;
+                _watts = double.TryParse(calculation.Data.GetValueOrDefault("Watts"), out var wt) ? wt : _watts;
 
                 RecalculateAll();
             }
@@ -207,9 +163,9 @@ namespace Diet_calulator.ViewModels
                     { "ActivityType", _activityType },
                     { "Weight", _weight.ToString() },
                     { "Duration", _duration.ToString() },
-                    { "Frequency", _frequency.ToString() },
                     { "Speed", _speed.ToString() },
-                    { "Intensity", _intensity }
+                    { "Incline", _incline.ToString() },
+                    { "Watts", _watts.ToString() }
                 }
             };
 
@@ -221,12 +177,12 @@ namespace Diet_calulator.ViewModels
             return await _storageService.GetCalculationsAsync("Cardio");
         }
 
-        public async Task DeleteCalculationAsync(string id)
+        public async Task DeleteCalculationAsync(String id)
         {
             await _storageService.DeleteCalculationAsync(id);
         }
 
-        public async Task LoadCalculationAsync(string id)
+        public async Task LoadCalculationAsync(String id)
         {
             var calculation = await _storageService.GetCalculationAsync(id);
             if (calculation?.Data != null)
@@ -234,9 +190,9 @@ namespace Diet_calulator.ViewModels
                 _activityType = calculation.Data.GetValueOrDefault("ActivityType") ?? _activityType;
                 _weight = double.TryParse(calculation.Data.GetValueOrDefault("Weight"), out var w) ? w : _weight;
                 _duration = int.TryParse(calculation.Data.GetValueOrDefault("Duration"), out var d) ? d : _duration;
-                _frequency = int.TryParse(calculation.Data.GetValueOrDefault("Frequency"), out var f) ? f : _frequency;
                 _speed = double.TryParse(calculation.Data.GetValueOrDefault("Speed"), out var s) ? s : _speed;
-                _intensity = calculation.Data.GetValueOrDefault("Intensity") ?? _intensity;
+                _incline = double.TryParse(calculation.Data.GetValueOrDefault("Incline"), out var inc) ? inc : _incline;
+                _watts = double.TryParse(calculation.Data.GetValueOrDefault("Watts"), out var wt) ? wt : _watts;
 
                 RecalculateAll();
             }
@@ -252,7 +208,7 @@ namespace Diet_calulator.ViewModels
             return true;
         }
 
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

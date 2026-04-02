@@ -210,6 +210,11 @@ namespace Diet_calulator.ViewModels
         public List<string> ModeOptions => AppConstants.Modes.ToList();
         public List<string> EatingPatternOptions => AppConstants.EatingPatterns.ToList();
         public List<string> TrainingPatternOptions => AppConstants.TrainingPatterns.ToList();
+        public string WeightUnit => AppSettings.GetWeightUnit();
+        public string MetabolismUnit => $"kcal/{AppSettings.GetWeightUnit()}";
+        public int MetabolismDisplay => AppSettings.IsUsingLbs() 
+            ? (int)(_metabolism * 2.20462) 
+            : _metabolism;
         #endregion
 
         public MacroViewModel(IStorageService? storageService = null)

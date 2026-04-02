@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics;
 
 namespace Diet_calulator
 {
@@ -7,6 +8,18 @@ namespace Diet_calulator
         public App()
         {
             InitializeComponent();
+            
+            try
+            {
+                // Initialize settings and theme service after app resources are loaded
+                Services.AppSettings.Initialize();
+                Services.ThemeService.Initialize();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error initializing services: {ex.Message}");
+                // Continue with defaults if initialization fails
+            }
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

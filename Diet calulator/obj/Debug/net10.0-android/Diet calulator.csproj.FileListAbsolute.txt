@@ -1619,10 +1619,6 @@ C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-android\com.companyname.dietcalulator-Signed.aab
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-android\com.companyname.dietcalulator-Signed.apk
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-android\com.companyname.dietcalulator-Signed.apk.idsig
-C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-android\Microsoft.Maui.Controls.HotReload.Forms.dll
-C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-android\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
-C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-android\Microsoft.VisualStudio.DesignTools.TapContract.dll
-C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-android\Microsoft.VisualStudio.DesignTools.XamlTapContract.dll
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-android\.NETCoreApp,Version=v10.0.AssemblyAttributes.cs
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-android\build.props
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-android\adb.props
@@ -1743,7 +1739,6 @@ C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-android\Diet calulator.csproj.CoreCompileInputs.cache
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-android\Diet calulator.sourcelink.json
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-android\XamlC.stamp
-C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-android\Diet cal.709443D4.Up2Date
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-android\Diet calulator.dll
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-android\Diet calulator.pdb
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-android\Diet calulator.genruntimeconfig.cache
@@ -3230,3 +3225,8 @@ C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-android\resizetizer\r\drawable-xhdpi\settings.png
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-android\resizetizer\r\drawable-xxhdpi\settings.png
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-android\resizetizer\r\drawable-xxxhdpi\settings.png
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-android\Microsoft.Maui.Controls.HotReload.Forms.dll
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-android\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-android\Microsoft.VisualStudio.DesignTools.TapContract.dll
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-android\Microsoft.VisualStudio.DesignTools.XamlTapContract.dll
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-android\Diet cal.709443D4.Up2Date

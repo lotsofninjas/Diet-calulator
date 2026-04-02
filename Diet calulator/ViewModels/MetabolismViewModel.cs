@@ -69,6 +69,7 @@ namespace Diet_calulator.ViewModels
 
         public List<int> WeekOptions => new() { 2, 3, 4 };
         public List<string> WeightUnitOptions => new() { "kg", "lbs" };
+        public string GlobalWeightUnit => AppSettings.GetWeightUnit();
 
         public MetabolismViewModel()
         {

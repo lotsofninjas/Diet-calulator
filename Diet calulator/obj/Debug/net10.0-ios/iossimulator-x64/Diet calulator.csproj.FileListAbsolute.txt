@@ -582,10 +582,6 @@ C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-ios\iossimulator-x64\libxamarin-dotnet-nativeaot.a
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-ios\iossimulator-x64\libxamarin-dotnet.a
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-ios\iossimulator-x64\libxamarin-dotnet.dylib
-C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-ios\iossimulator-x64\Microsoft.Maui.Controls.HotReload.Forms.dll
-C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-ios\iossimulator-x64\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
-C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-ios\iossimulator-x64\Microsoft.VisualStudio.DesignTools.TapContract.dll
-C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-ios\iossimulator-x64\Microsoft.VisualStudio.DesignTools.XamlTapContract.dll
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-ios\iossimulator-x64\Diet calulator.csproj.AssemblyReference.cache
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-ios\iossimulator-x64\partialappmanifest\_PartialAppManifests.items
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-ios\iossimulator-x64\unpack\Microsoft.Maui.Essentials\BundleResource\xml\microsoft_maui_essentials_fileprovider_file_paths.xml
@@ -646,3 +642,7 @@ C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-ios\iossimulator-x64\resizetizer\r\settings@3x.png
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-ios\iossimulator-x64\resizetizer\r\settings@2x.png
 C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\obj\Debug\net10.0-ios\iossimulator-x64\resizetizer\r\settings.png
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-ios\iossimulator-x64\Microsoft.Maui.Controls.HotReload.Forms.dll
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-ios\iossimulator-x64\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-ios\iossimulator-x64\Microsoft.VisualStudio.DesignTools.TapContract.dll
+C:\Users\Pelle\OneDrive\Documents\GitGub\Diet calulator\Diet calulator\bin\Debug\net10.0-ios\iossimulator-x64\Microsoft.VisualStudio.DesignTools.XamlTapContract.dll

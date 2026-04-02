@@ -10,15 +10,6 @@
     <Shell.TitleView>
         <Grid ColumnDefinitions="*,Auto" Padding="0,0,20,0" BackgroundColor="Transparent">
             <Label x:Name="TitleLabel" Text="Diet Calculator" FontSize="18" FontAttributes="Bold" VerticalOptions="Center"/>
-            <ImageButton 
-                Grid.Column="1"
-                Source="settings.svg"
-                BackgroundColor="Transparent"
-                Padding="8,0"
-                Clicked="OnSettingsClicked"
-                VerticalOptions="Center"
-                WidthRequest="40"
-                HeightRequest="40"/>
         </Grid>
     </Shell.TitleView>
 
@@ -40,6 +31,12 @@
             Icon="nutrition.png"
             ContentTemplate="{DataTemplate views:CardioPage}"
             Route="CardioPage" />
+        
+        <ShellContent
+            Title="Settings"
+            Icon="settings.svg"
+            ContentTemplate="{DataTemplate views:SettingsPage}"
+            Route="SettingsPage" />
     </TabBar>
 
 </Shell>

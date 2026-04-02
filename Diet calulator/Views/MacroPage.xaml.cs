@@ -233,7 +233,7 @@ namespace Diet_calulator.Views
                 "2. Choose INPUT MODE:\n" +
                 "   • Preset: Use predefined macro distributions\n" +
                 "   • Custom: Set your own protein/fat ratios\n\n" +
-                "3. Enter your WEIGHT and METABOLISM\n\n" +
+                "3. Enter your WEIGHT and METABOLISM (values in your selected units from Settings)\n\n" +
                 "4. Choose EATING PATTERN:\n" +
                 "   • Same Everyday: Same macros every day\n" +
                 "   • Training Days: More calories on training days\n\n" +
@@ -263,7 +263,11 @@ namespace Diet_calulator.Views
             {
                 if (!string.IsNullOrEmpty(value) && int.TryParse(value, out var metabolism))
                 {
-                    _viewModel.Metabolism = metabolism;
+                    // Convert from user's selected unit to kcal/kg
+                    var metabolismPerKg = AppSettings.IsUsingLbs() 
+                        ? (int)(metabolism / 2.20462) 
+                        : metabolism;
+                    _viewModel.Metabolism = metabolismPerKg;
                 }
             };
             MainThread.BeginInvokeOnMainThread(() => HiddenEntry.Focus());

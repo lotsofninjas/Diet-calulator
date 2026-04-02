@@ -18,7 +18,6 @@ namespace Diet_calulator
                 });
 
             // Register routes
-            Routing.RegisterRoute("settings", typeof(SettingsPage));
             Routing.RegisterRoute("CardioPage", typeof(CardioPage));
 
             // Register converters
